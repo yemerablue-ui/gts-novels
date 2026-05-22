@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>０２ 首都をなぞってみる - 百川十々瀬の巨大化記録</title>
+<style>
+:root {
+  --bg: #f6f0e6;
+  --paper: #fffaf1;
+  --ink: #211a16;
+  --muted: #75685f;
+  --line: #dbcdbb;
+  --accent: #7b2f2f;
+  --accent2: #283b63;
+  --shadow: rgba(44, 28, 16, .13);
+  --font-size: 18px;
+}
+html[data-theme="dark"] {
+  --bg: #151312;
+  --paper: #211d1a;
+  --ink: #eadfd2;
+  --muted: #b7a89a;
+  --line: #403832;
+  --accent: #e08b77;
+  --accent2: #9bb7ee;
+  --shadow: rgba(0, 0, 0, .35);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(123,47,47,.10), transparent 32rem),
+    linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg), #000 5%));
+  color: var(--ink);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  line-height: 2.05;
+}
+a { color: inherit; }
+.layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+aside {
+  position: sticky; top: 0; height: 100vh; overflow: auto;
+  padding: 24px 18px;
+  border-right: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper), transparent 8%);
+  box-shadow: 8px 0 24px var(--shadow);
+}
+.brand { font-weight: 700; letter-spacing: .08em; line-height: 1.5; margin-bottom: 16px; }
+.brand small { display:block; color: var(--muted); font-weight:400; letter-spacing:0; margin-top:8px; }
+.controls { display: grid; gap: 8px; margin: 18px 0; }
+button, .navlink {
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  border-radius: 999px; padding: 8px 12px; cursor: pointer; text-decoration: none;
+  font-family: inherit; font-size: 14px;
+}
+button:hover, .navlink:hover { border-color: var(--accent); color: var(--accent); }
+nav ol { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 8px; }
+nav a { display:block; text-decoration:none; padding: 8px 10px; border-radius: 10px; color: var(--muted); line-height:1.45; }
+nav a:hover { background: color-mix(in srgb, var(--accent), transparent 88%); color: var(--accent); }
+main { padding: 40px min(7vw, 84px); }
+.book-title { max-width: 900px; margin: 0 auto 36px; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+.book-title h1 { margin:0; font-size: clamp(28px, 4vw, 46px); letter-spacing:.08em; }
+.book-title p { color: var(--muted); margin: 12px 0 0; }
+.chapter {
+  max-width: 820px; margin: 0 auto 72px; padding: 44px min(6vw, 64px);
+  background: color-mix(in srgb, var(--paper), transparent 0%);
+  border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 50px var(--shadow);
+}
+.chapter header { margin-bottom: 32px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.chapter h2 { margin: 0; font-size: 26px; letter-spacing:.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 14px; margin-top: 8px; font-family: "Yu Gothic", "Noto Sans JP", sans-serif; }
+.prose { font-size: var(--font-size); letter-spacing: .02em; }
+.prose p { margin: 0 0 1.15em; text-indent: 1em; }
+.prose p.blank { height: .65em; margin:0; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin-top:32px; color:var(--muted); }
+.chapter-nav a { text-decoration:none; border-bottom:1px solid var(--line); }
+body.vertical main { padding: 28px; }
+body.vertical .book-title { max-width: none; writing-mode: vertical-rl; height: 72vh; margin: 0 auto 28px; }
+body.vertical .chapter {
+  max-width: none; height: 82vh; overflow-x: auto; overflow-y: hidden;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  padding: 36px; margin-bottom: 40px;
+}
+body.vertical .chapter header { margin-left: 28px; margin-bottom: 0; padding-left: 18px; padding-bottom:0; border-bottom:0; border-left:1px solid var(--line); }
+body.vertical .prose p { margin: 0 0 0 1.15em; text-indent: 1em; }
+body.vertical .chapter-nav { writing-mode: horizontal-tb; position: sticky; left: 0; bottom: 0; background: var(--paper); padding: 8px; }
+@media (max-width: 860px) {
+  .layout { display:block; }
+  aside { position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line); }
+  main { padding: 24px 14px; }
+  .chapter { padding: 28px 20px; border-radius: 16px; }
+}
+@media print {
+  aside, .controls, .chapter-nav { display:none; }
+  .layout { display:block; }
+  main { padding:0; }
+  .chapter { box-shadow:none; border:0; break-after: page; }
+}
+</style></head>
+<body id="top">
+<div class="layout">
+<aside>
+  <div class="brand">百川十々瀬の巨大化記録<small>０２　首都をなぞってみる</small></div>
+  <div class="controls">
+    <a class="navlink" href="index.html">個別版目次へ</a>
+    <a class="navlink" href="百川十々瀬の巨大化記録_リーダー.html#ep０２">統合版で開く</a>
+    <button onclick="toggleTheme()">明暗切替</button>
+    <button onclick="toggleWriting()">縦書き/横書き切替</button>
+    <button onclick="fontSize(1)">文字を大きく</button>
+    <button onclick="fontSize(-1)">文字を小さく</button>
+  </div>
+</aside>
+<main>
+<section class="chapter" id="ep０２">
+  <header><h2>０２　首都をなぞってみる</h2><div class="meta">草稿 / 原稿ファイル: ０２_首都をなぞってみる_草稿.txt</div></header>
+  <div class="prose"><p>　第一接触圧痕が湖になり始めたころ、百川十々瀬はもう別の景色を見ていた。</p>
+<p class="blank"></p>
+<p>　身長、約五百キロメートル。</p>
+<p class="blank"></p>
+<p>　前日まで三百キロメートル級と記録されていた彼女の身体は、夜明けを待たずにさらに大きくなっていた。理由はわからない。原因は記録されない。ただ結果だけが地図に残った。</p>
+<p class="blank"></p>
+<p>　列島の中央部に横たわる彼女の影は、複数の地方をまたいでいた。足先は海へ届き、膝は山脈の上にあり、腰のあたりで雲帯が裂け、肩は成層圏の暗い青へ沈んでいる。</p>
+<p class="blank"></p>
+<p>　十々瀬は自分の手を顔の近くへ持ち上げ、まじまじと眺めた。</p>
+<p class="blank"></p>
+<p>「また大きくなってる」</p>
+<p class="blank"></p>
+<p>　声は明るかった。</p>
+<p class="blank"></p>
+<p>　困惑よりも、発見の方がずっと強い。</p>
+<p class="blank"></p>
+<p>　指先を曲げる。伸ばす。掌をひらひらさせる。爪の先に引っかかっていた雲が千切れ、下の山岳地帯へ白く落ちていく。</p>
+<p class="blank"></p>
+<p>「昨日より、街が細かく見えないかも」</p>
+<p class="blank"></p>
+<p>　彼女は地上を覗き込んだ。</p>
+<p class="blank"></p>
+<p>　昨日、都市は灰色の染みに見えた。今日はもっと薄い。模様というより、地面に走った色の濃淡だった。道路や鉄道は髪の毛より細く、川は光る皺。高層ビル街ですら、遠目には布地の凹凸ほどにしか見えない。</p>
+<p class="blank"></p>
+<p>　だが、その中にひとつ、ひときわ濃い灰色の塊があった。</p>
+<p class="blank"></p>
+<p>　首都圏。</p>
+<p class="blank"></p>
+<p>　広大な湾を抱え、放射状に伸びる鉄道と高速道路を持ち、行政、金融、報道、通信、軍事指揮の中枢が密集する、人類側の最大級都市圏だった。</p>
+<p class="blank"></p>
+<p>　十々瀬には、大きな刺繍の模様に見えた。</p>
+<p class="blank"></p>
+<p>「ここ、なんか密集してる。おもしろそう」</p>
+<p class="blank"></p>
+<p>　地上では、すでに対策本部が壊滅寸前だった。</p>
+<p class="blank"></p>
+<p>　庁舎の上層階では、臨時の統合災害対策会議が開かれていた。モニターには、十々瀬の身体を示す輪郭線が表示されている。だがその輪郭線は、画面に収まりきっていなかった。</p>
+<p class="blank"></p>
+<p>「対象、推定五百キロメートル級へ増大」</p>
+<p class="blank"></p>
+<p>「首都圏上空に右手接近」</p>
+<p class="blank"></p>
+<p>「避難経路、すでに三割以上が寸断」</p>
+<p class="blank"></p>
+<p>「地下施設への避難指示は中止しろ。地下は押し潰される」</p>
+<p class="blank"></p>
+<p>　声は飛び交ったが、指示は現実に追いつかなかった。</p>
+<p class="blank"></p>
+<p>　十々瀬の人差し指が、首都の北西からゆっくり降りてきた。</p>
+<p class="blank"></p>
+<p>　指の腹だけで、都市の外縁部を覆うほどの広さがある。風圧で雲が逃げ、ヘリコプター部隊は接近前に姿勢を崩した。高層ビル群のガラスは、まだ触れられる前から震え始めた。</p>
+<p class="blank"></p>
+<p>「まず、ここから」</p>
+<p class="blank"></p>
+<p>　十々瀬は指先を地表へ置いた。</p>
+<p class="blank"></p>
+<p>　外郭環状道路の一部が消えた。</p>
+<p class="blank"></p>
+<p>　同時に、その周囲の住宅地、物流拠点、大学キャンパス、河川敷、鉄道車両基地が一枚の圧力に沈んだ。地表は円形にくぼみ、圧痕の縁では道路がめくれ、マンション群が外側へ傾いた。</p>
+<p class="blank"></p>
+<p>　十々瀬は指を横へ滑らせる。</p>
+<p class="blank"></p>
+<p>　たった数十センチ。</p>
+<p class="blank"></p>
+<p>　彼女にとっては、布の表面をなぞるような動きだった。</p>
+<p class="blank"></p>
+<p>　地上では、それが数十キロメートルの破壊線になった。</p>
+<p class="blank"></p>
+<p>　高速道路は途切れ、鉄道は線路ごと剥がれ、川は堰き止められ、地下に張り巡らされた管路と駅施設がまとめて露出した。都市の表面に、巨大な指紋の溝が刻まれていく。</p>
+<p class="blank"></p>
+<p>「線、昨日より太いね」</p>
+<p class="blank"></p>
+<p>　十々瀬は嬉しそうに言った。</p>
+<p class="blank"></p>
+<p>　彼女はそのまま、首都の中心へ向かって指を進めた。</p>
+<p class="blank"></p>
+<p>　中心業務地区の超高層ビル群が、指の進路に入った。</p>
+<p class="blank"></p>
+<p>　地上三百メートル級のビル。展望台。電波塔。官庁街。大規模駅。複数の地下路線が交差する巨大ターミナル。</p>
+<p class="blank"></p>
+<p>　人類側にとっては都市機能の心臓部だった。</p>
+<p class="blank"></p>
+<p>　十々瀬にとっては、少し濃い灰色の盛り上がりだった。</p>
+<p class="blank"></p>
+<p>「でこぼこしてる」</p>
+<p class="blank"></p>
+<p>　彼女は爪先で、軽く弾いた。</p>
+<p class="blank"></p>
+<p>　展望塔が折れた。</p>
+<p class="blank"></p>
+<p>　根元からではない。彼女の爪に触れた中ほどから、飴細工のようにしなり、上部構造が隣のビル群へ倒れ込んだ。倒壊は連鎖し、周囲の高層建築が互いにぶつかり、ガラスと鉄骨の雲を上げながら沈んでいく。</p>
+<p class="blank"></p>
+<p>「わ、倒れた」</p>
+<p class="blank"></p>
+<p>　十々瀬は目を輝かせた。</p>
+<p class="blank"></p>
+<p>　そして、もう一度弾いた。</p>
+<p class="blank"></p>
+<p>　今度は官庁街の一角が消えた。</p>
+<p class="blank"></p>
+<p>　複数の庁舎が同時に座屈し、地下司令部へつながる構造物が押し込まれ、通信アンテナ群が潰れた。災害対策本部のモニターは一斉に砂嵐になり、次の瞬間、部屋全体が傾いた。</p>
+<p class="blank"></p>
+<p>「本部応答なし」</p>
+<p class="blank"></p>
+<p>「中央管制、消失」</p>
+<p class="blank"></p>
+<p>「対象の右手、首都中枢を通過」</p>
+<p class="blank"></p>
+<p>　軍の航空部隊は、その時点で攻撃を開始した。</p>
+<p class="blank"></p>
+<p>　戦闘機群が雲の下から上昇し、十々瀬の手首へ向かってミサイルを放った。白い航跡が何十本も空を走る。地上の人々には、それが人類の反撃に見えた。</p>
+<p class="blank"></p>
+<p>　十々瀬には、細い光の粒に見えた。</p>
+<p class="blank"></p>
+<p>「ん？」</p>
+<p class="blank"></p>
+<p>　ミサイルが彼女の手の甲で爆ぜた。</p>
+<p class="blank"></p>
+<p>　小さな光。</p>
+<p>　小さな煙。</p>
+<p>　ほんの少しの熱。</p>
+<p class="blank"></p>
+<p>　十々瀬は手を止めた。</p>
+<p class="blank"></p>
+<p>「なにこれ。ちくってした」</p>
+<p class="blank"></p>
+<p>　彼女は手の甲を顔に近づけた。</p>
+<p class="blank"></p>
+<p>　そこに残っていた煤は、ほくろにも満たない。戦闘機の編隊は、彼女の視界では細かな虫の群れのように旋回していた。</p>
+<p class="blank"></p>
+<p>「あ、飛んでる」</p>
+<p class="blank"></p>
+<p>　十々瀬は息を吹きかけた。</p>
+<p class="blank"></p>
+<p>　ただ、軽く。</p>
+<p class="blank"></p>
+<p>　手の上の埃を払うくらいのつもりだった。</p>
+<p class="blank"></p>
+<p>　しかし五百キロメートル級の彼女の吐息は、局地的な暴風では済まなかった。戦闘機群は航跡ごと乱され、何機もが姿勢を失い、雲の裂け目へ吸い込まれるように散っていった。首都圏上空の雲は半円形に吹き払われ、地上ではビル風をはるかに超える突風が街路を走った。</p>
+<p class="blank"></p>
+<p>「飛んでっちゃった」</p>
+<p class="blank"></p>
+<p>　十々瀬は楽しそうに言った。</p>
+<p class="blank"></p>
+<p>　その声に、まだ立っていた高層ビルのガラスが雨のように落ちた。</p>
+<p class="blank"></p>
+<p>　軍は次に、長距離誘導弾を使用した。</p>
+<p class="blank"></p>
+<p>　複数の基地から発射された弾体が、弾道を描いて十々瀬の肩と首元へ向かう。人類側は、そこを感覚器官に近い部位と推定していた。</p>
+<p class="blank"></p>
+<p>　だが、十々瀬は空を横切る光を見つけて、ぱっと笑った。</p>
+<p class="blank"></p>
+<p>「花火？」</p>
+<p class="blank"></p>
+<p>　彼女は手を伸ばした。</p>
+<p class="blank"></p>
+<p>　掌が弾道の前に広がる。</p>
+<p class="blank"></p>
+<p>　ミサイル群は、彼女の掌の前で次々と爆ぜた。赤と白の閃光が、雲より高い場所で小さく咲く。</p>
+<p class="blank"></p>
+<p>「きれい」</p>
+<p class="blank"></p>
+<p>　十々瀬は本当にそう思った。</p>
+<p class="blank"></p>
+<p>　そして、もっと見たくなった。</p>
+<p class="blank"></p>
+<p>「もう一回やってくれないかな」</p>
+<p class="blank"></p>
+<p>　地上の司令系統は沈黙した。</p>
+<p class="blank"></p>
+<p>　通信線は破断し、基地の滑走路は地震動で亀裂を走らせ、湾岸の弾薬庫は津波警報で閉鎖されていた。彼女が期待する二度目の花火を、人類側はすぐには用意できなかった。</p>
+<p class="blank"></p>
+<p>「ないの？」</p>
+<p class="blank"></p>
+<p>　十々瀬は少しつまらなそうに首を傾げた。</p>
+<p class="blank"></p>
+<p>　その髪が、首都東部の上空へ垂れた。</p>
+<p class="blank"></p>
+<p>　黒い髪のひと房が、巨大な吊り橋のように空を横切り、地表をかすめた。</p>
+<p class="blank"></p>
+<p>　髪の先端が臨海部に触れる。</p>
+<p class="blank"></p>
+<p>　それだけで、港湾倉庫群が薙ぎ払われた。コンテナヤードは色とりどりの粉のように散り、埋立地の道路は波打ち、空港の滑走路には長い擦過痕が刻まれた。駐機していた航空機は紙片のように転がり、管制塔は根元から折れた。</p>
+<p class="blank"></p>
+<p>「あ、髪ついちゃった」</p>
+<p class="blank"></p>
+<p>　十々瀬は髪を払った。</p>
+<p class="blank"></p>
+<p>　その動きで、湾岸の水面が大きく押し出され、人工島の一部が沈んだ。</p>
+<p class="blank"></p>
+<p>　彼女は首都の中心に戻る。</p>
+<p class="blank"></p>
+<p>　さっき指で引いた溝が、もう水を集め始めていた。地下鉄の路線は露出し、一部は川のように水を流している。駅の吹き抜けは陥没湖になり、地下街は泥と瓦礫で埋まりつつあった。</p>
+<p class="blank"></p>
+<p>「迷路みたい」</p>
+<p class="blank"></p>
+<p>　十々瀬は指先で、別の線を引いた。</p>
+<p class="blank"></p>
+<p>　今度は湾へ向かって。</p>
+<p class="blank"></p>
+<p>　指跡は都市を斜めに裂き、河川と運河と地下道をつなげ、巨大な排水路のようになった。水が流れ込む。瓦礫が流れる。ビルの残骸が傾き、橋脚が折れ、都市の内部へ海が入り始めた。</p>
+<p class="blank"></p>
+<p>　後にこの破壊線は「第二首都指溝」と呼ばれる。</p>
+<p class="blank"></p>
+<p>　その名がついたころには、首都という言葉の意味そのものが変わっていた。</p>
+<p class="blank"></p>
+<p>　そのとき、十々瀬はふと、昔のことを思い出した。</p>
+<p class="blank"></p>
+<p>「そういえば、このへんって……丸い電車、なかったっけ」</p>
+<p class="blank"></p>
+<p>　彼女の記憶の中には、まだ小さかったころの首都が残っていた。</p>
+<p class="blank"></p>
+<p>　人で混み合う駅のホーム。黄緑色のライン。窓の外を流れるビルの壁。何駅も何駅も過ぎて、気づくと最初の場所へ戻ってくる、不思議な輪っかの電車。</p>
+<p class="blank"></p>
+<p>「山手線、だっけ」</p>
+<p class="blank"></p>
+<p>　十々瀬は楽しそうに目を細めた。</p>
+<p class="blank"></p>
+<p>　地上の山手線は、すでに原形を失っていた。線路は寸断され、駅は潰れ、環状の鉄道網は瓦礫と水と指跡に埋もれている。だが、彼女の頭の中には、その輪がまだ残っていた。</p>
+<p class="blank"></p>
+<p>　小さなころに見た路線図。</p>
+<p>　丸くつながる緑の線。</p>
+<p>　内回りと外回り。</p>
+<p>　ぐるぐる回り続ける街の輪郭。</p>
+<p class="blank"></p>
+<p>「たしか、こう」</p>
+<p class="blank"></p>
+<p>　十々瀬は人差し指をそっと下ろした。</p>
+<p class="blank"></p>
+<p>　首都中心部の西側から、南へ。</p>
+<p>　そこから湾岸寄りへ曲がり、東へ。</p>
+<p>　さらに北へ回り込み、また西へ戻る。</p>
+<p class="blank"></p>
+<p>　彼女にとっては、記憶の中の線をなぞっているだけだった。</p>
+<p class="blank"></p>
+<p>　しかし、五百キロメートル級の指先が描く円は、実際の山手線よりはるかに巨大だった。都心を丸ごと囲み、周辺都市を巻き込み、河川と高速道路と地下鉄網をまとめて切断する、直径数十キロの環状指溝が生まれていく。</p>
+<p class="blank"></p>
+<p>　線路の跡は消えた。</p>
+<p class="blank"></p>
+<p>　代わりに、深さ数百メートルの巨大な溝が首都を取り囲んだ。駅だった場所は圧力の節目で丸い陥没湖となり、かつて線路が曲がっていた地点では、地盤が大きくえぐれて湾の水が流れ込んだ。</p>
+<p class="blank"></p>
+<p>　地上の観測員は、それを見て言葉を失った。</p>
+<p class="blank"></p>
+<p>「環状破壊線、形成」</p>
+<p class="blank"></p>
+<p>「旧山手線沿線、全域消失」</p>
+<p class="blank"></p>
+<p>「対象、記憶に基づいて首都をなぞっている可能性」</p>
+<p class="blank"></p>
+<p>　十々瀬は、途中で少し首を傾げた。</p>
+<p class="blank"></p>
+<p>「んー、こんな形だったかな。まあ、だいたい合ってるよね」</p>
+<p class="blank"></p>
+<p>　彼女は環状の溝をもう一周なぞった。</p>
+<p class="blank"></p>
+<p>　二周目で、溝はさらに深くなった。内側の地盤が沈み、外側の都市区画が盛り上がり、首都の中心部は巨大な堀に囲まれた島のようになった。だがその島も、すでに島と呼べるほど整った形ではない。掌圧痕、指溝、陥没湖、瓦礫の丘が重なった、灰色の地形だった。</p>
+<p class="blank"></p>
+<p>「できた」</p>
+<p class="blank"></p>
+<p>　十々瀬は満足そうに指を上げた。</p>
+<p class="blank"></p>
+<p>　地図上には、かつての山手線よりもずっと大きく、ずっと深く、ずっと荒々しい円が刻まれていた。</p>
+<p class="blank"></p>
+<p>「山手線じゃなくて……十々瀬線、かな」</p>
+<p class="blank"></p>
+<p>　彼女は自分で言って、くすっと笑った。</p>
+<p class="blank"></p>
+<p>　後世の地図は、その名称を採用した。</p>
+<p class="blank"></p>
+<p>　旧首都中心部を囲む巨大環状陥没帯。</p>
+<p class="blank"></p>
+<p>　正式名称、百川十々瀬第二環状指溝。</p>
+<p class="blank"></p>
+<p>　通称、十々瀬線。</p>
+<p class="blank"></p>
+<p>　もちろん、それは鉄道ではなかった。</p>
+<p class="blank"></p>
+<p>　列車が走ることはない。</p>
+<p>　駅に人が並ぶこともない。</p>
+<p>　内回りも外回りもない。</p>
+<p class="blank"></p>
+<p>　ただ、百川十々瀬が昔の記憶を頼りに指でなぞった、巨大な傷だった。</p>
+<p class="blank"></p>
+<p>　十々瀬は、ふと自分の胸元に視線を落とした。</p>
+<p class="blank"></p>
+<p>　しゃがんだ姿勢で身体を支えていたため、その一部が都市の外縁に近づいていた。五百キロメートル級になった今、彼女の身体の丸みはひとつの気象現象のように空を覆い、接地すれば都市圏の外周をまとめて押し沈めるほどだった。</p>
+<p class="blank"></p>
+<p>「ここ、当たるかな」</p>
+<p class="blank"></p>
+<p>　彼女は少し身体を前へ傾けた。</p>
+<p class="blank"></p>
+<p>　柔らかな影が、首都圏の西側を覆った。</p>
+<p class="blank"></p>
+<p>　地上では、昼が消えた。</p>
+<p class="blank"></p>
+<p>　圧力はゆっくり降りてきた。山裾の住宅都市、研究学園都市、物流基地、郊外鉄道の終端駅。すべてが広い弧を描いて沈み始める。地盤は押され、川は逆流し、高架道路は途中から下向きに曲がった。</p>
+<p class="blank"></p>
+<p>　接地。</p>
+<p class="blank"></p>
+<p>　衝撃ではなく、圧迫だった。</p>
+<p class="blank"></p>
+<p>　都市の外縁は、巨大な丸い低地へ変わっていく。ビルの上層階から潰れるのではない。地面そのものが下がり、構造物が基礎ごと傾き、街全体がひとつの窪みへ沈んでいく。</p>
+<p class="blank"></p>
+<p>「わ、やっぱり跡つく」</p>
+<p class="blank"></p>
+<p>　十々瀬は笑った。</p>
+<p class="blank"></p>
+<p>　その笑い声で、周囲の雲が輪のように広がった。</p>
+<p class="blank"></p>
+<p>　軍の残存部隊は、最後の迎撃を試みた。</p>
+<p class="blank"></p>
+<p>　首都圏外縁に残る複数の発射地点から、大型弾頭が放たれる。都市の上空を裂く白い線。目標は、彼女の接地点付近だった。</p>
+<p class="blank"></p>
+<p>　しかし、十々瀬はそれを横目で見て、指を一本伸ばした。</p>
+<p class="blank"></p>
+<p>「また花火？」</p>
+<p class="blank"></p>
+<p>　指先が弾道を遮った。</p>
+<p class="blank"></p>
+<p>　爆発が、彼女の爪の先で弾けた。</p>
+<p class="blank"></p>
+<p>　爪の表面に、ほんの小さな焦げ跡が残る。</p>
+<p class="blank"></p>
+<p>「熱っ」</p>
+<p class="blank"></p>
+<p>　十々瀬は指を振った。</p>
+<p class="blank"></p>
+<p>　その何気ない動きで、大気が裂けた。</p>
+<p class="blank"></p>
+<p>　衝撃波が首都圏の残骸を横断し、まだ残っていた高架橋をまとめて倒した。湾の水面は逆立ち、炎上していた地区の煙が一方向へ流れ、地上の通信は完全に途絶した。</p>
+<p class="blank"></p>
+<p>「びっくりした。ちょっと痛かったかも」</p>
+<p class="blank"></p>
+<p>　彼女はむっとした。</p>
+<p class="blank"></p>
+<p>　怒りというより、遊んでいた玩具が指先を刺したときのような顔だった。</p>
+<p class="blank"></p>
+<p>「じゃあ、ここ、平らにしちゃお」</p>
+<p class="blank"></p>
+<p>　十々瀬は掌を広げた。</p>
+<p class="blank"></p>
+<p>　首都の中心部が、すっぽり影に入った。</p>
+<p class="blank"></p>
+<p>　五百キロメートル級の彼女の掌は、都市の中枢を覆うには十分すぎるほど大きかった。指の間からわずかに光が漏れ、そこにビルの影が細く伸びる。</p>
+<p class="blank"></p>
+<p>　そして、掌が降りた。</p>
+<p class="blank"></p>
+<p>　空気が逃げた。</p>
+<p class="blank"></p>
+<p>　暴風が外周へ吹き抜け、残っていた建物を先に倒した。次に、掌そのものの圧力が都市へ乗った。超高層ビルは高さを失い、官庁街は層になり、駅も道路も地下施設も区別をなくしていく。</p>
+<p class="blank"></p>
+<p>　地表は、彼女の掌紋に沿って波打った。</p>
+<p class="blank"></p>
+<p>　生命線のような深い溝が河川を曲げ、指の付け根の圧力が複数の区画を湖底へ変え、掌の中央部は広大な平坦地になった。</p>
+<p class="blank"></p>
+<p>　十々瀬が手を上げたとき、首都中心部はもう都市ではなかった。</p>
+<p class="blank"></p>
+<p>　掌の形をした巨大な窪地だった。</p>
+<p class="blank"></p>
+<p>「きれいに平らになった」</p>
+<p class="blank"></p>
+<p>　彼女は満足そうに言った。</p>
+<p class="blank"></p>
+<p>　その日、後世の地図から旧首都中心線は消えた。</p>
+<p class="blank"></p>
+<p>　代わりに記されたのは、百川十々瀬第二記録災害圏。</p>
+<p class="blank"></p>
+<p>　通称、首都掌圧痕。</p>
+<p class="blank"></p>
+<p>　十々瀬は自分の手の跡をしばらく眺めていた。</p>
+<p class="blank"></p>
+<p>　足跡。</p>
+<p>　指跡。</p>
+<p>　接触圧痕。</p>
+<p>　掌の跡。</p>
+<p class="blank"></p>
+<p>　世界に、自分の形が増えていく。</p>
+<p class="blank"></p>
+<p>　それがたまらなく面白かった。</p>
+<p class="blank"></p>
+<p>「もっといろんな跡、残せるかな」</p>
+<p class="blank"></p>
+<p>　彼女は立ち上がった。</p>
+<p class="blank"></p>
+<p>　立ち上がるだけで、海から風が流れ込み、首都圏だった盆地に水が入り始めた。湾は拡張され、河口は変わり、都市の残骸は新しい海岸線の一部になっていく。</p>
+<p class="blank"></p>
+<p>　十々瀬は遠くの山脈を見た。</p>
+<p class="blank"></p>
+<p>　昨日は大きく見えた山々が、今日は低い皺のように見えた。</p>
+<p class="blank"></p>
+<p>　自分はまだ大きくなっている。</p>
+<p class="blank"></p>
+<p>　その事実に、彼女は不安ではなく期待を覚えた。</p>
+<p class="blank"></p>
+<p>「次は、寝転んでみよっかな」</p>
+<p class="blank"></p>
+<p>　地上の観測網が、その言葉を記録した。</p>
+<p class="blank"></p>
+<p>　それは宣言ではない。</p>
+<p>　脅迫でもない。</p>
+<p>　ただの思いつきだった。</p>
+<p class="blank"></p>
+<p>　だが人類にとっては、次の災害予告だった。</p>
+<p class="blank"></p>
+<p>　百川十々瀬巨大化記録。</p>
+<p class="blank"></p>
+<p>　第二話。</p>
+<p class="blank"></p>
+<p>　首都をなぞる指先。</p></div>
+  <div class="chapter-nav"><a href="０１_世界が遊び場になった日_改稿版.html">← 前話</a><a href="index.html">目次へ戻る</a><a href="０３_寝返りで地方が消えた_草稿.html">次話 →</a></div>
+</section>
+</main></div><script>
+(function(){
+  const root = document.documentElement;
+  const body = document.body;
+  const savedTheme = localStorage.getItem('totosereader-theme');
+  const savedMode = localStorage.getItem('totosereader-mode');
+  const savedSize = localStorage.getItem('totosereader-size');
+  if(savedTheme) root.dataset.theme = savedTheme;
+  if(savedMode === 'vertical') body.classList.add('vertical');
+  if(savedSize) root.style.setProperty('--font-size', savedSize + 'px');
+  window.toggleTheme = function(){
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('totosereader-theme', next);
+  };
+  window.toggleWriting = function(){
+    body.classList.toggle('vertical');
+    localStorage.setItem('totosereader-mode', body.classList.contains('vertical') ? 'vertical' : 'horizontal');
+  };
+  window.fontSize = function(delta){
+    const current = parseFloat(getComputedStyle(root).getPropertyValue('--font-size')) || 18;
+    const next = Math.max(14, Math.min(26, current + delta));
+    root.style.setProperty('--font-size', next + 'px');
+    localStorage.setItem('totosereader-size', next);
+  };
+})();
+</script></body></html>

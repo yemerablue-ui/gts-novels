@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>０４ 小さな水たまりで - 百川十々瀬の巨大化記録</title>
+<style>
+:root {
+  --bg: #f6f0e6;
+  --paper: #fffaf1;
+  --ink: #211a16;
+  --muted: #75685f;
+  --line: #dbcdbb;
+  --accent: #7b2f2f;
+  --accent2: #283b63;
+  --shadow: rgba(44, 28, 16, .13);
+  --font-size: 18px;
+}
+html[data-theme="dark"] {
+  --bg: #151312;
+  --paper: #211d1a;
+  --ink: #eadfd2;
+  --muted: #b7a89a;
+  --line: #403832;
+  --accent: #e08b77;
+  --accent2: #9bb7ee;
+  --shadow: rgba(0, 0, 0, .35);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(123,47,47,.10), transparent 32rem),
+    linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg), #000 5%));
+  color: var(--ink);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  line-height: 2.05;
+}
+a { color: inherit; }
+.layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+aside {
+  position: sticky; top: 0; height: 100vh; overflow: auto;
+  padding: 24px 18px;
+  border-right: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper), transparent 8%);
+  box-shadow: 8px 0 24px var(--shadow);
+}
+.brand { font-weight: 700; letter-spacing: .08em; line-height: 1.5; margin-bottom: 16px; }
+.brand small { display:block; color: var(--muted); font-weight:400; letter-spacing:0; margin-top:8px; }
+.controls { display: grid; gap: 8px; margin: 18px 0; }
+button, .navlink {
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  border-radius: 999px; padding: 8px 12px; cursor: pointer; text-decoration: none;
+  font-family: inherit; font-size: 14px;
+}
+button:hover, .navlink:hover { border-color: var(--accent); color: var(--accent); }
+nav ol { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 8px; }
+nav a { display:block; text-decoration:none; padding: 8px 10px; border-radius: 10px; color: var(--muted); line-height:1.45; }
+nav a:hover { background: color-mix(in srgb, var(--accent), transparent 88%); color: var(--accent); }
+main { padding: 40px min(7vw, 84px); }
+.book-title { max-width: 900px; margin: 0 auto 36px; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+.book-title h1 { margin:0; font-size: clamp(28px, 4vw, 46px); letter-spacing:.08em; }
+.book-title p { color: var(--muted); margin: 12px 0 0; }
+.chapter {
+  max-width: 820px; margin: 0 auto 72px; padding: 44px min(6vw, 64px);
+  background: color-mix(in srgb, var(--paper), transparent 0%);
+  border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 50px var(--shadow);
+}
+.chapter header { margin-bottom: 32px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.chapter h2 { margin: 0; font-size: 26px; letter-spacing:.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 14px; margin-top: 8px; font-family: "Yu Gothic", "Noto Sans JP", sans-serif; }
+.prose { font-size: var(--font-size); letter-spacing: .02em; }
+.prose p { margin: 0 0 1.15em; text-indent: 1em; }
+.prose p.blank { height: .65em; margin:0; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin-top:32px; color:var(--muted); }
+.chapter-nav a { text-decoration:none; border-bottom:1px solid var(--line); }
+body.vertical main { padding: 28px; }
+body.vertical .book-title { max-width: none; writing-mode: vertical-rl; height: 72vh; margin: 0 auto 28px; }
+body.vertical .chapter {
+  max-width: none; height: 82vh; overflow-x: auto; overflow-y: hidden;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  padding: 36px; margin-bottom: 40px;
+}
+body.vertical .chapter header { margin-left: 28px; margin-bottom: 0; padding-left: 18px; padding-bottom:0; border-bottom:0; border-left:1px solid var(--line); }
+body.vertical .prose p { margin: 0 0 0 1.15em; text-indent: 1em; }
+body.vertical .chapter-nav { writing-mode: horizontal-tb; position: sticky; left: 0; bottom: 0; background: var(--paper); padding: 8px; }
+@media (max-width: 860px) {
+  .layout { display:block; }
+  aside { position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line); }
+  main { padding: 24px 14px; }
+  .chapter { padding: 28px 20px; border-radius: 16px; }
+}
+@media print {
+  aside, .controls, .chapter-nav { display:none; }
+  .layout { display:block; }
+  main { padding:0; }
+  .chapter { box-shadow:none; border:0; break-after: page; }
+}
+</style></head>
+<body id="top">
+<div class="layout">
+<aside>
+  <div class="brand">百川十々瀬の巨大化記録<small>０４　小さな水たまりで</small></div>
+  <div class="controls">
+    <a class="navlink" href="index.html">個別版目次へ</a>
+    <a class="navlink" href="百川十々瀬の巨大化記録_リーダー.html#ep０４">統合版で開く</a>
+    <button onclick="toggleTheme()">明暗切替</button>
+    <button onclick="toggleWriting()">縦書き/横書き切替</button>
+    <button onclick="fontSize(1)">文字を大きく</button>
+    <button onclick="fontSize(-1)">文字を小さく</button>
+  </div>
+</aside>
+<main>
+<section class="chapter" id="ep０４">
+  <header><h2>０４　小さな水たまりで</h2><div class="meta">草稿 / 原稿ファイル: ０４_小さな水たまりで_草稿.txt</div></header>
+  <div class="prose"><p>　寝返り湖群が内陸の地図を書き換えた翌朝、百川十々瀬は海を見ていた。</p>
+<p class="blank"></p>
+<p>　身長、約千キロメートル。</p>
+<p class="blank"></p>
+<p>　七百キロメートル級の睡眠災害を観測した人類は、まだその被害範囲すら確定できていなかった。だが十々瀬の身体は、記録を待たずに次の段階へ進んでいた。</p>
+<p class="blank"></p>
+<p>　立ち上がった彼女の膝は、雲海より上にあった。</p>
+<p class="blank"></p>
+<p>　腰の周囲を流れる雲は、もはや帯ではなく、彼女の身体に絡む薄い霞だった。肩は高層大気の暗い青に沈み、髪の一部は広域の気流を乱しながら、いくつもの地方の上空へ影を落としている。</p>
+<p class="blank"></p>
+<p>　足元の列島は、小さかった。</p>
+<p class="blank"></p>
+<p>　昨日まで寝床として選んだ平野も、首都を囲んだ十々瀬線も、第一接触圧痕も、彼女の視界では薄い模様の重なりになっていた。どこが都市で、どこが山で、どこが湖なのか、もうよほど意識しなければ区別できない。</p>
+<p class="blank"></p>
+<p>「やっぱり、また大きくなってる」</p>
+<p class="blank"></p>
+<p>　十々瀬は嬉しそうに言った。</p>
+<p class="blank"></p>
+<p>　声が空を押し、雲が外へ広がった。</p>
+<p class="blank"></p>
+<p>　その声を拾える観測設備は、もう限られていた。地上の通信網は寸断され、軍の通常戦力は第三話に相当する睡眠災害の夜に沈黙していた。航空部隊も艦隊も、彼女に何かを気づかせる力を失っている。</p>
+<p class="blank"></p>
+<p>　それでも人類は、彼女を記録しようとしていた。</p>
+<p class="blank"></p>
+<p>　百川十々瀬に一刻一刻と生息域を狭められているというのに、彼女に対する記録映像は驚くほど少なかった。</p>
+<p class="blank"></p>
+<p>　無理もない。</p>
+<p class="blank"></p>
+<p>　千キロメートル級となった彼女を地上から直接視認できた者は、その数秒後には声の圧力、足運びの衝撃波、身じろぎで生じる暴風のいずれかに吹き飛ばされていた。カメラを向けることはできても、映像を送信し終える前に、観測点そのものが消えた。</p>
+<p class="blank"></p>
+<p>　残っているのは、衛星画像の欠けた輪郭、海面高度計の異常値、地震計の飽和記録、雲の裂け方から逆算された身体の位置。そして、途切れ途切れの数秒だけ映った、空を塞ぐ肌色の壁だった。</p>
+<p class="blank"></p>
+<p>　人類は、まだ存在していた。</p>
+<p class="blank"></p>
+<p>　避難する者、記録する者、祈る者、通信を復旧しようとする者、瓦礫の中で地図を描き直す者。</p>
+<p class="blank"></p>
+<p>　だが、その文明の動きは、千キロメートル級の十々瀬には届かなかった。</p>
+<p class="blank"></p>
+<p>　彼女に見えるのは、地面の色の違い。</p>
+<p>　水面の光。</p>
+<p>　足元に残る、自分の跡。</p>
+<p class="blank"></p>
+<p>　それだけだった。</p>
+<p class="blank"></p>
+<p>「海、広いと思ってたけど」</p>
+<p class="blank"></p>
+<p>　十々瀬は足を伸ばした。</p>
+<p class="blank"></p>
+<p>　片足が海峡を越え、足先が外洋へ届く。もう片方の足は内陸に残り、踵の周囲で山地が沈む。彼女が体重を移すだけで、沿岸の地盤は傾き、湾の水面が大きく揺れた。</p>
+<p class="blank"></p>
+<p>「今見ると、ちょっとした水たまりみたい」</p>
+<p class="blank"></p>
+<p>　彼女は海へ向かって歩いた。</p>
+<p class="blank"></p>
+<p>　一歩目で、沿岸平野が消えた。</p>
+<p class="blank"></p>
+<p>　足裏が海岸線をまたぎ、港湾都市、河口、空港、工業地帯、漁港、砂浜を同時に押し潰した。海と陸の境目は意味を失い、足跡の内側へ海水が流れ込み、外側へ土砂が押し出された。</p>
+<p class="blank"></p>
+<p>　二歩目で、島が揺れた。</p>
+<p class="blank"></p>
+<p>　彼女の足が海底に届き、浅い海が一瞬で押しのけられた。大陸棚の上にあった水が白い壁となって周囲へ逃げ、島々の港を乗り越え、山腹まで駆け上がった。</p>
+<p class="blank"></p>
+<p>　三歩目で、海底が削れた。</p>
+<p class="blank"></p>
+<p>　足指が砂州と海溝の縁をひっかき、泥と岩盤が水中で舞い上がる。濁った海流は渦となり、遠くの湾へ向かって広がった。</p>
+<p class="blank"></p>
+<p>「あ、冷たい」</p>
+<p class="blank"></p>
+<p>　十々瀬は笑った。</p>
+<p class="blank"></p>
+<p>　彼女にとっては、足首を水に入れた程度だった。</p>
+<p class="blank"></p>
+<p>　地球の海にとっては、大陸棚の再編だった。</p>
+<p class="blank"></p>
+<p>　十々瀬は、そのまま海に腰を下ろした。</p>
+<p class="blank"></p>
+<p>　座る。</p>
+<p class="blank"></p>
+<p>　ただ、それだけだった。</p>
+<p class="blank"></p>
+<p>　しかし千キロメートル級の身体が海へ沈むと、海水は行き場を失った。</p>
+<p class="blank"></p>
+<p>　周囲の海面が持ち上がる。</p>
+<p class="blank"></p>
+<p>　湾から湾へ、海峡から海峡へ、白い水の壁が走った。島々の間にあった航路は消え、港湾施設は意味を失い、沿岸都市は陸側からではなく海側から押し潰された。</p>
+<p class="blank"></p>
+<p>　水深数百メートルの海域でも、彼女の身体は海底に触れた。</p>
+<p class="blank"></p>
+<p>　海底は沈む。</p>
+<p>　海溝の縁が崩れる。</p>
+<p>　海山が平らになる。</p>
+<p>　海底ケーブルは髪の毛より細い線として千切れた。</p>
+<p class="blank"></p>
+<p>「んー、ちょっと浅いかも」</p>
+<p class="blank"></p>
+<p>　十々瀬は腰をずらした。</p>
+<p class="blank"></p>
+<p>　海が横へ動いた。</p>
+<p class="blank"></p>
+<p>　座った位置から押し出された水が、半円形の巨大波となって広がる。波は島を越え、湾を埋め、沿岸の平野を白く覆った。内陸の寝返り湖群へも、河川を逆流した海水が混じり始めた。</p>
+<p class="blank"></p>
+<p>　人類側の観測資料には、こう記録される。</p>
+<p class="blank"></p>
+<p>　百川十々瀬第四海洋接座災害。</p>
+<p class="blank"></p>
+<p>　通称、海座圧。</p>
+<p class="blank"></p>
+<p>　十々瀬本人は、その名前を知らない。</p>
+<p class="blank"></p>
+<p>　彼女はただ、海の冷たさが気に入っていた。</p>
+<p class="blank"></p>
+<p>「足、ぷかぷかする」</p>
+<p class="blank"></p>
+<p>　実際には、足は浮いていなかった。</p>
+<p class="blank"></p>
+<p>　海底を押し潰しながら、海水が足の周囲を逃げているだけだった。それでも十々瀬には、水に触れる感覚が少し心地よかった。</p>
+<p class="blank"></p>
+<p>　彼女は近くの島へ手を伸ばした。</p>
+<p class="blank"></p>
+<p>　人類の地図では、複数の町と港と山を持つ大きな島だった。</p>
+<p class="blank"></p>
+<p>　十々瀬には、海に浮いた小石に見えた。</p>
+<p class="blank"></p>
+<p>「これ、動かせるかな」</p>
+<p class="blank"></p>
+<p>　彼女は親指と人差し指で、島の端をつまんだ。</p>
+<p class="blank"></p>
+<p>　島は抵抗した。</p>
+<p class="blank"></p>
+<p>　地殻として、海底として、長い時間をかけてそこにあった地形として。</p>
+<p class="blank"></p>
+<p>　だが、十々瀬の指の力には足りなかった。</p>
+<p class="blank"></p>
+<p>　海岸線が砕け、山が割れ、島の基部が海底から裂けた。大量の土砂が水中へ崩れ、海面が泡立つ。彼女はそれを少し持ち上げ、すぐ隣の海域へずらした。</p>
+<p class="blank"></p>
+<p>「こっちの方が、並びがいいかも」</p>
+<p class="blank"></p>
+<p>　島が落ちた。</p>
+<p class="blank"></p>
+<p>　新しい場所で海底が沈み、水が跳ね、周囲の小島が波に飲まれた。元の場所には、えぐれた海底と濁流だけが残った。</p>
+<p class="blank"></p>
+<p>　十々瀬はもう一つ、小さな島を指で押した。</p>
+<p class="blank"></p>
+<p>　島は横滑りするように崩れ、半分が海へ沈んだ。</p>
+<p class="blank"></p>
+<p>「あ、割れちゃった」</p>
+<p class="blank"></p>
+<p>　彼女は少しだけ残念そうに言った。</p>
+<p class="blank"></p>
+<p>　だが、すぐに笑った。</p>
+<p class="blank"></p>
+<p>「まあ、これはこれでかわいいかな」</p>
+<p class="blank"></p>
+<p>　そのころ、人類側で最後の決定が下されていた。</p>
+<p class="blank"></p>
+<p>　通常兵器は終わった。</p>
+<p class="blank"></p>
+<p>　航空隊も艦隊も、砲兵も誘導弾も、七百キロメートル級の十々瀬に有効な干渉を与えられなかった。千キロメートル級になった彼女には、もはや音も光も届かない。</p>
+<p class="blank"></p>
+<p>　残された最後の砦。</p>
+<p class="blank"></p>
+<p>　核ミサイル。</p>
+<p class="blank"></p>
+<p>　地下指揮所の照明は、何度も明滅していた。壁には亀裂が走り、外では余震と津波警報が重なっている。通信は不安定で、発射権限の確認も途切れ途切れだった。</p>
+<p class="blank"></p>
+<p>「通常戦力は全て無効」</p>
+<p class="blank"></p>
+<p>「対象は海洋接座中」</p>
+<p class="blank"></p>
+<p>「これで反応がなければ、人類側からの干渉は事実上終了する」</p>
+<p class="blank"></p>
+<p>「承認を」</p>
+<p class="blank"></p>
+<p>　返答まで、数秒の沈黙があった。</p>
+<p class="blank"></p>
+<p>　それは戦術的な沈黙ではなかった。</p>
+<p class="blank"></p>
+<p>　文明が、自分の最後の声を選ぶための沈黙だった。</p>
+<p class="blank"></p>
+<p>「発射を承認する」</p>
+<p class="blank"></p>
+<p>　ミサイルが上がった。</p>
+<p class="blank"></p>
+<p>　複数の地下サイロから。</p>
+<p>　移動式発射台から。</p>
+<p>　まだ通信可能な潜水艦から。</p>
+<p class="blank"></p>
+<p>　白い尾を引き、核弾頭は空へ向かった。</p>
+<p class="blank"></p>
+<p>　十々瀬は、それに気づかなかった。</p>
+<p class="blank"></p>
+<p>　彼女は海面に手を差し入れ、指の間から逃げる水を見ていた。</p>
+<p class="blank"></p>
+<p>「きらきらしてる」</p>
+<p class="blank"></p>
+<p>　海水に混じる瓦礫、燃料、砂、街の破片が、朝日を受けて光っていた。</p>
+<p class="blank"></p>
+<p>　核ミサイル群は、彼女の肩、腕、頬、海面近くの身体へ向かう。</p>
+<p class="blank"></p>
+<p>　弾頭が起爆した。</p>
+<p class="blank"></p>
+<p>　太陽のような閃光が、雲の下でいくつも開いた。</p>
+<p class="blank"></p>
+<p>　熱線が海面を焼き、爆風が残った雲を吹き飛ばし、衝撃波が海洋接座によって荒れた水面をさらに叩いた。人類が作り出した最大級の火が、百川十々瀬へ向けて放たれた。</p>
+<p class="blank"></p>
+<p>　十々瀬は、そこでようやく顔を上げた。</p>
+<p class="blank"></p>
+<p>「ん？」</p>
+<p class="blank"></p>
+<p>　頬に、少し熱があった。</p>
+<p class="blank"></p>
+<p>　腕の表面に、小さな光の輪が広がって消えた。</p>
+<p class="blank"></p>
+<p>　海面の近くで、白い蒸気がいくつか膨らんだ。</p>
+<p class="blank"></p>
+<p>　それだけだった。</p>
+<p class="blank"></p>
+<p>「今の、なに？」</p>
+<p class="blank"></p>
+<p>　彼女は首を傾げた。</p>
+<p class="blank"></p>
+<p>　核爆発の閃光は、彼女の瞳には遠くで弾ける小さな光に見えた。熱は、肌に触れた夏の日差しほどでもない。爆風は、海辺の風の変化と区別がつかなかった。</p>
+<p class="blank"></p>
+<p>「花火……にしては、ちょっとあったかい？」</p>
+<p class="blank"></p>
+<p>　十々瀬は指で爆心近くの海面をつついた。</p>
+<p class="blank"></p>
+<p>　水が大きくへこみ、放射状の波が広がる。蒸気の柱は指先の風圧で散り、核攻撃によって生じた波は、彼女の一突きで上書きされた。</p>
+<p class="blank"></p>
+<p>　地下指揮所では、観測員が最後の数値を読み上げていた。</p>
+<p class="blank"></p>
+<p>「全弾、起爆確認」</p>
+<p class="blank"></p>
+<p>「熱反応、対象表面に一時発生」</p>
+<p class="blank"></p>
+<p>「損傷、確認できず」</p>
+<p class="blank"></p>
+<p>「行動変化……なし」</p>
+<p class="blank"></p>
+<p>　誰も次の命令を出さなかった。</p>
+<p class="blank"></p>
+<p>　命令が残っていなかった。</p>
+<p class="blank"></p>
+<p>　通常戦力も、最後の核攻撃も、百川十々瀬を止められなかった。</p>
+<p class="blank"></p>
+<p>　それどころか、彼女の興味を長く引くことすらできなかった。</p>
+<p class="blank"></p>
+<p>　十々瀬はもう、核の光を見ていなかった。</p>
+<p class="blank"></p>
+<p>　彼女は、海の向こうへ視線を向けていた。</p>
+<p class="blank"></p>
+<p>　水平線。</p>
+<p class="blank"></p>
+<p>　その先に、まだ触っていない海がある。</p>
+<p class="blank"></p>
+<p>　さらにその向こうには、大陸がある。</p>
+<p class="blank"></p>
+<p>　そして空の上には、夜になると星が出る。</p>
+<p class="blank"></p>
+<p>「もっと広いところ、あるかな」</p>
+<p class="blank"></p>
+<p>　彼女はぽつりと言った。</p>
+<p class="blank"></p>
+<p>　千キロメートルの身体が、海からゆっくり立ち上がる。</p>
+<p class="blank"></p>
+<p>　海水が滝のように落ちた。</p>
+<p class="blank"></p>
+<p>　水滴の一つ一つが湖ほどの大きさで、沿岸と島へ降り注ぐ。彼女が腰を上げた跡には、海底の巨大な窪地が残り、押し戻された海水がその周囲で渦を巻いた。</p>
+<p class="blank"></p>
+<p>　足を踏み出すと、海峡がまた形を変えた。</p>
+<p class="blank"></p>
+<p>　島はずれ、海底は削れ、沿岸線は昨日とは違うものになった。</p>
+<p class="blank"></p>
+<p>　人類の文明は、まだどこかで息をしている。</p>
+<p class="blank"></p>
+<p>　だが十々瀬にとって、それはもう地面の模様ですらなかった。</p>
+<p class="blank"></p>
+<p>　彼女が次に気にし始めたのは、雲の上だった。</p>
+<p class="blank"></p>
+<p>「空の上って、どんな感じなんだろ」</p>
+<p class="blank"></p>
+<p>　十々瀬は笑った。</p>
+<p class="blank"></p>
+<p>　その笑いで、海面が震えた。</p>
+<p class="blank"></p>
+<p>　百川十々瀬巨大化記録。</p>
+<p class="blank"></p>
+<p>　第四話。</p>
+<p class="blank"></p>
+<p>　海は小さな水たまり。</p></div>
+  <div class="chapter-nav"><a href="０３_寝返りで地方が消えた_草稿.html">← 前話</a><a href="index.html">目次へ戻る</a><a href="０５_雲より上にいる_草稿.html">次話 →</a></div>
+</section>
+</main></div><script>
+(function(){
+  const root = document.documentElement;
+  const body = document.body;
+  const savedTheme = localStorage.getItem('totosereader-theme');
+  const savedMode = localStorage.getItem('totosereader-mode');
+  const savedSize = localStorage.getItem('totosereader-size');
+  if(savedTheme) root.dataset.theme = savedTheme;
+  if(savedMode === 'vertical') body.classList.add('vertical');
+  if(savedSize) root.style.setProperty('--font-size', savedSize + 'px');
+  window.toggleTheme = function(){
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('totosereader-theme', next);
+  };
+  window.toggleWriting = function(){
+    body.classList.toggle('vertical');
+    localStorage.setItem('totosereader-mode', body.classList.contains('vertical') ? 'vertical' : 'horizontal');
+  };
+  window.fontSize = function(delta){
+    const current = parseFloat(getComputedStyle(root).getPropertyValue('--font-size')) || 18;
+    const next = Math.max(14, Math.min(26, current + delta));
+    root.style.setProperty('--font-size', next + 'px');
+    localStorage.setItem('totosereader-size', next);
+  };
+})();
+</script></body></html>

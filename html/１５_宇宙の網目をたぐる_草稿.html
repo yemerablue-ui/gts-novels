@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ja" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>１５ 宇宙の網目をたぐる - 百川十々瀬の巨大化記録</title>
+<style>
+:root {
+  --bg: #f6f0e6;
+  --paper: #fffaf1;
+  --ink: #211a16;
+  --muted: #75685f;
+  --line: #dbcdbb;
+  --accent: #7b2f2f;
+  --accent2: #283b63;
+  --shadow: rgba(44, 28, 16, .13);
+  --font-size: 18px;
+}
+html[data-theme="dark"] {
+  --bg: #151312;
+  --paper: #211d1a;
+  --ink: #eadfd2;
+  --muted: #b7a89a;
+  --line: #403832;
+  --accent: #e08b77;
+  --accent2: #9bb7ee;
+  --shadow: rgba(0, 0, 0, .35);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(123,47,47,.10), transparent 32rem),
+    linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg), #000 5%));
+  color: var(--ink);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif;
+  line-height: 2.05;
+}
+a { color: inherit; }
+.layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); min-height: 100vh; }
+aside {
+  position: sticky; top: 0; height: 100vh; overflow: auto;
+  padding: 24px 18px;
+  border-right: 1px solid var(--line);
+  background: color-mix(in srgb, var(--paper), transparent 8%);
+  box-shadow: 8px 0 24px var(--shadow);
+}
+.brand { font-weight: 700; letter-spacing: .08em; line-height: 1.5; margin-bottom: 16px; }
+.brand small { display:block; color: var(--muted); font-weight:400; letter-spacing:0; margin-top:8px; }
+.controls { display: grid; gap: 8px; margin: 18px 0; }
+button, .navlink {
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  border-radius: 999px; padding: 8px 12px; cursor: pointer; text-decoration: none;
+  font-family: inherit; font-size: 14px;
+}
+button:hover, .navlink:hover { border-color: var(--accent); color: var(--accent); }
+nav ol { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 8px; }
+nav a { display:block; text-decoration:none; padding: 8px 10px; border-radius: 10px; color: var(--muted); line-height:1.45; }
+nav a:hover { background: color-mix(in srgb, var(--accent), transparent 88%); color: var(--accent); }
+main { padding: 40px min(7vw, 84px); }
+.book-title { max-width: 900px; margin: 0 auto 36px; border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+.book-title h1 { margin:0; font-size: clamp(28px, 4vw, 46px); letter-spacing:.08em; }
+.book-title p { color: var(--muted); margin: 12px 0 0; }
+.chapter {
+  max-width: 820px; margin: 0 auto 72px; padding: 44px min(6vw, 64px);
+  background: color-mix(in srgb, var(--paper), transparent 0%);
+  border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 50px var(--shadow);
+}
+.chapter header { margin-bottom: 32px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.chapter h2 { margin: 0; font-size: 26px; letter-spacing:.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 14px; margin-top: 8px; font-family: "Yu Gothic", "Noto Sans JP", sans-serif; }
+.prose { font-size: var(--font-size); letter-spacing: .02em; }
+.prose p { margin: 0 0 1.15em; text-indent: 1em; }
+.prose p.blank { height: .65em; margin:0; }
+.chapter-nav { display:flex; gap:12px; justify-content:space-between; margin-top:32px; color:var(--muted); }
+.chapter-nav a { text-decoration:none; border-bottom:1px solid var(--line); }
+body.vertical main { padding: 28px; }
+body.vertical .book-title { max-width: none; writing-mode: vertical-rl; height: 72vh; margin: 0 auto 28px; }
+body.vertical .chapter {
+  max-width: none; height: 82vh; overflow-x: auto; overflow-y: hidden;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  padding: 36px; margin-bottom: 40px;
+}
+body.vertical .chapter header { margin-left: 28px; margin-bottom: 0; padding-left: 18px; padding-bottom:0; border-bottom:0; border-left:1px solid var(--line); }
+body.vertical .prose p { margin: 0 0 0 1.15em; text-indent: 1em; }
+body.vertical .chapter-nav { writing-mode: horizontal-tb; position: sticky; left: 0; bottom: 0; background: var(--paper); padding: 8px; }
+@media (max-width: 860px) {
+  .layout { display:block; }
+  aside { position:relative; height:auto; border-right:0; border-bottom:1px solid var(--line); }
+  main { padding: 24px 14px; }
+  .chapter { padding: 28px 20px; border-radius: 16px; }
+}
+@media print {
+  aside, .controls, .chapter-nav { display:none; }
+  .layout { display:block; }
+  main { padding:0; }
+  .chapter { box-shadow:none; border:0; break-after: page; }
+}
+</style></head>
+<body id="top">
+<div class="layout">
+<aside>
+  <div class="brand">百川十々瀬の巨大化記録<small>１５　宇宙の網目をたぐる</small></div>
+  <div class="controls">
+    <a class="navlink" href="index.html">個別版目次へ</a>
+    <a class="navlink" href="百川十々瀬の巨大化記録_リーダー.html#ep１５">統合版で開く</a>
+    <button onclick="toggleTheme()">明暗切替</button>
+    <button onclick="toggleWriting()">縦書き/横書き切替</button>
+    <button onclick="fontSize(1)">文字を大きく</button>
+    <button onclick="fontSize(-1)">文字を小さく</button>
+  </div>
+</aside>
+<main>
+<section class="chapter" id="ep１５">
+  <header><h2>１５　宇宙の網目をたぐる</h2><div class="meta">草稿 / 原稿ファイル: １５_宇宙の網目をたぐる_草稿.txt</div></header>
+  <div class="prose"><p>　銀河団は、百川十々瀬には泡の集まりに見えた。</p>
+<p class="blank"></p>
+<p>　対象、百川十々瀬。</p>
+<p>　推定身長、銀河団スケール。</p>
+<p>　成長継続時、宇宙大規模構造スケールへ移行。</p>
+<p class="blank"></p>
+<p>　銀河は、もう一つ一つの渦ではない。</p>
+<p>　泡の内側で光る粒だった。</p>
+<p class="blank"></p>
+<p>　銀河団同士を結ぶフィラメントは、暗い布についた糸くずの網のように見えていた。広大なボイドは、網目の間に空いた穴だった。</p>
+<p class="blank"></p>
+<p>「なんか、引っかかってる」</p>
+<p class="blank"></p>
+<p>　十々瀬はそう言った。</p>
+<p class="blank"></p>
+<p>　文明圏の最終観測網は、その言葉を拾えなかった。</p>
+<p class="blank"></p>
+<p>　拾えたのは、彼女の唇が動いたことで生じた銀河団間ガスの波と、複数観測機の同時飽和だけである。</p>
+<p class="blank"></p>
+<p>　航宙軍という組織は、すでに事実上存在しない。</p>
+<p class="blank"></p>
+<p>　残っていたのは、銀河団ごとに散った観測中継点、避難信号、無人記録機、そして文明が自分たちの宇宙の形を最後まで測ろうとする意志だけだった。</p>
+<p class="blank"></p>
+<p>「輪郭測定、再開」</p>
+<p>「対象指先、フィラメント領域へ接近」</p>
+<p>「座標変換、第五方式に切替」</p>
+<p>「第五方式、破綻」</p>
+<p class="blank"></p>
+<p>　十々瀬は、指先で宇宙の網目をつまんだ。</p>
+<p class="blank"></p>
+<p>　もちろん、糸そのものがあるわけではない。</p>
+<p class="blank"></p>
+<p>　銀河団と銀河団の間を結ぶ、物質の淡い流れ。</p>
+<p>　暗黒物質の分布。</p>
+<p>　数えきれない銀河の連なり。</p>
+<p class="blank"></p>
+<p>　それらが、彼女の尺度では一本の細い糸に見えていた。</p>
+<p class="blank"></p>
+<p>「この糸、引っかかる」</p>
+<p class="blank"></p>
+<p>　彼女は軽くたぐった。</p>
+<p class="blank"></p>
+<p>　銀河団同士の距離が縮んだ。</p>
+<p class="blank"></p>
+<p>　遠く離れていたはずの泡が寄り、ボイドの形が潰れ、宇宙大規模構造に折り目のような歪みが生じた。</p>
+<p class="blank"></p>
+<p>　最終観測網は、その瞬間、三度宇宙地図を破棄した。</p>
+<p class="blank"></p>
+<p>　一度目は、距離が合わなかったため。</p>
+<p>　二度目は、方向が合わなかったため。</p>
+<p>　三度目は、地図という概念が、彼女の指先の動きに追いつかなかったためである。</p>
+<p class="blank"></p>
+<p>「観測基準、喪失」</p>
+<p>「フィラメント群、接近」</p>
+<p>「ボイド形状、圧縮」</p>
+<p>「退避信号、背景雑音化」</p>
+<p class="blank"></p>
+<p>　十々瀬は眉を寄せた。</p>
+<p class="blank"></p>
+<p>　真剣な顔だった。</p>
+<p>　だが、それは破壊への意志ではない。</p>
+<p class="blank"></p>
+<p>　大きな刺繍のほつれを直そうとしているような顔だった。</p>
+<p class="blank"></p>
+<p>「こっちを、こうして……」</p>
+<p class="blank"></p>
+<p>　彼女は別の網目もつまんだ。</p>
+<p class="blank"></p>
+<p>　銀河団間ガスが波打ち、観測機は波に呑まれた。逃げ延びていた艦隊の残骸や避難船団の信号は、宇宙背景放射の揺らぎに紛れ、どれが人工の声だったのか判別できなくなった。</p>
+<p class="blank"></p>
+<p>　文明圏は沈黙したのではない。</p>
+<p>　十々瀬に届く尺度から、外れた。</p>
+<p class="blank"></p>
+<p>「んー、まだ変」</p>
+<p class="blank"></p>
+<p>　十々瀬は首を傾げる。</p>
+<p class="blank"></p>
+<p>　その動きだけで、複数の超銀河団の相対位置が観測上ずれた。</p>
+<p class="blank"></p>
+<p>　後にこの現象を記録しようとした者たちは、「宇宙網目牽引」と呼んだ。</p>
+<p class="blank"></p>
+<p>　しかし、記録名は完全ではない。</p>
+<p class="blank"></p>
+<p>　彼女は引いた。</p>
+<p>　たぐった。</p>
+<p>　整えようとした。</p>
+<p class="blank"></p>
+<p>　その全てが、宇宙にとっては地形改変だった。</p>
+<p class="blank"></p>
+<p>　十々瀬は、指先にまとわりつく淡い光を見つめた。</p>
+<p class="blank"></p>
+<p>「ちょっと広すぎると思ったけど、触れるんだ」</p>
+<p class="blank"></p>
+<p>　それは発見だった。</p>
+<p class="blank"></p>
+<p>　宇宙は、彼女の外側に広がる遠い場所ではなくなっていた。</p>
+<p>　触れられるものになっていた。</p>
+<p class="blank"></p>
+<p>　彼女は両手を広げる。</p>
+<p class="blank"></p>
+<p>　網目の向こう、観測可能宇宙の境界に近い暗がりが、彼女の視界に入った。</p>
+<p class="blank"></p>
+<p>「じゃあ、端っこもあるのかな」</p>
+<p class="blank"></p>
+<p>　十々瀬は、さらに大きくなりながら、その暗がりへ手を伸ばした。</p></div>
+  <div class="chapter-nav"><a href="１４_銀河団の泡_草稿.html">← 前話</a><a href="index.html">目次へ戻る</a><a href="１６_宇宙の外側へ_草稿.html">次話 →</a></div>
+</section>
+</main></div><script>
+(function(){
+  const root = document.documentElement;
+  const body = document.body;
+  const savedTheme = localStorage.getItem('totosereader-theme');
+  const savedMode = localStorage.getItem('totosereader-mode');
+  const savedSize = localStorage.getItem('totosereader-size');
+  if(savedTheme) root.dataset.theme = savedTheme;
+  if(savedMode === 'vertical') body.classList.add('vertical');
+  if(savedSize) root.style.setProperty('--font-size', savedSize + 'px');
+  window.toggleTheme = function(){
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('totosereader-theme', next);
+  };
+  window.toggleWriting = function(){
+    body.classList.toggle('vertical');
+    localStorage.setItem('totosereader-mode', body.classList.contains('vertical') ? 'vertical' : 'horizontal');
+  };
+  window.fontSize = function(delta){
+    const current = parseFloat(getComputedStyle(root).getPropertyValue('--font-size')) || 18;
+    const next = Math.max(14, Math.min(26, current + delta));
+    root.style.setProperty('--font-size', next + 'px');
+    localStorage.setItem('totosereader-size', next);
+  };
+})();
+</script></body></html>
