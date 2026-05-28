@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第６話 レビューUI</title>
+<style>
+:root{--bg:#111315;--panel:#181c20;--panel2:#20262c;--ink:#edf2f7;--muted:#aab4bf;--line:#2e3944;--accent:#78c4ff;--good:#67d58c;--warn:#ffbf69;--bad:#ff7f7f;--hold:#c1a6ff;--dialogue-bg:#1a1e24}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#0f1113,#14181c);color:var(--ink);font-family:"Yu Gothic UI","Hiragino Sans","Meiryo",sans-serif;line-height:1.7}
+header{position:sticky;top:0;z-index:50;background:rgba(17,19,21,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 16px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+.title{font-size:22px;font-weight:800}
+.sub{color:var(--muted);font-size:14px}
+.toolbar,.toolbar2{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+button{appearance:none;border:none;cursor:pointer}
+.topbtn{padding:12px 16px;border-radius:14px;background:var(--panel2);color:var(--ink);font-weight:700;border:1px solid var(--line);min-height:48px}
+.topbtn:hover{outline:2px solid rgba(120,196,255,.35)}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--panel);border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--muted)}
+main{padding:14px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px;margin:0 0 16px}
+.card.dialogue{background:var(--dialogue-bg);border-color:#2a3540}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.pid{font-size:20px;font-weight:800;color:var(--accent)}
+.pid.d-pid{color:#ffbf69}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800;border:1px solid var(--line)}
+.state-none{background:#20262c;color:var(--muted)}
+.state-ok{background:rgba(103,213,140,.16);color:#9df0b8;border-color:rgba(103,213,140,.35)}
+.state-review{background:rgba(255,127,127,.16);color:#ffb0b0;border-color:rgba(255,127,127,.35)}
+.state-hold{background:rgba(193,166,255,.16);color:#dbc9ff;border-color:rgba(193,166,255,.35)}
+.para{font-size:20px;background:#12161a;border:1px solid #27313a;border-radius:16px;padding:16px;margin:12px 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.pill{padding:11px 14px;border-radius:999px;background:#24303a;color:#dce7f0;border:1px solid #31404d;font-weight:700;min-height:46px}
+.pill.active{background:#355168;color:#fff;border-color:#78c4ff;box-shadow:0 0 0 2px rgba(120,196,255,.22) inset}
+.row2{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.big{min-height:58px;border-radius:16px;font-weight:900;font-size:16px;border:1px solid var(--line)}
+.good{background:rgba(103,213,140,.18);color:#c7ffd8}
+.meh{background:rgba(255,127,127,.18);color:#ffd0d0}
+.skip{background:rgba(193,166,255,.18);color:#e7ddff}
+.clear{background:#232931;color:#d0d7de}
+.memo-wrap{margin-top:10px;border-top:1px dashed #33414d;padding-top:10px}
+summary{cursor:pointer;color:var(--muted);font-weight:700}
+textarea{width:100%;margin-top:10px;min-height:88px;border-radius:14px;border:1px solid #3a4754;background:#0f1316;color:#edf2f7;padding:12px;font:inherit}
+.hidden{display:none!important}
+footer{color:var(--muted);padding:24px 0 8px;font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap hero">
+<div class="title">第６話 レビューUI</div>
+<div class="sub">地球儀の上で　— 段落単位で区切っています。会話カードは背景色が異なります。</div>
+<div class="toolbar">
+<button class="topbtn" id="filter-all">全部表示</button>
+<button class="topbtn" id="filter-review">要修正だけ</button>
+<button class="topbtn" id="filter-unchecked">未チェックだけ</button>
+<button class="topbtn" id="expand-memo">メモ欄を全部開く/閉じる</button>
+</div>
+<div class="toolbar2">
+<button class="topbtn" id="copy-report">結果をコピー</button>
+<button class="topbtn" id="download-report">結果をtxt保存</button>
+<button class="topbtn" id="reset-all">全部リセット</button>
+</div>
+<div class="stats" id="stats"></div>
+</div></header>
+<main class="wrap">
+  <article class="card" data-id="p1">
+      <div class="card-head"><div class="pid">#01</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">第五胸影日照欠落の記録が途切れ始めたころ、百川十々瀬は空の上を見ていた。<br>
+ただし、その数字は途中経過にすぎない。<br>
+この日、十々瀬の巨大化は、もはや誰にも追えなくなった。<br>
+それは、成長と呼ぶには速すぎた。<br>
+膨張と呼ぶには、あまりにも生き物めいていた。<br>
+十々瀬は、地表に貼りついた雲の白い膜より、さらにずっと上の暗さを見ていた。青の縁の向こう、昼でも消えない星、その先に広がる空間へ興味を向けていたのである。足元では海が震え、大陸が影に沈み、彼女が息を吸って吐くだけで、対流圏の薄い流れと雲頂の筋がまとめてずれていた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p2">
+      <div class="card-head"><div class="pid d-pid">#02</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「もうちょっと、届きそう」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p3">
+      <div class="card-head"><div class="pid">#03</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は背伸びをした。<br>
+その瞬間、数値が跳ねた。<br>
+身長三千キロメートル級。三サイズはB約五千四百キロメートル、W約千二百六十キロメートル、H約二千百六十キロメートル。<br>
+四千キロメートル級。<br>
+五千キロメートル級。<br>
+数値は、追いつかなかった。<br>
+彼女の脚が伸びる。<br>
+足裏が海底をさらに深く押し込み、下肢の影が海と大陸の境界をまたぎ、地表に貼りついていた雲帯が足元で剥がれる。膝が上がるころには、雲は身体に絡むものではなく、球面の表皮に刷かれた白い筋にしか見えなくなっていた。<br>
+十々瀬は自分の手を見た。<br>
+指が、また大きくなっている。<br>
+掌の下では、雲の渦が掌紋ではなく地球表面の模様として流れていた。爪の先には、地平線沿いの薄い大気が青い縁光となってかかっている。腕を少し動かすだけで、地球表面の雲頂模様が半球単位でずれた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p4">
+      <div class="card-head"><div class="pid d-pid">#04</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「わ……伸びてる」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p5">
+      <div class="card-head"><div class="pid">#05</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">嬉しそうな声だった。<br>
+その声は、もはや地上には届かなかった。<br>
+届いたのは音ではなく、空気の圧力差だった。大気全体が震え、山脈の雪と土砂が同時に崩れた。<br>
+彼女の身体は、地球の半径に近づいていた。<br>
+十々瀬が見下ろすと、地表はもう平面ではなかった。<br>
+丸い。<br>
+海も大陸も雲も、ひとつの球の表面に貼りついている。これまで足元に広がっていた世界が、実はゆるやかに曲がっていたことを、彼女は初めてはっきり意識した。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p6">
+      <div class="card-head"><div class="pid d-pid">#06</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「地球って、ほんとに丸いんだ」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p7">
+      <div class="card-head"><div class="pid">#07</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は感心したように言った。<br>
+その言葉を記録できた設備は、ほとんど残っていない。<br>
+だが<br>
+地球の直径約一万二千七百五十六キロメートルに迫る、人型の天体だった。<br>
+十々瀬は片足を引いた。<br>
+その動作で、地球の表面に巨大な影が滑った。影は大陸を越え、海洋を越え、半球の一部を夜のように覆った。太陽はまだ昇っていたが、地上では十々瀬の身体がそれを遮っていた。<br>
+彼女は慎重に、足先を地球へ添えた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p8">
+      <div class="card-head"><div class="pid d-pid">#08</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「そっと、そっと」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p9">
+      <div class="card-head"><div class="pid">#09</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">本人は気をつけているつもりだった。<br>
+もう地球は、立つための地面ではない。<br>
+一万キロメートル級の彼女にとっては、丸い玩具へ重さの一部を預けるような感覚だった。<br>
+足先が触れる。<br>
+大陸の一部が沈んだ。<br>
+山脈が横へ滑り、地殻が波のように歪み、海岸線は数百キロ単位で形を変えた。海は外へ押され、反対側の海域で盛り上がり、巨大な水の移動が惑星規模で始まった。<br>
+足先を離すと、そこには足跡ではなく、地殻のひしゃげた広域盆地が残っていた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p10">
+      <div class="card-head"><div class="pid d-pid">#10</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「……やわらかい」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p11">
+      <div class="card-head"><div class="pid">#11</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は少し驚いた。<br>
+これまで都市も山も海も壊してきた。<br>
+だが、地球そのものがこんなに柔らかく感じるとは思っていなかった。<br>
+彼女はしゃがみ込むのではなく、地球を胸元へ引き寄せるように身を寄せた。<br>
+膝を曲げ、片腕を回し、もう片方の手を海へ添える。<br>
+その動きでは、胸元の巨大な張り出しが先行して球面へ迫り、膝と手はあとから支えとして位置を変える。<br>
+それだけで、地球の表面に複数の接触点が生まれた。<br>
+片膝が大陸縁を押し潰し、片手が海洋へ沈み、胸元の黒い曲面が別の半球を広く影に入れたうえで、柔らかな重みとして海洋と大陸縁の一帯へ触れ始める。もう片方の手が別の大陸の上空を覆い、彼女の身体の影は半球を横切り、昼夜の境界線は本来の自転とは関係なく乱された。<br>
+海に入れた掌が、地球の海をかき混ぜた。<br>
+指の間を流れる水は、彼女には冷たい膜のようだった。<br>
+だが地球にとっては、海洋の再配置だった。<br>
+海盆がこすられ、海溝が崩れ、海山が削られ、島弧がまとめて水の中でずれた。海水は巨大な渦となって大陸へ押し寄せ、すでに変形していた沿岸線をさらに消した。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p12">
+      <div class="card-head"><div class="pid d-pid">#12</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「水、少ないかも」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p13">
+      <div class="card-head"><div class="pid">#13</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は指をすくい上げた。<br>
+その指先から、海水が宇宙空間へ向かって飛び散った。<br>
+水滴は地球の重力を離れきれず、いくつかは細かな氷の粒となって軌道上へ散り、いくつかはまた地表へ戻って巨大な雨となった。<br>
+彼女はその光景を見て笑った。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p14">
+      <div class="card-head"><div class="pid d-pid">#14</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「きらきらしてる」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p15">
+      <div class="card-head"><div class="pid">#15</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">地球の周囲に、小さな氷の輪が生まれ始めていた。<br>
+それでも、十々瀬はまだ遊んでいた。<br>
+地球を壊そうとしているわけではない。<br>
+ただ、丸いものを触っている。<br>
+ただ、柔らかいところを押している。<br>
+ただ、水がどのように動くかを見ている。<br>
+十々瀬は両手で地球を挟むようにした。<br>
+完全に掴むには、まだ少し大きすぎる。<br>
+それでも彼女の左右の掌は、地球の広い範囲を影に入れた。片方の掌が海洋を覆い、もう片方の掌が大陸側を覆う。指の影が、極域から赤道近くまで長く伸びる。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p16">
+      <div class="card-head"><div class="pid d-pid">#16</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「地球儀みたい」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p17">
+      <div class="card-head"><div class="pid">#17</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は昔、教室で見た地球儀を思い出した。<br>
+青くて、丸くて、くるくる回るもの。<br>
+指で回すと、知らない国の名前が流れていく。海が広くて、陸が小さくて、でもその中に街や人や道路があると教えられた。<br>
+今、目の前にあるそれは、地球儀そのものだった。<br>
+ただし本物で、柔らかく、少し壊れやすい。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p18">
+      <div class="card-head"><div class="pid d-pid">#18</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「回るかな」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p19">
+      <div class="card-head"><div class="pid">#19</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は指先で地球の表面を押した。<br>
+彼女にとっては、地球儀を軽く回すつもりだった。<br>
+だが、現実の地球は台座に載った模型ではない。<br>
+指が大陸をなぞる。<br>
+地殻が裂けた。<br>
+海底がずれた。<br>
+自転に乱れが生じ、海水が遅れて流れ、地表のあちこちで巨大な断層が開いた。大陸の内部に長い亀裂が走り、そこから赤い光が漏れた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p20">
+      <div class="card-head"><div class="pid d-pid">#20</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「あれ」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p21">
+      <div class="card-head"><div class="pid">#21</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は手を止めた。<br>
+地球の表面が、割れていた。<br>
+細い線ではない。<br>
+彼女の指跡に沿って、大陸規模の裂け目が開いている。海水がそこへ落ち込み、蒸気が上がり、赤く光る内部が見え隠れした。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p22">
+      <div class="card-head"><div class="pid d-pid">#22</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「ちょっと強かった？」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p23">
+      <div class="card-head"><div class="pid">#23</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は困ったように笑った。<br>
+そして、割れ目を直そうとした。<br>
+指で、裂けた地殻の両側を寄せる。<br>
+それが悪かった。<br>
+地殻は押し戻されるのではなく、別の方向へ割れた。圧力が逃げ場を求め、海底の亀裂が極域へ伸び、大陸の端が持ち上がり、惑星全体がきしむ。<br>
+地球の形がわずかに歪んだ。<br>
+十々瀬の目にも、それはわかった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p24">
+      <div class="card-head"><div class="pid d-pid">#24</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「え、曲がった」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p25">
+      <div class="card-head"><div class="pid">#25</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は慌てて手を離した。<br>
+だが、すでに遅かった。<br>
+巨大化した彼女の接触、海洋の移動、地殻の裂け目、押し戻そうとした力。それらが重なり、地球は内部から持ちこたえられなくなっていた。<br>
+最初に、長い割れ目から光が噴いた。<br>
+次に、大陸の一部が持ち上がった。<br>
+海がそこへなだれ込み、瞬時に蒸発し、白い蒸気膜と砕けた破片雲が惑星規模で広がる。<br>
+十々瀬は目を丸くした。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p26">
+      <div class="card-head"><div class="pid d-pid">#26</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「わ、わ、待って」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p27">
+      <div class="card-head"><div class="pid">#27</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は両手を伸ばした。<br>
+受け止めようとした。<br>
+けれど、彼女の掌は大きすぎた。<br>
+地球の表面に触れた瞬間、まだつながっていた地殻がさらに割れた。押さえた部分は沈み、押さえきれなかった部分は反対側へ膨らむ。ひとつの球だった世界は、いくつもの裂け目を持った脆い殻になった。<br>
+そして、地球は爆ぜた。<br>
+爆発というより、内側から砕けて広がる崩壊だった。<br>
+大陸だったものが岩塊になり、海底だったものが巨大な板となって外へめくれ、赤く光る内部の物質が細かな粒となって飛び散った。海水は蒸気と氷と水滴に分かれ、雲は一瞬で形を失い、地球の周囲に破片の輪が広がっていく。<br>
+完全に粉々になったわけではない。<br>
+中心には、まだ重い岩の塊が残っていた。<br>
+その周囲に、いくつもの巨大な岩塊が浮かんでいる。大陸の断片、海底の板、山脈の折れた端、赤く冷え始める内部の塊。それらがゆっくり離れ、ぶつかり、砕け、また重力で引かれ合っていた。<br>
+最後に残ったのは、数行の断片だった。<br>
+地殻連続性、喪失。<br>
+海洋保持、不能。<br>
+惑星形状、崩壊。<br>
+対象、百川十々瀬、行動継続。<br>
+それ以降の記録は、地球上からではない。<br>
+破片に残った機械か、軌道上を漂う衛星の断片か、あるいは別の誰かが拾った信号か。<br>
+確かなことは、百川十々瀬がその瞬間、少し困った顔をしていたということだけだった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p28">
+      <div class="card-head"><div class="pid d-pid">#28</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「……壊れちゃった」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p29">
+      <div class="card-head"><div class="pid">#29</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は、地球だったものを見下ろした。<br>
+さっきまで丸かった玩具は、もう丸くなかった。<br>
+青い海も、白い雲も、緑と茶色の大陸も、彼女の手の中で混ざり、割れ、いくつもの岩塊になって浮かんでいた。<br>
+十々瀬は指先で、近くの岩塊をつついた。<br>
+大陸の一部だったそれは、ゆっくり回転しながら別の破片へぶつかり、さらに小さな欠片を散らした。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p30">
+      <div class="card-head"><div class="pid d-pid">#30</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「これ、もう戻らないかな」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p31">
+      <div class="card-head"><div class="pid">#31</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">しばらく考えた。<br>
+だが、十々瀬は深く落ち込まなかった。<br>
+罪悪感ではなく、遊んでいた玩具を壊してしまったときの、少し残念そうな表情だった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p32">
+      <div class="card-head"><div class="pid d-pid">#32</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「まあ……仕方ないか」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p33">
+      <div class="card-head"><div class="pid">#33</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は周囲を見回した。<br>
+地球の破片の向こうに、月があった。<br>
+白くて、丸くて、地球よりずっと小さい。<br>
+さらに遠くには、星があった。<br>
+点のような光。<br>
+無数の光。<br>
+十々瀬は目を輝かせた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p34">
+      <div class="card-head"><div class="pid d-pid">#34</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「他にも、丸いのある」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p35">
+      <div class="card-head"><div class="pid">#35</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は地球の破片から手を離した。<br>
+破片はゆっくり漂い、互いにぶつかり、砕けた惑星の名残として暗い空間に広がっていく。彼女が身じろぎすると、その周囲の岩塊が押され、さらに外へ散った。<br>
+十々瀬は一歩を踏み出そうとして、足元がないことに気づいた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p36">
+      <div class="card-head"><div class="pid d-pid">#36</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「あ、そっか。ここ、地面ないんだ」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p37">
+      <div class="card-head"><div class="pid">#37</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は少し笑った。<br>
+身体は、まだ大きくなっている。<br>
+一万キロメートル級。<br>
+一万二千キロメートル級。<br>
+一万五千キロメートル級。<br>
+地球の破片は、彼女の周囲でどんどん小さく見え始めた。さっきまで手に余る地球儀だったものが、今では壊れた砂利のように見える。<br>
+月が近くにあった。<br>
+十々瀬は手を伸ばす。<br>
+月は、彼女の掌に収まりそうだった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p38">
+      <div class="card-head"><div class="pid d-pid">#38</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「次は、あれで遊ぼうかな」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p39">
+      <div class="card-head"><div class="pid">#39</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女はそう言って、砕けた地球を背にした。<br>
+第六話。<br>
+地球儀の上で。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+</main>
+<footer class="wrap">進捗は localStorage に保存。橙背景=会話、通常=地の文。</footer>
+<script>
+const K='hermes_review_ch6_v1';
+let S=JSON.parse(localStorage.getItem(K)||'{}');
+const C=document.querySelectorAll('.card');
+function g(id){if(!S[id])S[id]={mode:'none',tags:[],memo:''};return S[id];}
+function a(c){const s=g(c.dataset.id),b=c.querySelector('[data-state]');
+b.textContent=s.mode==='ok'?'OK':s.mode==='review'?'要修正':s.mode==='hold'?'保留':'未チェック';
+b.className='badge state-'+(s.mode==='ok'?'ok':s.mode==='review'?'review':s.mode==='hold'?'hold':'none');
+c.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',s.tags.includes(p.dataset.tag)));
+c.querySelector('textarea').value=s.memo||'';}
+function u(){let t=0,o=0,r=0,h=0,n=0;C.forEach(c=>{const d=S[c.dataset.id];t++;if(!d||d.mode==='none')n++;else if(d.mode==='ok')o++;else if(d.mode==='review')r++;else h++;});
+document.getElementById('stats').innerHTML='<span class="stat">全 '+t+'</span><span class="stat" style="color:#9df0b8">OK '+o+'</span><span class="stat" style="color:#ffb0b0">要修正 '+r+'</span><span class="stat" style="color:#dbc9ff">保留 '+h+'</span><span class="stat">未チェック '+n+'</span>';}
+C.forEach(c=>{a(c);c.querySelectorAll('.pill').forEach(b=>{b.onclick=()=>{const s=g(c.dataset.id),t=b.dataset.tag,i=s.tags.indexOf(t);if(i>=0)s.tags.splice(i,1);else s.tags.push(t);localStorage.setItem(K,JSON.stringify(S));a(c);u();};});
+c.querySelectorAll('[data-mode]').forEach(b=>{b.onclick=()=>{g(c.dataset.id).mode=b.dataset.mode;localStorage.setItem(K,JSON.stringify(S));a(c);u();};});
+c.querySelector('textarea').oninput=function(){g(c.dataset.id).memo=this.value;localStorage.setItem(K,JSON.stringify(S));};});
+u();
+document.getElementById('filter-all').onclick=()=>{C.forEach(c=>c.classList.remove('hidden'));};
+document.getElementById('filter-review').onclick=()=>{C.forEach(c=>c.classList.toggle('hidden',g(c.dataset.id).mode!=='review'));};
+document.getElementById('filter-unchecked').onclick=()=>{C.forEach(c=>c.classList.toggle('hidden',g(c.dataset.id).mode!=='none'));};
+let mo=false;document.getElementById('expand-memo').onclick=()=>{mo=!mo;document.querySelectorAll('details').forEach(d=>{if(mo)d.setAttribute('open','');else d.removeAttribute('open');});};
+document.getElementById('reset-all').onclick=()=>{if(confirm('リセットしますか？')){localStorage.removeItem(K);S={};C.forEach(c=>a(c));u();}};
+function ml(m){return m==='ok'?'OK':m==='review'?'要修正':m==='hold'?'保留':'未チェック';}
+function br(){let l=['第６話レビュー結果',''];C.forEach(c=>{const s=g(c.dataset.id);if(s.mode==='none'&&!s.tags.length&&!s.memo.trim())return;l.push('#'+String(c.dataset.id.replace('p','')).padStart(2,'0')+' ['+ml(s.mode)+']');if(s.tags.length)l.push('タグ: '+s.tags.join(' / '));if(s.memo.trim())l.push('メモ: '+s.memo.trim());l.push('');});return l.join('\\n');}
+document.getElementById('copy-report').onclick=async()=>{try{await navigator.clipboard.writeText(br());alert('コピーしました');}catch(e){alert('失敗。txt保存を使ってください。');}};
+document.getElementById('download-report').onclick=()=>{const b=new Blob([br()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='０６_レビュー結果.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+</script>
+</body></html>
