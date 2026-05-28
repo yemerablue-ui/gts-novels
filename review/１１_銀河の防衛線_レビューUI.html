@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第１１話 レビューUI</title>
+<style>
+:root{--bg:#111315;--panel:#181c20;--panel2:#20262c;--ink:#edf2f7;--muted:#aab4bf;--line:#2e3944;--accent:#78c4ff;--good:#67d58c;--warn:#ffbf69;--bad:#ff7f7f;--hold:#c1a6ff;--dialogue-bg:#1a1e24}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#0f1113,#14181c);color:var(--ink);font-family:"Yu Gothic UI","Hiragino Sans","Meiryo",sans-serif;line-height:1.7}
+header{position:sticky;top:0;z-index:50;background:rgba(17,19,21,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 16px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+.title{font-size:22px;font-weight:800}
+.sub{color:var(--muted);font-size:14px}
+.toolbar,.toolbar2{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+button{appearance:none;border:none;cursor:pointer}
+.topbtn{padding:12px 16px;border-radius:14px;background:var(--panel2);color:var(--ink);font-weight:700;border:1px solid var(--line);min-height:48px}
+.topbtn:hover{outline:2px solid rgba(120,196,255,.35)}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--panel);border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--muted)}
+main{padding:14px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px;margin:0 0 16px}
+.card.dialogue{background:var(--dialogue-bg);border-color:#2a3540}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.pid{font-size:20px;font-weight:800;color:var(--accent)}
+.pid.d-pid{color:#ffbf69}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800;border:1px solid var(--line)}
+.state-none{background:#20262c;color:var(--muted)}
+.state-ok{background:rgba(103,213,140,.16);color:#9df0b8;border-color:rgba(103,213,140,.35)}
+.state-review{background:rgba(255,127,127,.16);color:#ffb0b0;border-color:rgba(255,127,127,.35)}
+.state-hold{background:rgba(193,166,255,.16);color:#dbc9ff;border-color:rgba(193,166,255,.35)}
+.para{font-size:20px;background:#12161a;border:1px solid #27313a;border-radius:16px;padding:16px;margin:12px 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.pill{padding:11px 14px;border-radius:999px;background:#24303a;color:#dce7f0;border:1px solid #31404d;font-weight:700;min-height:46px}
+.pill.active{background:#355168;color:#fff;border-color:#78c4ff;box-shadow:0 0 0 2px rgba(120,196,255,.22) inset}
+.row2{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.big{min-height:58px;border-radius:16px;font-weight:900;font-size:16px;border:1px solid var(--line)}
+.good{background:rgba(103,213,140,.18);color:#c7ffd8}
+.meh{background:rgba(255,127,127,.18);color:#ffd0d0}
+.skip{background:rgba(193,166,255,.18);color:#e7ddff}
+.clear{background:#232931;color:#d0d7de}
+.memo-wrap{margin-top:10px;border-top:1px dashed #33414d;padding-top:10px}
+summary{cursor:pointer;color:var(--muted);font-weight:700}
+textarea{width:100%;margin-top:10px;min-height:88px;border-radius:14px;border:1px solid #3a4754;background:#0f1316;color:#edf2f7;padding:12px;font:inherit}
+.hidden{display:none!important}
+footer{color:var(--muted);padding:24px 0 8px;font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap hero">
+<div class="title">第１１話 レビューUI</div>
+<div class="sub">銀河の防衛線　— 段落単位で区切っています。会話カードは背景色が異なります。</div>
+<div class="toolbar">
+<button class="topbtn" id="filter-all">全部表示</button>
+<button class="topbtn" id="filter-review">要修正だけ</button>
+<button class="topbtn" id="filter-unchecked">未チェックだけ</button>
+<button class="topbtn" id="expand-memo">メモ欄を全部開く/閉じる</button>
+</div>
+<div class="toolbar2">
+<button class="topbtn" id="copy-report">結果をコピー</button>
+<button class="topbtn" id="download-report">結果をtxt保存</button>
+<button class="topbtn" id="reset-all">全部リセット</button>
+</div>
+<div class="stats" id="stats"></div>
+</div></header>
+<main class="wrap">
+  <article class="card" data-id="p1">
+      <div class="card-head"><div class="pid">#01</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">恒星系連合航宙軍第七遠征艦隊の最後の通信は、銀河統括航宙軍の辺境管制網に、遅れて届いた。<br>
+通信は、映像ではなかった。<br>
+映像として成立するだけの距離感が、すでに壊れていた。<br>
+対象名、百川十々瀬。<br>
+一光年は、約九兆四千六百七億キロメートル。<br>
+太陽から地球までの平均距離、一天文単位は約一億四千九百六十万キロメートル。<br>
+太陽系でもっとも外側の古い惑星軌道を基準にしても、せいぜい数十億キロメートルから百億キロメートル台の尺度で語られる。<br>
+対して、百川十々瀬の身長は約三光年。<br>
+太陽系は、彼女の身体の前では点ではなく、点になる前の計算誤差だった。<br>
+実在の太陽は直径約百三十九万キロメートル。<br>
+木星は直径約十四万二千九百八十四キロメートル。<br>
+地球は直径約一万二千七百五十六キロメートル。<br>
+それらの数値は、少女の巨大さを証明するための物差しとしてだけ、かろうじて意味を残していた。<br>
+銀河統括航宙軍第一防衛線は、近傍恒星圏の外側に構築された。<br>
+恒星を盾にはしない。<br>
+居住星系を戦場にはしない。<br>
+艦隊と航路標識だけで、対象の進路をそらす。<br>
+それが、作戦の名目だった。<br>
+だが、銀河統括航宙軍そのものは、人類の延長ではなかった。<br>
+第一防衛線に参加した主力種族の一つ、環星巨人族は、平均身長約三十四万キロメートル。現人類の約二億倍の背丈を持つ、スペースファンタジーじみたヒューマノイドである。<br>
+彼らの生活圏では、扉一枚が約四十万キロメートル、居室の天井高が約二百万キロメートル、都市一つの直径が十億キロメートルに達した。艦艇も、武器も、食器も、文字も、道路も、遊具も、彼らの身体倍率に合わせて巨大化している。彼らにとって惑星は家屋の基礎材であり、小型恒星は暖炉に近かった。<br>
+それでも、十々瀬は桁が違った。<br>
+環星巨人族の兵士が三十四万キロメートルなら、十々瀬の三光年は約二十八兆三千八百二十一億キロメートル。身長差は八千万倍を超える。人類と環星巨人族の差を、そのままもう一度、さらに大きく引き延ばしたような隔たりだった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p2">
+      <div class="card-head"><div class="pid d-pid">#02</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「対象、第一防衛線へ接近」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p3">
+      <div class="card-head"><div class="pid d-pid">#03</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「距離、三・二光年」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p4">
+      <div class="card-head"><div class="pid d-pid">#04</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「二・八光年。約二十六兆四千九百億キロメートル」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p5">
+      <div class="card-head"><div class="pid d-pid">#05</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「距離計が逆転しています。対象の指先が、こちらの空間基準をまたいでいます」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p6">
+      <div class="card-head"><div class="pid d-pid">#06</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「空間隔壁、出力最大」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p7">
+      <div class="card-head"><div class="pid">#07</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">亜光速戦艦群が星間空間へ展開し、重力帆が何十もの恒星風を受けて薄く広がる。恒星風砲は恒星の放射を束ね、空間隔壁は恒星と恒星の間に透明な壁を立てた。<br>
+それらは現実の太陽系よりもはるかに巨大な、物語上の軍事構造だった。<br>
+星間都市を持つ巨人族のために造られた航宙艦は、一隻で地球と月の距離を越える全長を持つ。要塞艦の主砲身は百万キロメートル級で、通常の惑星文明なら、それだけで神話になる。<br>
+だが第一防衛線は、銀河地図の上では一本の弧だった。<br>
+十々瀬から見ると、それは星と星の間に張られた細い光の糸でしかなかった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p8">
+      <div class="card-head"><div class="pid d-pid">#08</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「わ、遠くまで光ってる」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p9">
+      <div class="card-head"><div class="pid">#09</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は太陽系を振り返らなかった。<br>
+足元という概念は、もうほとんど意味を失っている。以前なら空だった場所、星空だった場所の中に、彼女の膝や腕や髪が漂っていた。太陽はまだ熱い粒として残っていたが、その実在の直径百三十九万キロメートルという数値さえ、彼女の指幅と比べれば光の粉を説明するための注釈でしかない。<br>
+太陽系の惑星軌道は、ひとつの広い渦ではなかった。<br>
+彼女にとっては、散らした砂の周囲に引かれた、ほとんど見えない円だった。<br>
+十々瀬は片手を伸ばした。<br>
+彼女が手を伸ばす姿勢を取ったことで、その前方の張り出しは指先よりも広い範囲に先に影を落とした。第一防衛線の右翼にいた艦隊群は、十々瀬の視界にも入らないまま、胸元の曲面が作る重力勾配へ吸い寄せられた。衝突ではない。巨大な身体の前面が近づいたことで、艦隊の基準空間そのものが押し曲げられ、隊列は巨大な弧の手前で薄い膜のように潰れていった。<br>
+その指先が第一防衛線へ近づいただけで、残る艦隊の時間同期が乱れた。<br>
+航宙軍は撃った。<br>
+恒星風砲が、複数の恒星から集めた熱と粒子を帯にして放つ。亜光速弾体が暗黒の海を走り、重力帆艦隊は彼女の手首周辺へ干渉波を重ねた。環星巨人族の要塞艦群は、彼ら自身の手で扱える大きさに合わせた百万キロメートル級の兵器を、一斉に光らせた。<br>
+十々瀬の目には、それが小さな線香花火の列に見えた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p10">
+      <div class="card-head"><div class="pid d-pid">#10</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「また花火？」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p11">
+      <div class="card-head"><div class="pid">#11</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は笑った。<br>
+その表情変化だけで、周囲数光年、すなわち数十兆キロメートルの微細な塵が波紋を作り、第一防衛線の全座標に巨大な誤差が生じた。<br>
+砲撃は彼女の指に届いた。<br>
+光が肌の表面で散り、空間歪曲が爪の縁で薄くひしゃげる。重力帆の干渉波は、彼女の指紋の谷に沿って流れ、艦隊側の計算機には「地形に沿って兵器が滑落した」と記録された。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p12">
+      <div class="card-head"><div class="pid d-pid">#12</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「ちょっと、ぴりぴりする」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p13">
+      <div class="card-head"><div class="pid">#13</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は人差し指を振った。<br>
+ただ、それだけだった。<br>
+星と星の間に張られていた防衛線が、ほどけた。<br>
+亜光速艦隊の隊列は光の粉になり、重力帆は裂けた薄紙のように丸まった。空間隔壁は支点を失って内側へ倒れ、恒星風砲の照準線は別々の方向へねじれた。<br>
+環星巨人族の百万キロメートル級要塞艦も、彼女の指先から見れば、爪の縁に浮いた微かな光点でしかなかった。要塞艦の艦橋では、三十四万キロメートル級の兵士たちが、彼ら自身より八千万倍以上も大きい少女の指紋を地形図として見上げていた。<br>
+第一防衛線は、破られたのではない。<br>
+払われた。<br>
+同じ記録には、主戦域から外れた別の欠損も残っている。彼女が首を少し傾げた際、うなじの後ろを流れた淡い髪の房が長い弧を描き、背後の中継網をまとめて横切った。十々瀬は振り返ってさえいない。だが数光年にわたる中継灯は、柔らかな髪の影に撫でられた順番で消え、以後その宙域は「後頸部遮蔽帯」と呼ばれる空白になった。<br>
+十々瀬にとっては、指に絡んだ糸くずを取っただけだった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p14">
+      <div class="card-head"><div class="pid d-pid">#14</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「あ、取れた」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p15">
+      <div class="card-head"><div class="pid">#15</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は満足そうに手を開いた。<br>
+その掌の向こうで、複数の恒星間航路が歪み、避難船団の予定進路が星図から消えた。居住星系そのものはまだ壊れていない。だが、そこへ行く道と、そこから逃げる道が、地図の上で同じ形を保てなくなっていた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p16">
+      <div class="card-head"><div class="pid d-pid">#16</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「対象、第一防衛線を通過」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p17">
+      <div class="card-head"><div class="pid d-pid">#17</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「通過ではありません。防衛線が存在定義を喪失」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p18">
+      <div class="card-head"><div class="pid d-pid">#18</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「対象分類を更新します」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p19">
+      <div class="card-head"><div class="pid">#19</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">銀河統括航宙軍は、このとき初めて彼女を惑星級でも恒星系級でもないものとして扱った。<br>
+銀河地形変更存在。<br>
+その分類名が発令されたとき、十々瀬は近くの恒星を眺めていた。<br>
+実在する恒星間距離は、最も近い恒星でさえ数光年、数十兆キロメートルに達する。<br>
+だが今の彼女にとって、その距離は身を少し乗り出せば届きそうに見える、暗い部屋の中のビー玉の間隔だった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p20">
+      <div class="card-head"><div class="pid d-pid">#20</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「こっちにも、明るいビー玉がある」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p21">
+      <div class="card-head"><div class="pid">#21</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は嬉しそうに、さらに銀河の内側へ上体を少し寄せるように手を伸ばした。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+</main>
+<footer class="wrap">進捗は localStorage に保存。橙背景=会話、通常=地の文。</footer>
+<script>
+const K='hermes_review_ch11_v1';
+let S=JSON.parse(localStorage.getItem(K)||'{}');
+const C=document.querySelectorAll('.card');
+function g(id){if(!S[id])S[id]={mode:'none',tags:[],memo:''};return S[id];}
+function a(c){const s=g(c.dataset.id),b=c.querySelector('[data-state]');
+b.textContent=s.mode==='ok'?'OK':s.mode==='review'?'要修正':s.mode==='hold'?'保留':'未チェック';
+b.className='badge state-'+(s.mode==='ok'?'ok':s.mode==='review'?'review':s.mode==='hold'?'hold':'none');
+c.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',s.tags.includes(p.dataset.tag)));
+c.querySelector('textarea').value=s.memo||'';}
+function u(){let t=0,o=0,r=0,h=0,n=0;C.forEach(c=>{const d=S[c.dataset.id];t++;if(!d||d.mode==='none')n++;else if(d.mode==='ok')o++;else if(d.mode==='review')r++;else h++;});
+document.getElementById('stats').innerHTML='<span class="stat">全 '+t+'</span><span class="stat" style="color:#9df0b8">OK '+o+'</span><span class="stat" style="color:#ffb0b0">要修正 '+r+'</span><span class="stat" style="color:#dbc9ff">保留 '+h+'</span><span class="stat">未チェック '+n+'</span>';}
+C.forEach(c=>{a(c);c.querySelectorAll('.pill').forEach(b=>{b.onclick=()=>{const s=g(c.dataset.id),t=b.dataset.tag,i=s.tags.indexOf(t);if(i>=0)s.tags.splice(i,1);else s.tags.push(t);localStorage.setItem(K,JSON.stringify(S));a(c);u();};});
+c.querySelectorAll('[data-mode]').forEach(b=>{b.onclick=()=>{g(c.dataset.id).mode=b.dataset.mode;localStorage.setItem(K,JSON.stringify(S));a(c);u();};});
+c.querySelector('textarea').oninput=function(){g(c.dataset.id).memo=this.value;localStorage.setItem(K,JSON.stringify(S));};});
+u();
+document.getElementById('filter-all').onclick=()=>{C.forEach(c=>c.classList.remove('hidden'));};
+document.getElementById('filter-review').onclick=()=>{C.forEach(c=>c.classList.toggle('hidden',g(c.dataset.id).mode!=='review'));};
+document.getElementById('filter-unchecked').onclick=()=>{C.forEach(c=>c.classList.toggle('hidden',g(c.dataset.id).mode!=='none'));};
+let mo=false;document.getElementById('expand-memo').onclick=()=>{mo=!mo;document.querySelectorAll('details').forEach(d=>{if(mo)d.setAttribute('open','');else d.removeAttribute('open');});};
+document.getElementById('reset-all').onclick=()=>{if(confirm('リセットしますか？')){localStorage.removeItem(K);S={};C.forEach(c=>a(c));u();}};
+function ml(m){return m==='ok'?'OK':m==='review'?'要修正':m==='hold'?'保留':'未チェック';}
+function br(){let l=['第１１話レビュー結果',''];C.forEach(c=>{const s=g(c.dataset.id);if(s.mode==='none'&&!s.tags.length&&!s.memo.trim())return;l.push('#'+String(c.dataset.id.replace('p','')).padStart(2,'0')+' ['+ml(s.mode)+']');if(s.tags.length)l.push('タグ: '+s.tags.join(' / '));if(s.memo.trim())l.push('メモ: '+s.memo.trim());l.push('');});return l.join('\\n');}
+document.getElementById('copy-report').onclick=async()=>{try{await navigator.clipboard.writeText(br());alert('コピーしました');}catch(e){alert('失敗。txt保存を使ってください。');}};
+document.getElementById('download-report').onclick=()=>{const b=new Blob([br()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='１１_レビュー結果.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+</script>
+</body></html>

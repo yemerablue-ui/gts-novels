@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第１３話 レビューUI</title>
+<style>
+:root{--bg:#111315;--panel:#181c20;--panel2:#20262c;--ink:#edf2f7;--muted:#aab4bf;--line:#2e3944;--accent:#78c4ff;--good:#67d58c;--warn:#ffbf69;--bad:#ff7f7f;--hold:#c1a6ff;--dialogue-bg:#1a1e24}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#0f1113,#14181c);color:var(--ink);font-family:"Yu Gothic UI","Hiragino Sans","Meiryo",sans-serif;line-height:1.7}
+header{position:sticky;top:0;z-index:50;background:rgba(17,19,21,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 16px}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+.title{font-size:22px;font-weight:800}
+.sub{color:var(--muted);font-size:14px}
+.toolbar,.toolbar2{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+button{appearance:none;border:none;cursor:pointer}
+.topbtn{padding:12px 16px;border-radius:14px;background:var(--panel2);color:var(--ink);font-weight:700;border:1px solid var(--line);min-height:48px}
+.topbtn:hover{outline:2px solid rgba(120,196,255,.35)}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--panel);border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--muted)}
+main{padding:14px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:16px;margin:0 0 16px}
+.card.dialogue{background:var(--dialogue-bg);border-color:#2a3540}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.pid{font-size:20px;font-weight:800;color:var(--accent)}
+.pid.d-pid{color:#ffbf69}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 11px;font-size:13px;font-weight:800;border:1px solid var(--line)}
+.state-none{background:#20262c;color:var(--muted)}
+.state-ok{background:rgba(103,213,140,.16);color:#9df0b8;border-color:rgba(103,213,140,.35)}
+.state-review{background:rgba(255,127,127,.16);color:#ffb0b0;border-color:rgba(255,127,127,.35)}
+.state-hold{background:rgba(193,166,255,.16);color:#dbc9ff;border-color:rgba(193,166,255,.35)}
+.para{font-size:20px;background:#12161a;border:1px solid #27313a;border-radius:16px;padding:16px;margin:12px 0 14px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.pill{padding:11px 14px;border-radius:999px;background:#24303a;color:#dce7f0;border:1px solid #31404d;font-weight:700;min-height:46px}
+.pill.active{background:#355168;color:#fff;border-color:#78c4ff;box-shadow:0 0 0 2px rgba(120,196,255,.22) inset}
+.row2{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.big{min-height:58px;border-radius:16px;font-weight:900;font-size:16px;border:1px solid var(--line)}
+.good{background:rgba(103,213,140,.18);color:#c7ffd8}
+.meh{background:rgba(255,127,127,.18);color:#ffd0d0}
+.skip{background:rgba(193,166,255,.18);color:#e7ddff}
+.clear{background:#232931;color:#d0d7de}
+.memo-wrap{margin-top:10px;border-top:1px dashed #33414d;padding-top:10px}
+summary{cursor:pointer;color:var(--muted);font-weight:700}
+textarea{width:100%;margin-top:10px;min-height:88px;border-radius:14px;border:1px solid #3a4754;background:#0f1316;color:#edf2f7;padding:12px;font:inherit}
+.hidden{display:none!important}
+footer{color:var(--muted);padding:24px 0 8px;font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap hero">
+<div class="title">第１３話 レビューUI</div>
+<div class="sub">銀河をかき混ぜる　— 段落単位で区切っています。会話カードは背景色が異なります。</div>
+<div class="toolbar">
+<button class="topbtn" id="filter-all">全部表示</button>
+<button class="topbtn" id="filter-review">要修正だけ</button>
+<button class="topbtn" id="filter-unchecked">未チェックだけ</button>
+<button class="topbtn" id="expand-memo">メモ欄を全部開く/閉じる</button>
+</div>
+<div class="toolbar2">
+<button class="topbtn" id="copy-report">結果をコピー</button>
+<button class="topbtn" id="download-report">結果をtxt保存</button>
+<button class="topbtn" id="reset-all">全部リセット</button>
+</div>
+<div class="stats" id="stats"></div>
+</div></header>
+<main class="wrap">
+  <article class="card" data-id="p1">
+      <div class="card-head"><div class="pid">#01</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">銀河統括航宙軍主力艦隊は、銀河腕の中腹で待ち受けた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p2">
+      <div class="card-head"><div class="pid">#02</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">対象、百川十々瀬。<br>
+　彼女の身体はすでに数千光年級に達し、銀河の渦巻き腕を跨げるほどになっていた。銀河円盤は彼女の腰のあたりにあり、腕状構造は足元から左右へ広がる光の帯だ。中心核の膨らみは、少し離れた場所で明るく輝いている。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p3">
+      <div class="card-head"><div class="pid">#03</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は、銀河腕を見ていた。<br>
+　星団は、彼女には光る砂の集まりに見えた。星間雲は、薄い綿のように見える淡い光の層。暗黒星雲は、その綿に混じった黒い埃のような影。彼女の視界では、数千光年を横切る恒星生成領域が、ひとつかみのきらめく粉だった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card dialogue" data-id="p4">
+      <div class="card-head"><div class="pid d-pid">#04</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">「わあ、砂場みたい」<br>
+　彼女はしゃがみ込んだ。その動きだけで、太腿と膝の影が銀河円盤を横切り、複数の星団の光がまとめて遮られた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p5">
+      <div class="card-head"><div class="pid">#05</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">銀河統括航宙軍は、その砂場の中に主力を並べた。<br>
+　星団要塞。暗黒物質の流れを絞った超重力砲。恒星炉弾——内部に閉じ込めた人工恒星を一気に解放する破滅兵器。銀河腕を横断する全長数千光年の防衛陣。各文明圏は、居住星系を切り離しながら後退していた。航路を捨て、補給点を捨て、星図に記載された名前を一つずつ空白に戻していく。<br>
+「主力艦隊、射程内」<br>
+「対象は星間雲に接触」<br>
+「星形成領域、重力平衡を喪失」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p6">
+      <div class="card-head"><div class="pid">#06</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は、手を入れた。<br>
+　星間雲の中へ。<br>
+　彼女にとっては、柔らかな綿に見える光の層へ指を差し入れるような感覚だった。実際に触れているのは手触りではなく、密度の違うガスと光の偏りである。指の周囲でガスが渦を巻き、まだ星になりきっていない濃い領域が彼女の指紋の谷に沿って引き裂かれる。新しい恒星を生むはずだった場所が広がり、薄まり、別の方向へ流れていった。数万年後に生まれるはずだった星々が、彼女の指の一撫でで散り散りになった。<br>
+「ふわふわして見える」<br>
+　彼女が指を動かすたび、星形成領域は地図から消えた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p7">
+      <div class="card-head"><div class="pid">#07</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">だが最大の欠損は、彼女が見ていない場所で起きた。<br>
+　十々瀬が身を乗り出した拍子に、胸元の巨大な曲面が銀河腕の別の枝へ近づいた。数千光年級の彼女のバストは、腕構造の一本を正面から覆い隠すほどの幅を持つ。胸の下面が星間空間を横切るとき、そこに敷設されていた航宙軍の迂回陣地が、星間雲ごと押し広げられた。接触ではない。質量が近づいただけで、陣地を支えていた重力均衡が傾いたのだ。記録上、その陣地は「敵攻撃を受けた」のではなく「背景ガスごと圧し退けられた」としか表現できなかった。<br>
+　十々瀬の視線は指先のふわふわした感触に向いたままだった。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p8">
+      <div class="card-head"><div class="pid">#08</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">軍は総攻撃を開始した。<br>
+　超重力砲が発射され、局所的な重力崩壊を彼女の手の甲へ投げつける。恒星炉弾が、内部に封じた人工恒星の熱を解放する。星団要塞群が同時に砲門を開き、銀河腕の一部が人工の夜明けに染まった。それは、文明が銀河の構造そのものを武器に変えた瞬間だった。<br>
+　十々瀬は目を輝かせた。<br>
+「すごい、火花がいっぱい」<br>
+　その火花の一つ一つが、文明圏の最大兵器だった。恒星炉弾の爆発は、一個の恒星の全生涯に匹敵するエネルギーを放出する。しかし彼女の肌の上では、光の粒にすぎない。熱は届く前に拡散し、重力崩壊は彼女の身じろぎで引き伸ばされ、空間歪曲は指紋の谷に沿って流れた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p9">
+      <div class="card-head"><div class="pid">#09</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬はくすぐったそうに笑った。<br>
+　笑い声は真空には響かない。しかし、彼女の喉と胸郭の震動が生み出す重力波が、艦隊陣形を揺らした。笑っただけだった。それでも、複数の星団軌道が崩れた。<br>
+「陣形維持不能」<br>
+「第三星団軌道、変位」<br>
+「第五要塞群、重力基準を喪失」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p10">
+      <div class="card-head"><div class="pid">#10</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">彼女は指を横へ動かす。<br>
+　銀河腕に、巨大な指跡が残った。星間雲は左右へ押し分けられ、若い恒星群は流砂のように位置を変えた。そこにあった航宙軍の防衛陣は、星図上ではまだ存在していることになっていたが、実際にはもう同じ場所に集まっていなかった。彼女の指紋の一本が、防衛線の全長をなぞったのである。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p11">
+      <div class="card-head"><div class="pid">#11</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬がくすぐったさに腹を少し引いたとき、腹部の影が別の星雲帯を横切った。直接触れてはいない。それでも、巨大な身体が動くことで周辺の重力場が傾き、未成熟の恒星群は淡い粉のように流れた。彼女のへそのくぼみが作る重力の窪みに、いくつかの若い星団が吸い寄せられ、そこに小さな渦を作った。彼女は笑っているだけで、自分の視界外で銀河腕の側面が薄く削れ、へその周りに新しい星の環ができたことを知らなかった。<br>
+「ここ、混ぜたらきれいになりそう」<br>
+　十々瀬は両手を使った。<br>
+　銀河腕の淡い光が、彼女の手の間でかき混ぜられる。星団の縁が伸び、星間雲が渦を巻き、暗黒星雲が細い筋になって流れた。彼女の掌の中で、何百という星形成領域が混ざり合い、新しい密度の波が生まれた。それは破壊であると同時に、新しい星の種まきでもあった。彼女がかき混ぜた場所では、その後数億年にわたって異常な星形成が続くことになる。<br>
+　航宙軍主力艦隊は、その渦の中で散った。<br>
+　戦闘、という語は正確ではない。片方は総力を尽くして撃った。もう片方は、光る砂場を手でならした。<br>
+　銀河統括航宙軍は主力を失った。<br>
+「銀河単位での防衛は不可能」</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+  <article class="card" data-id="p12">
+      <div class="card-head"><div class="pid">#12</div><div class="statusline"><span class="badge state-none" data-state>未チェック</span></div></div>
+      <div class="para">十々瀬は、手のひらに残った星間雲の淡い光を眺めていた。掌の上で、かき混ぜられた星の粉が、彼女の生命線と知能線に沿ってきらめいている。<br>
+「手、きらきらしてる」<br>
+　彼女はそう言って、掌をひらひらとさせた。その度に、掌の上の星団が揺れ、まだ混ざりきっていないガスがこぼれ落ちた。<br>
+　そして彼女は、銀河腕の外へ視線を向けた。<br>
+　そこには、さらに小さな渦がいくつも浮かんでいた。隣の銀河。矮小銀河。遠くの銀河団。彼女の視界には、遊べる砂場がまだたくさん残っていた。</div>
+      <div class="controls">
+        <button class="pill like" data-tag="良い">良い</button><button class="pill issue" data-tag="弱い">弱い</button><button class="pill issue" data-tag="削る">削る</button><button class="pill issue" data-tag="直す">直す</button><button class="pill issue" data-tag="強める">強める</button><button class="pill issue" data-tag="十々瀬寄り">十々瀬寄り</button><button class="pill issue" data-tag="記録調寄り">記録調寄り</button><button class="pill issue" data-tag="胸強化">胸強化</button><button class="pill issue" data-tag="官能寄り">官能寄り</button>
+      </div>
+      <div class="row2">
+        <button class="big good" data-mode="ok">OK</button><button class="big meh" data-mode="review">要修正</button><button class="big skip" data-mode="hold">保留</button><button class="big clear" data-mode="clear">解除</button>
+      </div>
+      <details class="memo-wrap"><summary>メモ欄</summary><textarea placeholder="必要なときだけ"></textarea></details>
+    </article>
+</main>
+<footer class="wrap">進捗は localStorage に保存。橙背景=会話、通常=地の文。</footer>
+<script>
+const K='hermes_review_ch13_v1';
+let S=JSON.parse(localStorage.getItem(K)||'{}');
+const C=document.querySelectorAll('.card');
+function g(id){if(!S[id])S[id]={mode:'none',tags:[],memo:''};return S[id];}
+function a(c){const s=g(c.dataset.id),b=c.querySelector('[data-state]');
+b.textContent=s.mode==='ok'?'OK':s.mode==='review'?'要修正':s.mode==='hold'?'保留':'未チェック';
+b.className='badge state-'+(s.mode==='ok'?'ok':s.mode==='review'?'review':s.mode==='hold'?'hold':'none');
+c.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',s.tags.includes(p.dataset.tag)));
+c.querySelector('textarea').value=s.memo||'';}
+function u(){let t=0,o=0,r=0,h=0,n=0;C.forEach(c=>{const d=S[c.dataset.id];t++;if(!d||d.mode==='none')n++;else if(d.mode==='ok')o++;else if(d.mode==='review')r++;else h++;});
+document.getElementById('stats').innerHTML='<span class="stat">全 '+t+'</span><span class="stat" style="color:#9df0b8">OK '+o+'</span><span class="stat" style="color:#ffb0b0">要修正 '+r+'</span><span class="stat" style="color:#dbc9ff">保留 '+h+'</span><span class="stat">未チェック '+n+'</span>';}
+C.forEach(c=>{a(c);c.querySelectorAll('.pill').forEach(b=>{b.onclick=()=>{const s=g(c.dataset.id),t=b.dataset.tag,i=s.tags.indexOf(t);if(i>=0)s.tags.splice(i,1);else s.tags.push(t);localStorage.setItem(K,JSON.stringify(S));a(c);u();};});
+c.querySelectorAll('[data-mode]').forEach(b=>{b.onclick=()=>{g(c.dataset.id).mode=b.dataset.mode;localStorage.setItem(K,JSON.stringify(S));a(c);u();};});
+c.querySelector('textarea').oninput=function(){g(c.dataset.id).memo=this.value;localStorage.setItem(K,JSON.stringify(S));};});
+u();
+document.getElementById('filter-all').onclick=()=>{C.forEach(c=>c.classList.remove('hidden'));};
+document.getElementById('filter-review').onclick=()=>{C.forEach(c=>c.classList.toggle('hidden',g(c.dataset.id).mode!=='review'));};
+document.getElementById('filter-unchecked').onclick=()=>{C.forEach(c=>c.classList.toggle('hidden',g(c.dataset.id).mode!=='none'));};
+let mo=false;document.getElementById('expand-memo').onclick=()=>{mo=!mo;document.querySelectorAll('details').forEach(d=>{if(mo)d.setAttribute('open','');else d.removeAttribute('open');});};
+document.getElementById('reset-all').onclick=()=>{if(confirm('リセットしますか？')){localStorage.removeItem(K);S={};C.forEach(c=>a(c));u();}};
+function ml(m){return m==='ok'?'OK':m==='review'?'要修正':m==='hold'?'保留':'未チェック';}
+function br(){let l=['第１３話レビュー結果',''];C.forEach(c=>{const s=g(c.dataset.id);if(s.mode==='none'&&!s.tags.length&&!s.memo.trim())return;l.push('#'+String(c.dataset.id.replace('p','')).padStart(2,'0')+' ['+ml(s.mode)+']');if(s.tags.length)l.push('タグ: '+s.tags.join(' / '));if(s.memo.trim())l.push('メモ: '+s.memo.trim());l.push('');});return l.join('\\n');}
+document.getElementById('copy-report').onclick=async()=>{try{await navigator.clipboard.writeText(br());alert('コピーしました');}catch(e){alert('失敗。txt保存を使ってください。');}};
+document.getElementById('download-report').onclick=()=>{const b=new Blob([br()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='１３_レビュー結果.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};
+</script>
+</body></html>
