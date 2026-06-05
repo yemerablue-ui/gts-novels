@@ -1,129 +1,35 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="匣の館">
-<title>匣の館</title>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="匣の館"><title>匣の館</title>
 <style>
-:root{
-  --bg:#141218;
-  --paper:#1a1620;
-  --ink:#c8c0d6;
-  --dim:#6e6880;
-  --accent:#b0a0c8;
-  --line:#282430;
-  --safe-bottom:env(safe-area-inset-bottom,20px);
-}
+:root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430;--safe-bottom:env(safe-area-inset-bottom,20px)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;
-  font-size:17px;
-  line-height:2.0;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-  padding-bottom:calc(80px + var(--safe-bottom));
-}
-
-/* ── TOC drawer ── */
-#toc-btn{
-  position:fixed;top:12px;right:12px;z-index:200;
-  width:40px;height:40px;border-radius:20px;
-  background:var(--paper);border:1px solid var(--line);
-  color:var(--accent);font-size:18px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;user-select:none;
-}
-#toc-overlay{
-  position:fixed;inset:0;z-index:190;
-  background:rgba(0,0,0,.6);opacity:0;pointer-events:none;
-  transition:opacity .25s;
-}
+body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;font-size:17px;line-height:2.0;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(80px + var(--safe-bottom))}
+#toc-btn{position:fixed;top:12px;right:12px;z-index:200;width:40px;height:40px;border-radius:20px;background:var(--paper);border:1px solid var(--line);color:var(--accent);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none}
+#toc-overlay{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .25s}
 #toc-overlay.open{opacity:1;pointer-events:auto}
-#toc-panel{
-  position:fixed;top:0;right:-300px;z-index:195;
-  width:280px;height:100vh;background:var(--paper);
-  border-left:1px solid var(--line);overflow-y:auto;
-  transition:right .25s;padding:60px 20px 40px;
-  -webkit-overflow-scrolling:touch;
-}
+#toc-panel{position:fixed;top:0;right:-300px;z-index:195;width:280px;height:100vh;background:var(--paper);border-left:1px solid var(--line);overflow-y:auto;transition:right .25s;padding:60px 20px 40px;-webkit-overflow-scrolling:touch}
 #toc-panel.open{right:0}
-#toc-panel h3{
-  color:var(--accent);font-size:15px;font-weight:400;
-  margin-bottom:20px;letter-spacing:.1em;
-}
+#toc-panel h3{color:var(--accent);font-size:15px;font-weight:400;margin-bottom:20px;letter-spacing:.1em}
 #toc-panel ul{list-style:none}
-#toc-panel li a{
-  display:flex;align-items:baseline;gap:10px;
-  padding:10px 0;border-bottom:1px solid var(--line);
-  color:var(--ink);text-decoration:none;font-size:14px;
-}
+#toc-panel li a{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px}
 #toc-panel li a:active{background:rgba(255,255,255,.03)}
 .toc-num{color:var(--accent);font-size:12px;flex-shrink:0}
 .toc-title{color:var(--dim)}
-
-/* ── main ── */
-main{
-  max-width:100%;margin:0 auto;padding:40px 16px 20px;
-}
-h1{
-  font-size:22px;font-weight:400;color:var(--accent);
-  text-align:center;margin-bottom:36px;letter-spacing:.12em;
-  padding-top:8px;
-}
-.chapter{
-  background:var(--paper);border-radius:2px;
-  padding:24px 18px;box-shadow:0 1px 16px rgba(0,0,0,.25);
-  margin-bottom:36px;
-}
-.ch-title{
-  font-size:18px;font-weight:400;color:var(--accent);
-  text-align:center;margin-bottom:28px;letter-spacing:.06em;
-  line-height:1.5;
-}
-p{
-  margin:1.2em 0;text-indent:0;font-size:16px;
-}
-
-/* ── bottom nav ── */
-.bottom-nav{
-  display:flex;justify-content:space-between;
-  margin-top:28px;padding-top:16px;
-  border-top:1px solid var(--line);
-}
-.pn-link{
-  color:var(--accent);text-decoration:none;font-size:14px;
-  padding:8px 12px;border-radius:6px;
-}
+main{max-width:100%;margin:0 auto;padding:40px 16px 20px}
+h1{font-size:22px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:36px;letter-spacing:.12em;padding-top:8px}
+.chapter{background:var(--paper);border-radius:2px;padding:24px 18px;box-shadow:0 1px 16px rgba(0,0,0,.25);margin-bottom:36px}
+.ch-title{font-size:18px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:28px;letter-spacing:.06em;line-height:1.5}
+p{margin:1.2em 0;text-indent:0;font-size:16px}
+.bottom-nav{display:flex;justify-content:space-between;margin-top:28px;padding-top:16px;border-top:1px solid var(--line)}
+.pn-link{color:var(--accent);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:6px}
 .pn-link:active{background:rgba(255,255,255,.05)}
 .pn-link.dim{color:var(--dim);pointer-events:none}
-
-/* ── progress ── */
-#progress{
-  position:fixed;top:0;left:0;right:0;height:2px;
-  background:var(--line);z-index:99;
-}
+#progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--line);z-index:99}
 #bar{height:100%;background:var(--accent);width:0;transition:width .1s linear}
-
-/* ── scrollbar ── */
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
-</style>
-</head>
-<body>
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
+</style></head><body>
 <div id="progress"><div id="bar"></div></div>
-
-<button id="toc-btn" aria-label="目次">☰</button>
-<div id="toc-overlay"></div>
-<nav id="toc-panel">
-  <h3>匣の館 — 目次</h3>
-  <ul>
-<li><a href="#ch1"><span class="toc-num">第01話</span><span class="toc-title">指先の門</span></a></li>
+<button id="toc-btn" aria-label="目次">☰</button><div id="toc-overlay"></div>
+<nav id="toc-panel"><h3>匣の館 — 目次</h3><ul><li><a href="#ch1"><span class="toc-num">第01話</span><span class="toc-title">指先の門</span></a></li>
 <li><a href="#ch2"><span class="toc-num">第02話</span><span class="toc-title">掌の滑走路</span></a></li>
 <li><a href="#ch3"><span class="toc-num">第03話</span><span class="toc-title">百万倍の書架</span></a></li>
 <li><a href="#ch4"><span class="toc-num">第04話</span><span class="toc-title">胸の地平線</span></a></li>
@@ -133,12 +39,8 @@ p{
 <li><a href="#ch8"><span class="toc-num">第08話</span><span class="toc-title">もう一つの棚</span></a></li>
 <li><a href="#ch9"><span class="toc-num">第09話</span><span class="toc-title">指先の温もり</span></a></li>
 <li><a href="#ch10"><span class="toc-num">第10話</span><span class="toc-title">星の種</span></a></li>
-  </ul>
-</nav>
-
-<main>
-<h1>匣の館</h1>
-<section class="chapter" id="ch1">
+<li><a href="#ch11"><span class="toc-num">第11話</span><span class="toc-title">乳の静かなる海</span></a></li></ul></nav>
+<main><h1>匣の館</h1><section class="chapter" id="ch1">
 <h2 class="ch-title">第01話　指先の門</h2>
 <p>空が、裂けた。</p>
 <p>マイトは洗い物を終えてリビングのソファに沈み込んだところだった。テレビもつけず、スマホも見ず、ただ天井の隅に溜まった埃をぼんやり眺めていた。六月の湿った空気が網戸を通って流れ込んでいる。遠くで犬が二度吠えて、やめた。</p>
@@ -210,7 +112,6 @@ p{
 <p>ただ、その手が置かれている世界のすべてが、千倍の大きさで彼を取り巻き、その千倍の外側に百万倍の世界があり、そのまた千倍の外側に十億倍の女の子がいて——そして彼女は、たったいま、彼に「よろしくね」と言ったのだった。</p>
 <nav class="bottom-nav"><span class="pn-link dim">← 前話</span><a href="#ch2" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch2">
 <h2 class="ch-title">第02話　掌の滑走路</h2>
 <p>目が覚めると、天井がなかった。</p>
@@ -302,7 +203,6 @@ p{
 <p>千倍の世界の夜に、彼はゆっくりと瞼を閉じた。</p>
 <nav class="bottom-nav"><a href="#ch1" class="pn-link">← 前話</a><a href="#ch3" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch3">
 <h2 class="ch-title">第03話　百万倍の書架</h2>
 <p>三日目、マイトはミリアの航空機に乗り込んだ。</p>
@@ -372,7 +272,6 @@ p{
 <p>壁の向こうの曲線が、持ち主の感情に合わせるように、ゆっくりと上下した。十億倍のお嬢様の寝息が、図書館の空気を震わせていた。</p>
 <nav class="bottom-nav"><a href="#ch2" class="pn-link">← 前話</a><a href="#ch4" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch4">
 <h2 class="ch-title">第04話　胸の地平線</h2>
 <p>それから五日が過ぎた。</p>
@@ -464,7 +363,6 @@ p{
 <p>マイトにとっては、新しい旅の始まりだった。</p>
 <nav class="bottom-nav"><a href="#ch3" class="pn-link">← 前話</a><a href="#ch5" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch5">
 <h2 class="ch-title">第05話　千倍の足音</h2>
 <p>「きょうは、外に行こう」</p>
@@ -519,7 +417,6 @@ p{
 <p>夕方の光が、庭の草のあいだに長い影を落としていた。ギーリャは棚を抱えて館の扉をくぐり、自分の部屋へと戻っていった。背後では、千倍の住人の足跡の湖が、ゆっくりと波を立てていた。</p>
 <nav class="bottom-nav"><a href="#ch4" class="pn-link">← 前話</a><a href="#ch6" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch6">
 <h2 class="ch-title">第06話　旅人の来訪</h2>
 <p>来訪の知らせは、いつもと変わらない朝の通信だった。</p>
@@ -625,7 +522,6 @@ p{
 <p>彼女はカップを持ち上げた。十億倍のお嬢様のティーカップが、部屋の発光面の光を受けて、銀河のようにきらめいていた。</p>
 <nav class="bottom-nav"><a href="#ch5" class="pn-link">← 前話</a><a href="#ch7" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch7">
 <h2 class="ch-title">第07話　圧壊と修復</h2>
 <p>あれは、シオンが二度目に訪れた日のことだった。</p>
@@ -707,7 +603,6 @@ p{
 <p>ただ、世界は——彼が思っていたよりずっと、簡単に潰れて、簡単に戻るものらしかった。</p>
 <nav class="bottom-nav"><a href="#ch6" class="pn-link">← 前話</a><a href="#ch8" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch8">
 <h2 class="ch-title">第08話　もう一つの棚</h2>
 <p>「図書館の北端、まだ行ったことないんだ」</p>
@@ -805,7 +700,6 @@ p{
 <p>匣の館には、まだ知らない棚が——知らない住人が——いくつもあるのだと、マイトはようやく理解し始めていた。そして、その住人たちの胸の谷間は、千倍の航空機にとって立派な墜落地点であることも。</p>
 <nav class="bottom-nav"><a href="#ch7" class="pn-link">← 前話</a><a href="#ch9" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch9">
 <h2 class="ch-title">第09話　指先の温もり</h2>
 <p>「明日、お連れします」</p>
@@ -870,7 +764,6 @@ p{
 <p>図書館の北端には、壁面の柔らかな光だけが満ちていた。マイトはギーリャの指の温もりを——まだ掌に残っているような気がしながら——窓の外の光を見つめていた。</p>
 <nav class="bottom-nav"><a href="#ch8" class="pn-link">← 前話</a><a href="#ch10" class="pn-link">次話 →</a></nav>
 </section>
-
 <section class="chapter" id="ch10">
 <h2 class="ch-title">第10話　星の種</h2>
 <p>「これ、見てほしいんですけど」</p>
@@ -936,45 +829,61 @@ p{
 <p>「……帰ろ。マイト。なんか——今日は、ちょっと、疲れちゃった」</p>
 <p>機体は図書館の回廊を抜け、通用口を通り、ミリアの部屋へと戻っていった。窓の外の壁面の発光が、いつもより少しだけ——青みがかって見えた。</p>
 <p>それが、匣の開く予兆なのかどうかは、まだ誰にもわからなかった。</p>
-<nav class="bottom-nav"><a href="#ch9" class="pn-link">← 前話</a><span class="pn-link dim">次話 →</span></nav>
+<nav class="bottom-nav"><a href="#ch9" class="pn-link">← 前話</a><a href="#ch11" class="pn-link">次話 →</a></nav>
 </section>
-</main>
-
-<script>
-(function(){
-  const btn=document.getElementById("toc-btn");
-  const overlay=document.getElementById("toc-overlay");
-  const panel=document.getElementById("toc-panel");
-  const bar=document.getElementById("bar");
-  
-  function openToc(){
-    overlay.classList.add("open");
-    panel.classList.add("open");
-  }
-  function closeToc(){
-    overlay.classList.remove("open");
-    panel.classList.remove("open");
-  }
-  btn.addEventListener("click",()=>{
-    panel.classList.contains("open")?closeToc():openToc();
-  });
-  overlay.addEventListener("click",closeToc);
-  panel.querySelectorAll("a").forEach(a=>{
-    a.addEventListener("click",(e)=>{
-      e.preventDefault();
-      const id=a.getAttribute("href").slice(1);
-      const el=document.getElementById(id);
-      if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
-      closeToc();
-    });
-  });
-  
-  window.addEventListener("scroll",()=>{
-    const h=document.documentElement;
-    const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);
-    bar.style.width=pct+"%";
-  });
-})();
-</script>
-</body>
-</html>
+<section class="chapter" id="ch11">
+<h2 class="ch-title">第11話　乳の静かなる海</h2>
+<p>「このミルク、すごく美味しいんですけど」</p>
+<p>朝食のトーストに添えられた小さなカップのミルクを飲み干して、マイトは言った。ここ数日、食事に使われる乳製品——ミルク、バター、クリーム——が格段に美味しくなっている気がした。</p>
+<p>「ああ、それ——ミルヴァーナさんのところの」</p>
+<p>ミリアは航空機の操縦席から振り返って答えた。今日は図書館の南端——まだ探索したことのない区画——へ向かっている。</p>
+<p>「ミルヴァーナさん？」</p>
+<p>「館の乳係。ギーリャ以上に——すごい胸で——その母乳で館中の乳をまかなってるの。飲むだけじゃなくて、肌の保湿剤とか、ミルク風呂の湯とか、石鹸も作ってる」</p>
+<p>「……石鹸まで」</p>
+<p>パメラはいつも使っている石鹸がミルヴァーナの母乳から作られているとは知らなかった。通信球越しに「道理で肌の調子がいいわけだ」とつぶやくパメラ。</p>
+<p>南端には、図書館の別の通用口があった。ミリアが扉を開けると——そこは、蒸気で満ちた広大な空間だった。</p>
+<p>百万倍スケールの蒸気が、機体の窓を白く曇らせる。温度がほんの少し高く、空気には甘い——乳の——香りが漂っている。壁面には無数の棚が並び、そこには石鹸の山、保湿クリームの壺、ミルクを詰めた瓶が整然と収められていた。ひとつひとつが、ミリアの航空機よりずっと大きい。</p>
+<p>そして、部屋の中央に——彼女はいた。</p>
+<p>ミルヴァーナは、百万倍スケールのメイドだった。しかし彼女の胸は——ギーリャのそれと比べても——別格だった。</p>
+<p>ギーリャの胸は身長の四倍の横幅——約六百八十万キロメートル——だが、ミルヴァーナの胸はそれをさらに超え、身長の五倍を優に超える横幅を持っていた。百七十万キロメートルの身体の左右に、それぞれ四百万キロメートルを超える乳房が横たわっている。布は——当然、一枚では覆えず——左右別々の特注品で、それでも布地は限界まで張り詰め、わずかな身動きで布のあいだから乳白色の滴が滲み出ていた。</p>
+<p>彼女が呼吸をするたびに、左右の乳房が床の上でゆっくりと押し寄せ、その圧力で乳が絞り出される。滴は——一滴がミリアの部屋ほどの大きさで——床に落ちる前に、専用の受け皿で集められ、管を通って棚の瓶へと送られていく。この仕組みは彼女が寝ているあいだも稼働し続け、一日に採取される母乳の量は、ギーリャの部屋の床を数十万キロメートルの深さで満たせるほどだった。</p>
+<p>「ミルヴァーナさん。おはようございます」</p>
+<p>ミリアが通信球で声をかけると、ミルヴァーナはゆっくりと顔を上げた。彼女の表情は穏やかで——胸の巨大さからは想像できないほど——柔らかな微笑みを浮かべていた。</p>
+<p>「あら、ミリア。それに——小さい方が、マイトね。噂は聞いてるわ」</p>
+<p>声は、ミルクそのもののように——とろりと、甘く、空気を震わせた。</p>
+<p>「は、はい。マイトです。よろしくお願いします」</p>
+<p>「こちらこそ。いつもミルク、飲んでくれてるんでしょう？　ありがとう」</p>
+<p>ミルヴァーナは微笑みを深くした。その動作で胸が波打ち、布のあいだから新たな滴が落ちて受け皿に響いた。ぽちゃん、という音が——百万倍スケールでは——部屋全体にこだまするほどの低音だった。</p>
+<p>「すごい量ですね……これ、全部、館で使うんですか」</p>
+<p>「ええ。食事はもちろん——パメラさんの肌の保湿クリーム、ラズリーネさんとティアさんのミルク風呂、ノーラがいつも使ってる石鹸も、ぜんぶ私の乳から作ってるの。あ、それから——」</p>
+<p>ミルヴァーナは壁の棚から小さな瓶を——彼女のスケールでの小さな瓶を——取り出した。中身はほのかに金色がかった液体だった。</p>
+<p>「これは、ギーリャお嬢様の胸の保湿用。お嬢様の胸は大きすぎて、布がこすれて肌が荒れやすいから——特製の濃厚ミルクローションなの」</p>
+<p>マイトは瓶を見つめた。ギーリャの胸の保湿——それも、このミルヴァーナの母乳から作られている。館のなかのすべての乳製品が、一人のメイドの胸から生まれているという事実に、彼は改めて圧倒された。</p>
+<p>「でも、ミルヴァーナさん——それだけの量を、ずっとひとりで」</p>
+<p>「そうね。だから、ほとんど動かないの。動くと余計に出ちゃうから——こうして、搾乳されながら過ごしてる」</p>
+<p>彼女は自分の胸をそっと撫でた。その手つきは慈しむようで——自分の身体を、館の資源として大切に扱っているようだった。</p>
+<p>「でもね、マイト。これは——私の役目なの。先代の館の主に、頼まれたのよ。『館の乳を、頼む』って」</p>
+<p>「先代——ギーリャさんのお母様に？」</p>
+<p>「ええ。私はもともと——あの方の乳母だった。ギーリャお嬢様が生まれる前から」</p>
+<p>ミルヴァーナは遠くを見るような目をした。彼女の胸が、思い出に反応するように——ひと際大きく波打った。</p>
+<p>「お嬢様が生まれたとき——あの方は、私に言ったの。『この子のためにも、館のためにも、あなたの乳が必要だ』って。それからずっと——私はここで」</p>
+<p>館を去った母。遺された娘。そして——娘と館のために、母乳を捧げ続ける乳母。</p>
+<p>匣の館の歴史の、また一片が——ミルクの香りのなかに、そっと置かれた。</p>
+<p>「……ところで、ミルヴァーナさん」</p>
+<p>ミリアがふと思い出したように言った。</p>
+<p>「ギーリャの部屋って、すごく広いですよね。天井も高いし——」</p>
+<p>「ああ、それはね」</p>
+<p>ミルヴァーナはくすりと笑った。</p>
+<p>「お嬢様の胸が成長するたびに、パメラさんとラズリーネさんが図面を引いて、部屋を拡張してきたのよ。いまの広さは——十二回目の拡張後のもの。扉も普通の三倍の幅があるし、床も補強してある。さもないと——お嬢様が寝返りを打つたびに、胸の重みで床が抜けちゃうから」</p>
+<p>「十二回……」</p>
+<p>マイトは思わず声に出した。ギーリャの胸は——彼女の成長とともに——十二回も部屋を広げさせるほど、大きくなり続けてきたのか。</p>
+<p>「次に拡張するときは——たぶん、壁を一枚抜いて、隣の空き区画と繋げることになるわね。ラズリーネさんがもう見積もりを取ってる」</p>
+<p>ミルヴァーナはこともなげに言った。そのあいだにも、彼女の胸からは新しい滴が落ち——受け皿に響き——棚の瓶が、またひとつ満たされていく。</p>
+<p>図書館の南端、ミルクの蒸気に満ちた部屋。そこは匣の館の——最も静かで、最も豊かな場所のひとつだった。</p>
+<p>「そろそろ、搾乳の時間ね。ノーラが手伝いに来るから——また来てね、マイト。ミルク、たくさん飲んで」</p>
+<p>ミルヴァーナは微笑みながら、ゆっくりと目を閉じた。彼女の胸が規則的に波打ち始め——本格的な搾乳が始まる合図だった。</p>
+<p>機体が南端をあとにするとき、マイトは窓の外を見た。蒸気の向こうに、ミルヴァーナの巨大な胸のシルエットが——呼吸に合わせて、静かに、しかし確かに——動き続けていた。</p>
+<p>匣の館は、彼女の乳で回っている。</p>
+<nav class="bottom-nav"><a href="#ch10" class="pn-link">← 前話</a><span class="pn-link dim">次話 →</span></nav>
+</section></main>
+<script>(function(){const btn=document.getElementById("toc-btn");const overlay=document.getElementById("toc-overlay");const panel=document.getElementById("toc-panel");const bar=document.getElementById("bar");function openToc(){overlay.classList.add("open");panel.classList.add("open")}function closeToc(){overlay.classList.remove("open");panel.classList.remove("open")}btn.addEventListener("click",()=>{panel.classList.contains("open")?closeToc():openToc()});overlay.addEventListener("click",closeToc);panel.querySelectorAll("a").forEach(a=>{a.addEventListener("click",(e)=>{e.preventDefault();const id=a.getAttribute("href").slice(1);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});closeToc()})});window.addEventListener("scroll",()=>{const h=document.documentElement;const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);bar.style.width=pct+"%"})})();</script></body></html>
