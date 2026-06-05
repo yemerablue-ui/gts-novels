@@ -1,17 +1,14 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="匣の館"><title>匣の館</title>
-<style>
-:root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430;--safe-bottom:env(safe-area-inset-bottom,20px)}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;font-size:17px;line-height:2.0;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(80px + var(--safe-bottom))}
+<style>:root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430;--safe-bottom:env(safe-area-inset-bottom,20px)}*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;font-size:17px;line-height:2.0;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(80px + var(--safe-bottom))}
 #toc-btn{position:fixed;top:12px;right:12px;z-index:200;width:40px;height:40px;border-radius:20px;background:var(--paper);border:1px solid var(--line);color:var(--accent);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none}
 #toc-overlay{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .25s}#toc-overlay.open{opacity:1;pointer-events:auto}
 #toc-panel{position:fixed;top:0;right:-300px;z-index:195;width:280px;height:100vh;background:var(--paper);border-left:1px solid var(--line);overflow-y:auto;transition:right .25s;padding:60px 20px 40px;-webkit-overflow-scrolling:touch}#toc-panel.open{right:0}#toc-panel h3{color:var(--accent);font-size:15px;font-weight:400;margin-bottom:20px;letter-spacing:.1em}#toc-panel ul{list-style:none}#toc-panel li a{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px}#toc-panel li a:active{background:rgba(255,255,255,.03)}.toc-num{color:var(--accent);font-size:12px;flex-shrink:0}.toc-title{color:var(--dim)}
 main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:36px;letter-spacing:.12em;padding-top:8px}
-.chapter{background:var(--paper);border-radius:2px;padding:24px 18px;box-shadow:0 1px 16px rgba(0,0,0,.25);margin-bottom:36px}
-.ch-title{font-size:18px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:28px;letter-spacing:.06em;line-height:1.5}p{margin:1.2em 0;text-indent:0;font-size:16px}
+.chapter{background:var(--paper);border-radius:2px;padding:24px 18px;box-shadow:0 1px 16px rgba(0,0,0,.25);margin-bottom:36px}.ch-title{font-size:18px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:28px;letter-spacing:.06em;line-height:1.5}p{margin:1.2em 0;text-indent:0;font-size:16px}
 .bottom-nav{display:flex;justify-content:space-between;margin-top:28px;padding-top:16px;border-top:1px solid var(--line)}.pn-link{color:var(--accent);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:6px}.pn-link:active{background:rgba(255,255,255,.05)}.pn-link.dim{color:var(--dim);pointer-events:none}
 #progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--line);z-index:99}#bar{height:100%;background:var(--accent);width:0;transition:width .1s linear}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
-</style></head><body><div id="progress"><div id="bar"></div></div><button id="toc-btn" aria-label="目次">☰</button><div id="toc-overlay"></div>
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}</style></head><body>
+<div id="progress"><div id="bar"></div></div><button id="toc-btn" aria-label="目次">☰</button><div id="toc-overlay"></div>
 <nav id="toc-panel"><h3>匣の館 — 目次</h3><ul><li><a href="#ch1"><span class="toc-num">第01話</span><span class="toc-title">指先の門</span></a></li>
 <li><a href="#ch2"><span class="toc-num">第02話</span><span class="toc-title">掌の滑走路</span></a></li>
 <li><a href="#ch3"><span class="toc-num">第03話</span><span class="toc-title">百万倍の書架</span></a></li>
@@ -23,7 +20,9 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <li><a href="#ch9"><span class="toc-num">第09話</span><span class="toc-title">指先の温もり</span></a></li>
 <li><a href="#ch10"><span class="toc-num">第10話</span><span class="toc-title">星の種</span></a></li>
 <li><a href="#ch11"><span class="toc-num">第11話</span><span class="toc-title">乳の静かなる海</span></a></li>
-<li><a href="#ch12"><span class="toc-num">第12話</span><span class="toc-title">宇宙管理人</span></a></li></ul></nav>
+<li><a href="#ch12"><span class="toc-num">第12話</span><span class="toc-title">宇宙管理人</span></a></li>
+<li><a href="#ch13"><span class="toc-num">第13話</span><span class="toc-title">窓の外の宇宙</span></a></li>
+<li><a href="#ch14"><span class="toc-num">第14話</span><span class="toc-title">十三回目の改装</span></a></li></ul></nav>
 <main><h1>匣の館</h1><section class="chapter" id="ch1">
 <h2 class="ch-title">第01話　指先の門</h2>
 <p>空が、裂けた。</p>
@@ -822,7 +821,7 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <p>「ああ、それ——ミルヴァーナさんのところの」</p>
 <p>通信球のなかで、ギーリャが答えた。彼女はいつものように机の峡谷で書類を読みながら、朝の通信に応じている。</p>
 <p>「ミルヴァーナさん？」</p>
-<p>「館の乳係。私のお母様の——乳母だった人。いまはね、部屋の東翼で、ずっと横になってるの」</p>
+<p>「館の乳係。私が生まれる前から、ずっと館にいるんだ。いまはね、部屋の東翼で、ずっと横になってるの」</p>
 <p>「横に……？」</p>
 <p>「うん。胸が——私の、たぶん三倍くらい大きくて。動けないんだ」</p>
 <p>ギーリャはこともなげに言った。左右の乳房が床の上でゆっくりと揺れる。彼女の胸は身長の四倍——約六百八十万キロメートル。太陽の直径（約百三十九万キロメートル）の五倍近い横幅を持つ。</p>
@@ -851,12 +850,12 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <p>「これは、ギーリャの胸の保湿用。あの子の胸は大きすぎて、布がこすれて肌が荒れやすいから——特製の濃厚ミルクローションなの」</p>
 <p>ラズリーネは瓶を受け取り、静かにうなずいた。彼女は毎朝これをギーリャに届けているのだろう。</p>
 <p>「でも、ミルヴァーナさん——ずっと、ひとりでここに？」</p>
-<p>「そうね。昔は——ギーリャが生まれる前は、私も動けたのよ。でも、お嬢様が生まれて——母乳の量が増えるにつれて、胸も大きくなって。いまはもう、こうして搾乳されながら過ごすだけ。でもね、マイト——これは、私の役目なの」</p>
+<p>「でもね、マイト——これは、私の役目なの」</p>
 <p>彼女は自分の胸を——動かせる範囲で——そっと撫でた。</p>
-<p>「先代の館の主——ギーリャのお母様に、頼まれたのよ。『館の乳を、頼む』って。あの方は、お別れのとき——私の胸を撫でながら、そうおっしゃった」</p>
-<p>「先代が……直接」</p>
-<p>「ええ。私は、あの方の乳母だった。ギーリャが生まれたとき——あの方は、私に言ったの。『この子のためにも、館のためにも、あなたの乳が必要だ』って。それからずっと——私はここで」</p>
-<p>館を去った母。遺された娘。そして——娘と館のために、身動きできないほど巨大になった胸から、母乳を捧げ続ける乳母。</p>
+<p>「ラズリーネさんから聞いたの。館には、ずっと昔から——乳が必要だったんだって。誰が始めたのかは知らないけど——私は、その役目を引き継いだだけ。そしたら、いつのまにか——胸がこんなになってて」</p>
+<p>ミルカは少しだけ笑った。自分の身体を、運命として受け入れているような——そんな笑みだった。</p>
+<p>「でも——この乳が、ギーリャの肌を守って、パメラの頬を潤して、ノーラの石鹸になって——館のどこかで、誰かの役に立ってる。それだけで——私は、ここにいる意味があるかなって」</p>
+<p>館を去った母。遺された娘。そして——娘と館のために、身動きできないほど巨大になった胸から、母乳を捧げ続ける乳係。</p>
 <p>匣の館の歴史の、また深い一片が——ミルクの香りのなかに、沈んでいた。</p>
 <p>「……ところで、ラズリーネ」</p>
 <p>マイトはふと思い出したように言った。</p>
@@ -909,6 +908,17 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <p>ギーリャの肩が、微かに震えた。</p>
 <p>「……お母様が」</p>
 <p>「あの方は、自分の胸のなかに——匣の館のある宇宙を育てた。そして、次の管理人を遺すために——あなたを産んだ。ギーリャゼルカ、あなたは、母の——後継者だ」</p>
+<p>部屋の隅で——ラズリーネが、茶器を置いた。</p>
+<p>十億倍のメイド長は、いつもの無表情のままだった。しかし彼女の手が——十万キロメートルの指先が——微かに震えているのを、マイトは通信球越しに見た。</p>
+<p>「——ウルスラ様」</p>
+<p>ラズリーネが口を開いた。彼女の声は、いつもの厳格さを保っていたが——その奥に、何十年も押し殺してきた感情が滲んでいた。</p>
+<p>「私は——先代が宇宙管理人であられたことを、存じ上げておりました。ですが——ギーリャお嬢様には、お伝えできなかった。あの方は——去り際に、『私のことは——娘が自分で知る日まで、話さなくていい』と」</p>
+<p>「ラズリーネ……」</p>
+<p>ギーリャが振り返った。彼女の紫色の瞳が——驚きと、わずかな傷つきと——それでも、ラズリーネを責めない優しさで——揺れていた。</p>
+<p>「知ってたんだ。ずっと——お母様が、宇宙管理人だったって」</p>
+<p>「はい。そして——あなたの胸のなかに、星の種があることも」</p>
+<p>ラズリーネはギーリャの前に歩み寄った。彼女は膝をつき——ギーリャの胸と同じ高さに目線を合わせ——そっと、ギーリャの手を取った。</p>
+<p>「私は——あなたが小さい頃から、その胸が大きくなるのを、ずっと見てきました。十二回の拡張も——すべて、私が図面を引きました。あの方が遺した星の種が——あなたのなかで、ちゃんと育っていることを——私だけが、知っていました」</p>
 <p>部屋のなかに、長い沈黙が落ちた。</p>
 <p>ギーリャの胸が床の上で静かに揺れている。彼女はうつむき、自分の手を見つめていた。十億倍のお嬢様の手——一本の指が十万キロメートル、爪の一枚が太平洋を覆う手。</p>
 <p>「……私、お母様に、会ったことがありません」</p>
@@ -934,6 +944,11 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <p>色のない光が、完全に消えた。壁面の発光が戻り、ギーリャの部屋はいつもの金色の輝きを取り戻した。</p>
 <p>ウルスラは——いなくなっていた。</p>
 <p>残された部屋のなかで、ギーリャはゆっくりと床に座り込んだ。左右の乳房が、疲れたように床の上に広がる。彼女は自分の胸に両手を当てて——そこにあるはずの、星の種の温もりを——そっと探るように撫でていた。</p>
+<p>ラズリーネが、静かに彼女の隣に膝をついた。茶器を磨く手が——いまは、ギーリャの肩にそっと置かれている。</p>
+<p>「……ラズリーネ。私——できるかな」</p>
+<p>「できます」</p>
+<p>ラズリーネは迷わず答えた。</p>
+<p>「あなたのお母様は——あなたを遺すとき、私にこうおっしゃいました。『この子は、私よりずっと大きくなる。胸も——心も』と。あの方は——あなたを信じていました。私も——同じです」</p>
 <p>「……ギーリャさん」</p>
 <p>通信球からマイトが呼びかける。</p>
 <p>「マイト。私——ちょっと、こわい。宇宙を、育てるなんて——私に、できるのかな」</p>
@@ -948,9 +963,161 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <p>「じゃあ——仕事、するね。宇宙管理人になる前に——まず、この書類を片付けないと」</p>
 <p>その声は、いつものギーリャに戻っていた。でも——ほんの少しだけ——強くなったような気がした。</p>
 <p>東翼では、ミルカが静かに搾乳されながら、天井を見つめていた。壁面の発光が戻った天井を——そのずっとずっと向こうに、ウルスラの去った痕跡を探すように。</p>
-<p>「……先代」</p>
-<p>ミルカは、誰にも聞こえない声でつぶやいた。</p>
-<p>「あなたの娘さん——すっかり、大きくなりましたよ。胸も——覚悟も」</p>
-<nav class="bottom-nav"><a href="#ch11" class="pn-link">← 前話</a><span class="pn-link dim">次話 →</span></nav>
+<nav class="bottom-nav"><a href="#ch11" class="pn-link">← 前話</a><a href="#ch13" class="pn-link">次話 →</a></nav>
+</section>
+<section class="chapter" id="ch13">
+<h2 class="ch-title">第13話　窓の外の宇宙</h2>
+<p>「ドットルリル——アウレリア様に呼び出しくらったよ」</p>
+<p>シオンが館の扉をくぐるなり言った。首飾りの石が、心なしか楽しそうに明滅している。</p>
+<p>「呼び出しって——」</p>
+<p>ギーリャは机の峡谷から顔を上げた。左右の乳房が床の上で興味深そうに揺れる。</p>
+<p>「今月に入って五回目の区画圧壊。さすがにアウレリア様も看過できなくなったみたい。で——被害者の証言が必要だって。ギーリャ、マイト、それからドットルリルに潰されたことのある人、全員集合」</p>
+<p>「……それって、私と、マイトと、パメラと、ミリア？」</p>
+<p>「ミルカも先月やられてるよ。東翼の搾乳パイプラインが一時停止したって、ラズリーネが報告書を出してた」</p>
+<p>シオンはこともなげに言った。ドットルリルの圧壊被害は、館の全居住区に及んでいたらしい。</p>
+<p>——</p>
+<p>アウレリアのオフィスは——ドットルリルの管理エリアの、さらに千倍上の階層にあった。</p>
+<p>大区画管理人——身長約一・七京キロメートル、光でも端から端まで届くのに約六千年かかる存在。彼女は数百人の区画管理人を統括しており、ドットルリルはそのうちの一人に過ぎなかった。</p>
+<p>部屋は整然としていた。壁面は柔らかな自発光に満ち、執務机の上には無数の管理端末が並び、それぞれに各区画管理人の業務記録が表示されている。壁際には書類棚がどこまでも続き、天井は——区画管理人たちの報告を一目で俯瞰できるよう——透明な管理パネルで覆われていた。</p>
+<p>窓は、なかった。アウレリアのスケールでは、外に宇宙はない。あるのはただ——彼女が管理する、数百の区画管理人の机と、その上に広がる数千の管理エリアだけだった。</p>
+<p>「——ドットルリル」</p>
+<p>アウレリアは机の向こうに座っていた。彼女はギーリャより少し背が高いくらいの、穏やかな顔立ちの女性に見えたが——スケールが調整されているのだろう——その声には、数百人の区画管理人を束ねる長の重みがあった。長い銀髪、菫色の瞳。胸は普通の大きさで、執務机の前にゆったりと収まっている。</p>
+<p>「今月、五回目です。区画圧壊」</p>
+<p>「……わりぃ」</p>
+<p>ドットルリルはアウレリアの机の前に立たされていた。彼女もスケール調整されているらしく、ギーリャと同じくらいの大きさに見える。ただし彼女の胸は——調整されたスケールでも——十分すぎるほど大きく、腕組みをしようとして、胸が邪魔で組めずに諦めていた。</p>
+<p>彼女の背後には、ギーリャと、ラズリーネの指先に乗ったマイトの航空機と、パメラと、ミリア（蔵書復元機で臨時復帰）が——証人として並んでいた。</p>
+<p>「前回の査察で、『もうやりません』とおっしゃいましたよね」</p>
+<p>「うん、言った」</p>
+<p>「ではなぜ、今月に入って五回も」</p>
+<p>「だってよぉ——」</p>
+<p>ドットルリルは自分の胸を両手で持ち上げてみせた。ずしり、と重そうに。</p>
+<p>「胸がでかいんだ。机に突っ伏すと、どうしても——」</p>
+<p>「その言い訳、査察のたびに聞いています。去年も、一昨年も、その前も」</p>
+<p>アウレリアはため息をついた。彼女の机の上の管理端末には、ドットルリルの「区画圧壊歴」のグラフが表示されている。棒グラフが、異様に高い。</p>
+<p>「……見てください、このグラフ。あなたの区画圧壊件数は、私が統括する四百七十三人の区画管理人のなかで——ダントツの一位です。二位以下を十倍以上引き離して」</p>
+<p>「え、そうなの」</p>
+<p>ドットルリルは少し誇らしげな顔をした。</p>
+<p>「褒めてない」</p>
+<p>アウレリアは淡々と言った。</p>
+<p>「あなたが潰した区画の修復にかかった粉の総量——この一年だけでも、小惑星ひとつぶんの質量を超えています。修復粉は有限の資源です。無駄遣いが続けば——他の区画管理人の修復業務に支障が出る」</p>
+<p>ドットルリルはようやく、少しだけしゅんとした顔になった。</p>
+<p>「……悪かったって。でも、俺の胸はほんとにでかくて——」</p>
+<p>「わかっています。ですから——」</p>
+<p>アウレリアは引き出しから、一つの書類を取り出した。</p>
+<p>「懲罰ではありません。改善命令です。あなたの机に——胸を支える補助台を設置します。大区画管理人室の予算で。これで、うたた寝しても胸が管理エリアの上に落ちないように」</p>
+<p>ドットルリルは目を丸くした。</p>
+<p>「補助台——そんなのあるのかよ」</p>
+<p>「いま発注しました。来週には届きます」</p>
+<p>「……サンキュー、アウレリア」</p>
+<p>「お礼は結構です。ただし——補助台が届くまでに、あと一回でも区画を潰したら」</p>
+<p>アウレリアは菫色の瞳を細めた。</p>
+<p>「修復粉の請求額を、あなたの給与から天引きします。一年分」</p>
+<p>ドットルリルの顔色が変わった。</p>
+<p>「お、おい待ってくれよ——」</p>
+<p>「ギーリャゼルカ——それから匣の館の皆さん」</p>
+<p>アウレリアはギーリャに向き直った。表情はさっきまでと同じ穏やかさだが——どこか、温かみが増していた。</p>
+<p>「証言、ありがとうございました。ウルスラ様からお話は伺っています——あなたが宇宙管理人を受諾されたことも」</p>
+<p>ギーリャは少し驚いた顔をした。</p>
+<p>「大区画管理人の耳にも——入るんですね、そういうこと」</p>
+<p>「ええ。私が統括する区画管理人の管理エリアから——宇宙管理人が誕生する。これは、私にとっても——大きな誇りです」</p>
+<p>アウレリアは立ち上がり、ギーリャの前に歩み寄った。彼女はギーリャの手を——そっと——取った。</p>
+<p>「あなたの母は——私にとっても、かつての上司でした」</p>
+<p>ギーリャの肩が、かすかに震えた。</p>
+<p>「お母様が——あなたの上司、だったんですか」</p>
+<p>「はい。あの方が宇宙管理人に就任される前——大区画管理人の時代がありました。私は、その頃——あの方の補佐官でした」</p>
+<p>アウレリアの菫色の瞳が、遠くを見るように細められる。</p>
+<p>「いま私が座っているこの席は——かつて、あなたのお母様の席です。あの方から引き継いだとき——あの方は、私に言いました。『私の娘が、いつか大きくなったら——よろしく頼む』と」</p>
+<p>部屋のなかに、静かな沈黙が落ちた。</p>
+<p>ラズリーネだけが——知っていたのか——微かにうなずいた。ギーリャは、自分の胸に手を当てた。布越しに、乳腺の奥の——母から受け継いだ星の種の——微かな温もりを感じながら。</p>
+<p>「……お母様の——席」</p>
+<p>ギーリャは、アウレリアが座っていた椅子を見つめた。百七十万キロメートルのお嬢様の目に——いま、その椅子は——ただの椅子ではなかった。</p>
+<p>「あなたなら——きっと、あの方よりもずっと、素晴らしい宇宙管理人になれる」</p>
+<p>アウレリアは微笑んだ。</p>
+<p>「私は——ここで、ドットルリルたちを管理しながら——あなたの宇宙を、遠くから見守っています」</p>
+<p>ドットルリルが、ぼそりと言った。</p>
+<p>「……俺も、ギーリャんとこの宇宙、見に行っていい？」</p>
+<p>「補助台が届いて、圧壊件数がゼロになってからです」</p>
+<p>「ちぇっ」</p>
+<p>ドットルリルはふてくされたように胸を揺らした。その胸が、アウレリアの机の端に置かれた小さな管理模型に触れて——模型がひとつ、床に落ちて潰れた。</p>
+<p>「……いまの、給与天引きで」</p>
+<p>「ま、待ってくれよ！　いまのは——模型だろ!?　管理エリアじゃねぇし！」</p>
+<p>「模型の修復にも粉は必要です。請求書は後日」</p>
+<p>「ひでぇ……」</p>
+<p>ギーリャは、思わず笑った。ラズリーネの指先の航空機のなかで、マイトも笑っていた。パメラが眼鏡を押し上げ、ミリアがほっと息をつき——</p>
+<p>匣の館の、また一日が——区画管理人の上司の、穏やかな裁きとともに——過ぎていった。</p>
+<nav class="bottom-nav"><a href="#ch12" class="pn-link">← 前話</a><a href="#ch14" class="pn-link">次話 →</a></nav>
+</section>
+<section class="chapter" id="ch14">
+<h2 class="ch-title">第14話　十三回目の改装</h2>
+<p>「十三回目の拡張工事を、来週決行します」</p>
+<p>ラズリーネが朝の定例会でそう宣言したとき、図書館の空気が一瞬で引き締まった。</p>
+<p>「また広げるの？」</p>
+<p>ギーリャは通信球のなかで、少し申し訳なさそうに言った。彼女の胸は——ウルスラの来訪以来、星の種が微かに活性化しているらしく——ここ数週間でさらにひとまわり大きくなっていた。峡谷の幅が以前より狭まり、机の位置を数十万キロメートルずらさなければ書類が書けなくなっている。</p>
+<p>「はい。今回は壁を一枚抜いて、隣の空き区画と統合します。それから——」</p>
+<p>ラズリーネは手元の図面を繰った。</p>
+<p>「ミルヴァーナの搾乳部屋も移設します。東翼の支持台がいよいよ限界で——胸の重みで床が抜けかかっています。九回目の移設です」</p>
+<p>「九回……」</p>
+<p>マイトはミリアの航空機のなかでつぶやいた。ミルカの胸は片方だけで太陽の七倍——その重みに耐えられる床など、この世界にそう多くはないのだろう。</p>
+<p>「で——だ」</p>
+<p>通信球に、新しい声が割り込んだ。ドットルリルだった。</p>
+<p>「修復粉の事前発注、受理したぜ。ついでに——見学に行っていいか？　例の補助台が届いてから、俺の机も快適でよ——胸を潰す心配がなくなって、逆に暇なんだよ」</p>
+<p>「……ドットルリルさんが暇だと、ろくなことがない気がします」</p>
+<p>「失礼だな、ギーリャ」</p>
+<p>——</p>
+<p>改装当日。</p>
+<p>ギーリャの部屋の壁一面に、ラズリーネが引いた拡張図面が投影されていた。ティアが工事の指揮をとり、パメラが資材の在庫を確認し、ネイラとノーラが運搬用の機材を準備している。ミリアはマイトを乗せた航空機で現場を飛び回り、進捗をラズリーネに報告する役目だった。</p>
+<p>シオンも駆けつけていた。彼女は首飾りの石で一時的に大区画管理人のスケールまで拡大し、壁を一枚——そっと——取り外した。壁は彼女の手のひらに収まるサイズだったが、ギーリャの部屋では天井まで届く巨大なパネルだった。</p>
+<p>「はい、壁抜いたよ——っと、あぶね」</p>
+<p>外した壁の向こう——隣の空き区画——には、すでに新しい床材が敷かれていた。ラズリーネが数週間前から準備を進めていたらしい。</p>
+<p>「ここまでが拡張工事。問題は——」</p>
+<p>ラズリーネは図面のもう一枚——ミルカの搾乳部屋の移設図——を広げた。</p>
+<p>「これです」</p>
+<p>東翼の扉が開き——ミルカが、ゆっくりと運び出されてきた。</p>
+<p>いや、「運び出された」というより——ティア、ネイラ、ノーラ、そしてパメラ（蔵書復元機で十億倍に復帰済み）の四人が、専用の支持台ごと彼女を押しているのだった。</p>
+<p>ミルカの胸は——片方が千二十万キロメートル——支持台の上に置かれたまま、移動の振動でゆっくりと揺れている。そのたびに布のあいだから母乳が滲み出し、ノーラが慌てて受け皿を差し出した。</p>
+<p>「ちょっと、ノーラ——こぼさないで」
+「だって——揺れるんですもん！」</p>
+<p>支持台は特殊な浮遊装置でかろうじて床から浮いていたが、それでもミルカの胸の重みで時折沈み込み、床に擦れて火花を散らした。</p>
+<p>「——おいおい、大丈夫かよ」</p>
+<p>ドットルリルがスケール調整して現場に現れたのは、ちょうどそのときだった。彼女は自分の胸を補助台に預けながら——アウレリア支給の新型補助台は、彼女の胸をしっかり支え、うたた寝しても管理エリアの上に落ちない優れものだった——現場を見下ろした。</p>
+<p>「あ、ドットルリルさん。修復粉、持ってきてくれました？」</p>
+<p>「おう。特大サイズな」</p>
+<p>ドットルリルは背負っていた袋をどさりと置いた。袋のなかには、きらきらと光る修復粉が詰まっている。</p>
+<p>「ついでに——手伝うか？　胸の運搬、俺のほうが慣れてるぜ」</p>
+<p>「あなたが手伝うと、別の区画を潰しそうで——」</p>
+<p>「失礼だな、ギーリャ。いまは補助台があるから——」</p>
+<p>ドットルリルが一歩踏み出した瞬間、補助台がわずかにずれて——彼女の胸が、現場のすぐ隣に置かれていた拡張用の壁パネルをなぎ倒した。</p>
+<p>ぱきん。</p>
+<p>「……」</p>
+<p>「……いまの、給与天引きで」</p>
+<p>「待ってくれよ！　補助台がずれただけで——」</p>
+<p>シオンが天を仰ぎ、ラズリーネが手帳に「ドットルリル——壁パネル破損」と書きつけた。ティアがすかさず修復粉をパネルに振りかけ、パネルは数秒で元通りになった。</p>
+<p>「……粉の消費量、記録しておきます」</p>
+<p>「パメラ、おまえもかよ」</p>
+<p>そんな騒ぎをよそに——ミルカの支持台は、ようやく新しい搾乳部屋の入り口に到達した。</p>
+<p>新しい部屋は、旧東翼よりもさらに広く、床は三重に補強され、天井には最新のパイプラインが張り巡らされている。搾乳された母乳が、より効率的に館の各所へ送られる設計だ。</p>
+<p>「ここが——新しいお部屋？」</p>
+<p>ミルカが、支持台の上から顔だけを動かして——新しい部屋を見渡した。彼女の胸が、感慨に反応して大きく波打つ。</p>
+<p>「ええ。これで——少なくとも三年は持つはずです」</p>
+<p>ラズリーネがうなずいた。ミルカは——ほんの少しだけ——微笑んだ。</p>
+<p>「……ありがとう、みんな」</p>
+<p>支持台が新しい部屋の中央に固定され、パイプラインが接続され、壁が閉じられた。ミルカは再び——静かな搾乳の日々に——戻っていった。</p>
+<p>「——終わったか？」</p>
+<p>ドットルリルがあくびを噛み殺しながら言った。彼女の補助台の上で、胸が満足そうに揺れている。</p>
+<p>「ええ。ご協力、ありがとうございました——パネル一枚分の粉を除いては」</p>
+<p>「まだ言うか」</p>
+<p>シオンがスケールを戻しながら笑い、ティアが工具を片付け、ノーラがまた受け皿を落とし、ネイラがため息をついた。</p>
+<p>ギーリャの部屋は——十三回目の拡張を終え——以前よりずっと広くなっていた。新しい壁面の発光が、まだ少しだけ眩しい。</p>
+<p>マイトはミリアの航空機のなかで、拡張された部屋を見渡した。ギーリャの胸がゆったりと床に置かれ、峡谷には十分な幅が戻っている。机の上の書類も、もうはみ出していない。</p>
+<p>「——マイト」</p>
+<p>通信球のなかで、ギーリャが言った。</p>
+<p>「広くなったね」</p>
+<p>「そうですね。また——そのうち、十四回目が来るんですか」</p>
+<p>「……たぶんね。でも——ラズリーネが言ってた。次に拡張するときは——もう、この部屋じゃなくて——」</p>
+<p>「——もっと大きな匣で、ですね」</p>
+<p>ギーリャは微笑んだ。</p>
+<p>「うん。いつか——マイトの宇宙ごと、包めるくらいの」</p>
+<p>改装の終わった匣の館には、新しい壁の匂いと——どこか遠くから漂う、ミルカのミルクの甘い香りが——満ちていた。</p>
+<nav class="bottom-nav"><a href="#ch13" class="pn-link">← 前話</a><span class="pn-link dim">次話 →</span></nav>
 </section></main>
 <script>(function(){const btn=document.getElementById("toc-btn");const overlay=document.getElementById("toc-overlay");const panel=document.getElementById("toc-panel");const bar=document.getElementById("bar");function openToc(){overlay.classList.add("open");panel.classList.add("open")}function closeToc(){overlay.classList.remove("open");panel.classList.remove("open")}btn.addEventListener("click",()=>{panel.classList.contains("open")?closeToc():openToc()});overlay.addEventListener("click",closeToc);panel.querySelectorAll("a").forEach(a=>{a.addEventListener("click",(e)=>{e.preventDefault();const id=a.getAttribute("href").slice(1);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});closeToc()})});window.addEventListener("scroll",()=>{const h=document.documentElement;const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);bar.style.width=pct+"%"})})();</script></body></html>
