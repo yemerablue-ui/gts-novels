@@ -1,18 +1,13 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>匣の館</title>
-<style>
-:root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430}
-*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--ink);font-family:"Yu Mincho","Hiragino Mincho ProN","游明朝",serif;font-size:18px;line-height:2.0;overflow-x:hidden}
-#toc{position:fixed;left:0;top:0;width:44px;height:100vh;background:#1a1620;border-right:1px solid var(--line);z-index:100;overflow-y:auto;scrollbar-width:none;transition:width .25s}
-#toc:hover{width:200px}#toc:hover .toc-text{opacity:1}#toc::-webkit-scrollbar{display:none}#toc ul{list-style:none;padding:14px 6px;display:flex;flex-direction:column;gap:1px}
-#toc li a{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;color:var(--dim);text-decoration:none;font-size:12px;white-space:nowrap;transition:color .2s,background .2s}
-#toc li a:hover{color:var(--ink);background:rgba(255,255,255,.03)}.toc-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0}.toc-text{opacity:0;transition:opacity .2s}
+<style>:root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430}*{box-sizing:border-box;margin:0;padding:0}body{background:var(--bg);color:var(--ink);font-family:"Yu Mincho","Hiragino Mincho ProN","游明朝",serif;font-size:18px;line-height:2.0;overflow-x:hidden}
+#toc{position:fixed;left:0;top:0;width:44px;height:100vh;background:#1a1620;border-right:1px solid var(--line);z-index:100;overflow-y:auto;scrollbar-width:none;transition:width .25s}#toc:hover{width:200px}#toc:hover .toc-text{opacity:1}#toc::-webkit-scrollbar{display:none}
+#toc ul{list-style:none;padding:14px 6px;display:flex;flex-direction:column;gap:1px}#toc li a{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;color:var(--dim);text-decoration:none;font-size:12px;white-space:nowrap;transition:color .2s,background .2s}#toc li a:hover{color:var(--ink);background:rgba(255,255,255,.03)}.toc-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0}.toc-text{opacity:0;transition:opacity .2s}
 main{max-width:880px;margin:0 auto;padding:80px 48px 120px calc(48px + 44px);font-size:17px}h1{font-size:26px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:56px;letter-spacing:.12em}
-.chapter{background:var(--paper);border-radius:2px;padding:38px 34px;box-shadow:0 1px 20px rgba(0,0,0,.25);margin-bottom:48px}
-.ch-title{font-size:21px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:36px;letter-spacing:.08em}p{margin:1.3em 0;text-indent:0}
+.chapter{background:var(--paper);border-radius:2px;padding:38px 34px;box-shadow:0 1px 20px rgba(0,0,0,.25);margin-bottom:48px}.ch-title{font-size:21px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:36px;letter-spacing:.08em}p{margin:1.3em 0;text-indent:0}
 #progress{position:fixed;top:0;left:44px;right:0;height:2px;background:var(--line);z-index:99}#bar{height:100%;background:var(--accent);width:0;transition:width .08s linear}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-@media(max-width:600px){main{padding:36px 14px 80px calc(14px + 32px);font-size:16px}.chapter{padding:20px 14px}#toc{width:32px}#toc:hover{width:140px}#progress{left:32px}}
-</style></head><body><div id="progress"><div id="bar"></div></div><nav id="toc"><ul><li><a href="#ch1"><span class="toc-dot"></span><span class="toc-text">第01話</span></a></li>
+@media(max-width:600px){main{padding:36px 14px 80px calc(14px + 32px);font-size:16px}.chapter{padding:20px 14px}#toc{width:32px}#toc:hover{width:140px}#progress{left:32px}}</style></head><body>
+<div id="progress"><div id="bar"></div></div><nav id="toc"><ul><li><a href="#ch1"><span class="toc-dot"></span><span class="toc-text">第01話</span></a></li>
 <li><a href="#ch2"><span class="toc-dot"></span><span class="toc-text">第02話</span></a></li>
 <li><a href="#ch3"><span class="toc-dot"></span><span class="toc-text">第03話</span></a></li>
 <li><a href="#ch4"><span class="toc-dot"></span><span class="toc-text">第04話</span></a></li>
@@ -23,8 +18,7 @@ main{max-width:880px;margin:0 auto;padding:80px 48px 120px calc(48px + 44px);fon
 <li><a href="#ch9"><span class="toc-dot"></span><span class="toc-text">第09話</span></a></li>
 <li><a href="#ch10"><span class="toc-dot"></span><span class="toc-text">第10話</span></a></li>
 <li><a href="#ch11"><span class="toc-dot"></span><span class="toc-text">第11話</span></a></li>
-<li><a href="#ch12"><span class="toc-dot"></span><span class="toc-text">第12話</span></a></li></ul></nav>
-<main><h1>匣の館</h1><section class="chapter" id="ch1">
+<li><a href="#ch12"><span class="toc-dot"></span><span class="toc-text">第12話</span></a></li></ul></nav><main><h1>匣の館</h1><section class="chapter" id="ch1">
 <h2 class="ch-title">第01話　指先の門</h2>
 <p>空が、裂けた。</p>
 <p>マイトは洗い物を終えてリビングのソファに沈み込んだところだった。テレビもつけず、スマホも見ず、ただ天井の隅に溜まった埃をぼんやり眺めていた。六月の湿った空気が網戸を通って流れ込んでいる。遠くで犬が二度吠えて、やめた。</p>
@@ -812,7 +806,7 @@ main{max-width:880px;margin:0 auto;padding:80px 48px 120px calc(48px + 44px);fon
 <p>「ああ、それ——ミルヴァーナさんのところの」</p>
 <p>通信球のなかで、ギーリャが答えた。彼女はいつものように机の峡谷で書類を読みながら、朝の通信に応じている。</p>
 <p>「ミルヴァーナさん？」</p>
-<p>「館の乳係。私のお母様の——乳母だった人。いまはね、部屋の東翼で、ずっと横になってるの」</p>
+<p>「館の乳係。私が生まれる前から、ずっと館にいるんだ。いまはね、部屋の東翼で、ずっと横になってるの」</p>
 <p>「横に……？」</p>
 <p>「うん。胸が——私の、たぶん三倍くらい大きくて。動けないんだ」</p>
 <p>ギーリャはこともなげに言った。左右の乳房が床の上でゆっくりと揺れる。彼女の胸は身長の四倍——約六百八十万キロメートル。太陽の直径（約百三十九万キロメートル）の五倍近い横幅を持つ。</p>
@@ -841,12 +835,12 @@ main{max-width:880px;margin:0 auto;padding:80px 48px 120px calc(48px + 44px);fon
 <p>「これは、ギーリャの胸の保湿用。あの子の胸は大きすぎて、布がこすれて肌が荒れやすいから——特製の濃厚ミルクローションなの」</p>
 <p>ラズリーネは瓶を受け取り、静かにうなずいた。彼女は毎朝これをギーリャに届けているのだろう。</p>
 <p>「でも、ミルヴァーナさん——ずっと、ひとりでここに？」</p>
-<p>「そうね。昔は——ギーリャが生まれる前は、私も動けたのよ。でも、お嬢様が生まれて——母乳の量が増えるにつれて、胸も大きくなって。いまはもう、こうして搾乳されながら過ごすだけ。でもね、マイト——これは、私の役目なの」</p>
+<p>「でもね、マイト——これは、私の役目なの」</p>
 <p>彼女は自分の胸を——動かせる範囲で——そっと撫でた。</p>
-<p>「先代の館の主——ギーリャのお母様に、頼まれたのよ。『館の乳を、頼む』って。あの方は、お別れのとき——私の胸を撫でながら、そうおっしゃった」</p>
-<p>「先代が……直接」</p>
-<p>「ええ。私は、あの方の乳母だった。ギーリャが生まれたとき——あの方は、私に言ったの。『この子のためにも、館のためにも、あなたの乳が必要だ』って。それからずっと——私はここで」</p>
-<p>館を去った母。遺された娘。そして——娘と館のために、身動きできないほど巨大になった胸から、母乳を捧げ続ける乳母。</p>
+<p>「ラズリーネさんから聞いたの。館には、ずっと昔から——乳が必要だったんだって。誰が始めたのかは知らないけど——私は、その役目を引き継いだだけ。そしたら、いつのまにか——胸がこんなになってて」</p>
+<p>ミルカは少しだけ笑った。自分の身体を、運命として受け入れているような——そんな笑みだった。</p>
+<p>「でも——この乳が、ギーリャの肌を守って、パメラの頬を潤して、ノーラの石鹸になって——館のどこかで、誰かの役に立ってる。それだけで——私は、ここにいる意味があるかなって」</p>
+<p>館を去った母。遺された娘。そして——娘と館のために、身動きできないほど巨大になった胸から、母乳を捧げ続ける乳係。</p>
 <p>匣の館の歴史の、また深い一片が——ミルクの香りのなかに、沈んでいた。</p>
 <p>「……ところで、ラズリーネ」</p>
 <p>マイトはふと思い出したように言った。</p>
@@ -937,8 +931,5 @@ main{max-width:880px;margin:0 auto;padding:80px 48px 120px calc(48px + 44px);fon
 <p>「じゃあ——仕事、するね。宇宙管理人になる前に——まず、この書類を片付けないと」</p>
 <p>その声は、いつものギーリャに戻っていた。でも——ほんの少しだけ——強くなったような気がした。</p>
 <p>東翼では、ミルカが静かに搾乳されながら、天井を見つめていた。壁面の発光が戻った天井を——そのずっとずっと向こうに、ウルスラの去った痕跡を探すように。</p>
-<p>「……先代」</p>
-<p>ミルカは、誰にも聞こえない声でつぶやいた。</p>
-<p>「あなたの娘さん——すっかり、大きくなりましたよ。胸も——覚悟も」</p>
 </section></main>
 <script>window.addEventListener("scroll",()=>{const h=document.documentElement;const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);document.getElementById("bar").style.width=pct+"%"});document.querySelectorAll("#toc a").forEach(a=>{a.addEventListener("click",e=>{e.preventDefault();const id=a.getAttribute("href").slice(1);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"})})});</script></body></html>
