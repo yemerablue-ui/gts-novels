@@ -1,24 +1,17 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="匣の館"><title>匣の館</title>
 <style>
 :root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430;--safe-bottom:env(safe-area-inset-bottom,20px)}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;font-size:17px;line-height:2.0;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(80px + var(--safe-bottom))}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}body{background:var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;font-size:17px;line-height:2.0;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:calc(80px + var(--safe-bottom))}
 #toc-btn{position:fixed;top:12px;right:12px;z-index:200;width:40px;height:40px;border-radius:20px;background:var(--paper);border:1px solid var(--line);color:var(--accent);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none}
-#toc-overlay{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .25s}
-#toc-overlay.open{opacity:1;pointer-events:auto}
-#toc-panel{position:fixed;top:0;right:-300px;z-index:195;width:280px;height:100vh;background:var(--paper);border-left:1px solid var(--line);overflow-y:auto;transition:right .25s;padding:60px 20px 40px;-webkit-overflow-scrolling:touch}
-#toc-panel.open{right:0}#toc-panel h3{color:var(--accent);font-size:15px;font-weight:400;margin-bottom:20px;letter-spacing:.1em}
-#toc-panel ul{list-style:none}#toc-panel li a{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px}
-#toc-panel li a:active{background:rgba(255,255,255,.03)}.toc-num{color:var(--accent);font-size:12px;flex-shrink:0}.toc-title{color:var(--dim)}
+#toc-overlay{position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .25s}#toc-overlay.open{opacity:1;pointer-events:auto}
+#toc-panel{position:fixed;top:0;right:-300px;z-index:195;width:280px;height:100vh;background:var(--paper);border-left:1px solid var(--line);overflow-y:auto;transition:right .25s;padding:60px 20px 40px;-webkit-overflow-scrolling:touch}#toc-panel.open{right:0}#toc-panel h3{color:var(--accent);font-size:15px;font-weight:400;margin-bottom:20px;letter-spacing:.1em}#toc-panel ul{list-style:none}#toc-panel li a{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px}#toc-panel li a:active{background:rgba(255,255,255,.03)}.toc-num{color:var(--accent);font-size:12px;flex-shrink:0}.toc-title{color:var(--dim)}
 main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:36px;letter-spacing:.12em;padding-top:8px}
 .chapter{background:var(--paper);border-radius:2px;padding:24px 18px;box-shadow:0 1px 16px rgba(0,0,0,.25);margin-bottom:36px}
 .ch-title{font-size:18px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:28px;letter-spacing:.06em;line-height:1.5}p{margin:1.2em 0;text-indent:0;font-size:16px}
-.bottom-nav{display:flex;justify-content:space-between;margin-top:28px;padding-top:16px;border-top:1px solid var(--line)}
-.pn-link{color:var(--accent);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:6px}.pn-link:active{background:rgba(255,255,255,.05)}.pn-link.dim{color:var(--dim);pointer-events:none}
+.bottom-nav{display:flex;justify-content:space-between;margin-top:28px;padding-top:16px;border-top:1px solid var(--line)}.pn-link{color:var(--accent);text-decoration:none;font-size:14px;padding:8px 12px;border-radius:6px}.pn-link:active{background:rgba(255,255,255,.05)}.pn-link.dim{color:var(--dim);pointer-events:none}
 #progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--line);z-index:99}#bar{height:100%;background:var(--accent);width:0;transition:width .1s linear}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
-</style></head><body>
-<div id="progress"><div id="bar"></div></div><button id="toc-btn" aria-label="目次">☰</button><div id="toc-overlay"></div>
+</style></head><body><div id="progress"><div id="bar"></div></div><button id="toc-btn" aria-label="目次">☰</button><div id="toc-overlay"></div>
 <nav id="toc-panel"><h3>匣の館 — 目次</h3><ul><li><a href="#ch1"><span class="toc-num">第01話</span><span class="toc-title">指先の門</span></a></li>
 <li><a href="#ch2"><span class="toc-num">第02話</span><span class="toc-title">掌の滑走路</span></a></li>
 <li><a href="#ch3"><span class="toc-num">第03話</span><span class="toc-title">百万倍の書架</span></a></li>
@@ -29,7 +22,8 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <li><a href="#ch8"><span class="toc-num">第08話</span><span class="toc-title">もう一つの棚</span></a></li>
 <li><a href="#ch9"><span class="toc-num">第09話</span><span class="toc-title">指先の温もり</span></a></li>
 <li><a href="#ch10"><span class="toc-num">第10話</span><span class="toc-title">星の種</span></a></li>
-<li><a href="#ch11"><span class="toc-num">第11話</span><span class="toc-title">乳の静かなる海</span></a></li></ul></nav>
+<li><a href="#ch11"><span class="toc-num">第11話</span><span class="toc-title">乳の静かなる海</span></a></li>
+<li><a href="#ch12"><span class="toc-num">第12話</span><span class="toc-title">宇宙管理人</span></a></li></ul></nav>
 <main><h1>匣の館</h1><section class="chapter" id="ch1">
 <h2 class="ch-title">第01話　指先の門</h2>
 <p>空が、裂けた。</p>
@@ -885,6 +879,78 @@ main{max-width:100%;margin:0 auto;padding:40px 16px 20px}h1{font-size:22px;font-
 <p>ミリアが操縦席でつぶやいた。</p>
 <p>「……私たち、毎朝あの人のミルクを飲んでるんだね」</p>
 <p>匣の館は、彼女の胸の海のうえに浮かんでいる。</p>
-<nav class="bottom-nav"><a href="#ch10" class="pn-link">← 前話</a><span class="pn-link dim">次話 →</span></nav>
+<nav class="bottom-nav"><a href="#ch10" class="pn-link">← 前話</a><a href="#ch12" class="pn-link">次話 →</a></nav>
+</section>
+<section class="chapter" id="ch12">
+<h2 class="ch-title">第12話　宇宙管理人</h2>
+<p>それは、なんの前触れもなく訪れた。</p>
+<p>ギーリャが机の峡谷で書類を読み、ミルカが東翼で静かに搾乳され、ラズリーネが茶器を磨き、マイトがミリアの航空機で図書館を飛んでいた——いつもと変わらない午後だった。</p>
+<p>最初の異変は、光だった。</p>
+<p>ギーリャの部屋の壁面——いつもは柔らかな金色に発光している——が、一瞬ですべての色を失った。白でも黒でもなく、「色のない隙間」のような光が部屋全体を満たした。あの——マイトが初めて匣の館に来たとき、空に裂けた門から漏れていた——色のない隙間と同じ質感だった。</p>
+<p>「——なに」</p>
+<p>ギーリャが顔を上げた。左右の乳房が床の上で警戒するように揺れる。</p>
+<p>色のない光のなかに、人影があった。</p>
+<p>人影は——ギーリャの部屋の天井よりも、ずっと大きかった。壁面を突き抜けているのではなく、壁面そのものが一時的に「透けて」いて、その向こうに——途方もなく巨大な誰かが立っているのが見えた。</p>
+<p>「ギーリャゼルカ」</p>
+<p>声は、空気を震わせなかった。骨に響かなかった。それは直接、思考のなかに響く声だった。通信球も介していない。ただ——理解できた。</p>
+<p>「あなたの乳腺のなかに——星の種がある。母から受け継いだ、匣を開く鍵。それを、いま——確認した」</p>
+<p>ギーリャは立ち上がった。胸が床から離れ、峡谷が広がる。彼女は壁の向こうの人影を見上げた。</p>
+<p>「……あなたは」</p>
+<p>「ウルスラ。宇宙管理統括——いまあなたがたがいる匣の、さらにいくつもの匣の、ずっとずっと外側にいる者」</p>
+<p>人影は——ウルスラは——ほんの少しだけ、姿勢を変えた。その動作だけで、ギーリャの部屋の光がすべて屈折した。</p>
+<p>「ギーリャゼルカ。あなたに——宇宙管理人になってほしい」</p>
+<p>マイトは、ミリアの航空機のなかで通信球を握りしめていた。球のなかにはギーリャの顔が映っている。彼女は——いつもの気軽なギーリャではなく——真剣な、しかしどこか怯えたような表情で、壁の向こうの巨大な存在を見上げていた。</p>
+<p>「宇宙管理人って——なにを、するんですか」</p>
+<p>「宇宙を——育てる。あなたの乳腺のなかの星の種は、いまはまだ眠っている。だが、ミリアの原初の力と共鳴したとき——それは芽吹く。芽吹けば、あなたの胸のなかに、新しい宇宙が生まれる」</p>
+<p>「私の、胸のなかに——宇宙が」</p>
+<p>ギーリャは、自分の胸を見おろした。左右の乳房——布に包まれた六百八十万キロメートルのふくらみ——が、呼吸に合わせてゆっくりと上下している。</p>
+<p>ウルスラの声が、続いた。</p>
+<p>「あなたの母も——かつて、宇宙管理人だった」</p>
+<p>ギーリャの肩が、微かに震えた。</p>
+<p>「……お母様が」</p>
+<p>「あの方は、自分の胸のなかに——匣の館のある宇宙を育てた。そして、次の管理人を遺すために——あなたを産んだ。ギーリャゼルカ、あなたは、母の——後継者だ」</p>
+<p>部屋のなかに、長い沈黙が落ちた。</p>
+<p>ギーリャの胸が床の上で静かに揺れている。彼女はうつむき、自分の手を見つめていた。十億倍のお嬢様の手——一本の指が十万キロメートル、爪の一枚が太平洋を覆う手。</p>
+<p>「……私、お母様に、会ったことがありません」</p>
+<p>ギーリャの声は、かすれていた。</p>
+<p>「ラズリーネから——すごく大きかったって、教えてもらって。でも、それだけで。どんな人だったのか、なにを考えてたのか——なにも。私はずっと——自分が『通常サイズ』だって言われて、でも部屋は十二回も拡張されて、胸はどんどん大きくなって——なんで自分だけ、こんな——」</p>
+<p>彼女の声が震えた。左右の乳房が、感情に反応して微かに波打つ。</p>
+<p>「お母様が——宇宙管理人だったなら。私の胸がこんなに大きいのも——星の種があるから？」</p>
+<p>「そうだ。あなたの胸は——宇宙を内包するための器だ。母が遺した星の種が、あなたの乳腺のなかで眠っている。それが——あなたの胸を、これほどまでに大きく育てた」</p>
+<p>ギーリャは、自分の胸に手を当てた。布越しに、乳腺の奥の——自分でも感じたことのない——微かな温もりが、そこにあった。</p>
+<p>「……まだ、よくわからない」</p>
+<p>彼女は顔を上げた。紫色の瞳が、壁の向こうのウルスラをまっすぐに見据える。</p>
+<p>「でも——私の胸が、誰かの宇宙になれるなら。マイトのいる宇宙を——私が、守れるなら——」</p>
+<p>マイトは通信球を握りしめた。彼のいる宇宙——地球がある宇宙——を、ギーリャが守る。それはつまり——彼がギーリャの胸のなかの宇宙に帰る、ということだった。</p>
+<p>「マイト」</p>
+<p>ギーリャが通信球を見た。</p>
+<p>「あなたが——地球に帰りたいなら、帰っていいんだよ。でも、そのときは——私が、あなたの宇宙を、ちゃんと管理するから」</p>
+<p>「……ギーリャさん」</p>
+<p>「だから——約束。地球に帰っても、通信球は持ってて。私——ずっと、あなたと話したいから」</p>
+<p>ウルスラが、姿勢を戻した。色のない光が、ゆっくりと収束していく。</p>
+<p>「答えは——急がなくていい。星の種が芽吹くのは、ミリアの原初の力が完全に解放されたときだ。それは——もう少し先のことになる」</p>
+<p>ウルスラの視線が——おそらく——マイトのいる航空機の方向に向けられた。</p>
+<p>「マイト。あなたもまた——匣の鍵の一部だ。あなたがギーリャゼルカの胸を動かした。それが——匣を開く、最初のきっかけだった」</p>
+<p>色のない光が、完全に消えた。壁面の発光が戻り、ギーリャの部屋はいつもの金色の輝きを取り戻した。</p>
+<p>ウルスラは——いなくなっていた。</p>
+<p>残された部屋のなかで、ギーリャはゆっくりと床に座り込んだ。左右の乳房が、疲れたように床の上に広がる。彼女は自分の胸に両手を当てて——そこにあるはずの、星の種の温もりを——そっと探るように撫でていた。</p>
+<p>「……ギーリャさん」</p>
+<p>通信球からマイトが呼びかける。</p>
+<p>「マイト。私——ちょっと、こわい。宇宙を、育てるなんて——私に、できるのかな」</p>
+<p>「……できますよ」</p>
+<p>マイトは即答した。</p>
+<p>「だって——ギーリャさんの胸は、もう、僕にとっての宇宙みたいなものですから」</p>
+<p>ギーリャは——ほんの少しだけ——笑った。</p>
+<p>「……それ、口説いてる？」</p>
+<p>「ち、違います！　事実を言っただけで——」</p>
+<p>「うそ。ちょっと嬉しかった」</p>
+<p>ギーリャは立ち上がった。胸が床から離れ、峡谷が元の幅に戻る。彼女は机に向かい——いつものように——ペンを手に取った。</p>
+<p>「じゃあ——仕事、するね。宇宙管理人になる前に——まず、この書類を片付けないと」</p>
+<p>その声は、いつものギーリャに戻っていた。でも——ほんの少しだけ——強くなったような気がした。</p>
+<p>東翼では、ミルカが静かに搾乳されながら、天井を見つめていた。壁面の発光が戻った天井を——そのずっとずっと向こうに、ウルスラの去った痕跡を探すように。</p>
+<p>「……先代」</p>
+<p>ミルカは、誰にも聞こえない声でつぶやいた。</p>
+<p>「あなたの娘さん——すっかり、大きくなりましたよ。胸も——覚悟も」</p>
+<nav class="bottom-nav"><a href="#ch11" class="pn-link">← 前話</a><span class="pn-link dim">次話 →</span></nav>
 </section></main>
 <script>(function(){const btn=document.getElementById("toc-btn");const overlay=document.getElementById("toc-overlay");const panel=document.getElementById("toc-panel");const bar=document.getElementById("bar");function openToc(){overlay.classList.add("open");panel.classList.add("open")}function closeToc(){overlay.classList.remove("open");panel.classList.remove("open")}btn.addEventListener("click",()=>{panel.classList.contains("open")?closeToc():openToc()});overlay.addEventListener("click",closeToc);panel.querySelectorAll("a").forEach(a=>{a.addEventListener("click",(e)=>{e.preventDefault();const id=a.getAttribute("href").slice(1);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});closeToc()})});window.addEventListener("scroll",()=>{const h=document.documentElement;const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);bar.style.width=pct+"%"})})();</script></body></html>
