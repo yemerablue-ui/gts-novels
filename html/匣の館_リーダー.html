@@ -5,98 +5,26 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>匣の館</title>
 <style>
-:root{
-  --bg:#141218;
-  --paper:#1a1620;
-  --ink:#c8c0d6;
-  --dim:#6e6880;
-  --accent:#b0a0c8;
-  --line:#282430;
-}
+:root{--bg:#141218;--paper:#1a1620;--ink:#c8c0d6;--dim:#6e6880;--accent:#b0a0c8;--line:#282430}
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:"Yu Mincho","Hiragino Mincho ProN","游明朝",serif;
-  font-size:18px;
-  line-height:2.0;
-  overflow-x:hidden;
-}
-#toc{
-  position:fixed;left:0;top:0;
-  width:44px;height:100vh;
-  background:#1a1620;
-  border-right:1px solid var(--line);
-  z-index:100;
-  overflow-y:auto;
-  scrollbar-width:none;
-  transition:width .25s;
-}
-#toc:hover{width:200px}
-#toc:hover .toc-text{opacity:1}
+body{background:var(--bg);color:var(--ink);font-family:"Yu Mincho","Hiragino Mincho ProN","游明朝",serif;font-size:18px;line-height:2.0;overflow-x:hidden}
+#toc{position:fixed;left:0;top:0;width:44px;height:100vh;background:#1a1620;border-right:1px solid var(--line);z-index:100;overflow-y:auto;scrollbar-width:none;transition:width .25s}
+#toc:hover{width:200px}#toc:hover .toc-text{opacity:1}
 #toc::-webkit-scrollbar{display:none}
 #toc ul{list-style:none;padding:14px 6px;display:flex;flex-direction:column;gap:1px}
-#toc li a{
-  display:flex;align-items:center;gap:8px;
-  padding:7px 8px;border-radius:6px;
-  color:var(--dim);text-decoration:none;
-  font-size:12px;white-space:nowrap;
-  transition:color .2s,background .2s;
-}
+#toc li a{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;color:var(--dim);text-decoration:none;font-size:12px;white-space:nowrap;transition:color .2s,background .2s}
 #toc li a:hover{color:var(--ink);background:rgba(255,255,255,.03)}
-.toc-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--line);flex-shrink:0;
-}
+.toc-dot{width:7px;height:7px;border-radius:50%;background:var(--line);flex-shrink:0}
 .toc-text{opacity:0;transition:opacity .2s}
-
-main{
-  max-width:880px;
-  margin:0 auto;
-  padding:80px 48px 120px calc(48px + 44px);
-  font-size:17px;
-}
-h1{
-  font-size:26px;font-weight:400;
-  color:var(--accent);text-align:center;
-  margin-bottom:56px;letter-spacing:.12em;
-}
-.chapter{
-  background:var(--paper);
-  border-radius:2px;
-  padding:38px 34px;
-  box-shadow:0 1px 20px rgba(0,0,0,.25);
-  margin-bottom:48px;
-}
-.ch-title{
-  font-size:21px;font-weight:400;
-  color:var(--accent);text-align:center;
-  margin-bottom:36px;letter-spacing:.08em;
-}
-p{
-  margin:1.3em 0;
-  text-indent:0;
-}
-
-#progress{
-  position:fixed;top:0;left:44px;right:0;
-  height:2px;background:var(--line);z-index:99;
-}
-#bar{
-  height:100%;background:var(--accent);width:0;
-  transition:width .08s linear;
-}
-
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-
-@media(max-width:600px){
-  main{padding:36px 14px 80px calc(14px + 32px);font-size:16px}
-  .chapter{padding:20px 14px}
-  #toc{width:32px}#toc:hover{width:140px}
-  #progress{left:32px}
-}
+main{max-width:880px;margin:0 auto;padding:80px 48px 120px calc(48px + 44px);font-size:17px}
+h1{font-size:26px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:56px;letter-spacing:.12em}
+.chapter{background:var(--paper);border-radius:2px;padding:38px 34px;box-shadow:0 1px 20px rgba(0,0,0,.25);margin-bottom:48px}
+.ch-title{font-size:21px;font-weight:400;color:var(--accent);text-align:center;margin-bottom:36px;letter-spacing:.08em}
+p{margin:1.3em 0;text-indent:0}
+#progress{position:fixed;top:0;left:44px;right:0;height:2px;background:var(--line);z-index:99}
+#bar{height:100%;background:var(--accent);width:0;transition:width .08s linear}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+@media(max-width:600px){main{padding:36px 14px 80px calc(14px + 32px);font-size:16px}.chapter{padding:20px 14px}#toc{width:32px}#toc:hover{width:140px}#progress{left:32px}}
 </style>
 </head>
 <body>
@@ -180,7 +108,6 @@ p{
 <p>彼は自分の手を見た。いつもの手だった。握って、開いた。いつも通りだった。</p>
 <p>ただ、その手が置かれている世界のすべてが、千倍の大きさで彼を取り巻き、その千倍の外側に百万倍の世界があり、そのまた千倍の外側に十億倍の女の子がいて——そして彼女は、たったいま、彼に「よろしくね」と言ったのだった。</p>
 </section>
-
 <section class="chapter" id="ch2">
 <h2 class="ch-title">第02話　掌の滑走路</h2>
 <p>目が覚めると、天井がなかった。</p>
@@ -271,7 +198,6 @@ p{
 <p>そしていつか——通信球越しではない、ほんとうのセレナに会うために。</p>
 <p>千倍の世界の夜に、彼はゆっくりと瞼を閉じた。</p>
 </section>
-
 <section class="chapter" id="ch3">
 <h2 class="ch-title">第03話　百万倍の書架</h2>
 <p>三日目、ユウトは航空機でミリアの部屋の端まで飛ぶことにした。</p>
@@ -321,12 +247,12 @@ p{
 <p>図書館の外縁部に着くと、そこには巨大な透明の壁があった。壁の向こうには——光があった。いや、光というより、世界そのものが発光する空間。そのなかに、巨大な何かのシルエットが揺れている。</p>
 <p>「あれが、セレナお嬢様のお部屋」</p>
 <p>ユウトは言葉を失った。</p>
-<p>壁の向こうの空間には、机の脚と思われる円柱が、惑星の公転軌道ほどの間隔をあけて並んでいた。天井——いや、もはやそれは空だった——は、雲がかかるどころか、大気の層そのものを内包しているようだった。そして、その空間の一部を覆うように、とてつもなく巨大な曲線が横たわっていた。</p>
-<p>肌色の——いや、遠すぎて色すら判然としない——曲面は、単独で太陽を隠すほどの面積を持っていた。それが呼吸に合わせてゆっくりと上下し、そのたびに周囲の光が屈折した。曲面の頂点は、遠くの光源の光を受けて、大陸ほどの大きさのハイライトを浮かべている。</p>
+<p>壁の向こうの空間には、机の脚と思われる円柱が、惑星の公転軌道ほどの間隔をあけて並んでいた。机は横幅が極端に広く——左右にセレナの乳房をそれぞれ乗せる構造らしい——両端の天板がかすかに沈み込んでいる。天井は発光する壁面そのもので、大気の層を内包するほどの高さがあった。そして、空間の両脇に、とてつもなく巨大な二つの曲線が横たわっていた。</p>
+<p>それぞれの曲線は、独立した布で包まれていた。布は乳房の曲面に沿って巻きつけられ、柔らかな襞を作りながら呼吸のたびにゆっくりと上下している。休息中は左右の乳房が互いに近づき、布越しにふくらみが寄り添うように配置されていた。布の織り目は遠目には滑らかだが、近づけば峡谷のような溝の連続だった。乳房の頂点——布のうえからでもその大きさは隠せず——部屋の光源の光を受けて、大陸ほどのハイライトを浮かべている。</p>
 <p>「お嬢様の、胸の……側面です」</p>
 <p>ルーチェが静かに言った。</p>
 <p>「いまは横向きに寝ていらっしゃる。なので、ああして全体のごく一部だけが、私の図書館から見えているんです。全身をお見せするには、この棚から出て、お部屋の中へ入らなければ」</p>
-<p>ユウトは通信球を見おろした。いま、この球のなかで「おはよ」と言ったセレナの身体が、あの、星を隠す曲線のどこかに繋がっている。</p>
+<p>ユウトは通信球を見おろした。いま、この球のなかで「おはよ」と言ったセレナの身体が、あの、布に包まれた二つの巨大な曲線のどこかに繋がっている。</p>
 <p>「……これ、通信してもいいですか」</p>
 <p>「ええ、どうぞ」</p>
 <p>ユウトが球に触れると、すぐにセレナの顔が浮かんだ。</p>
@@ -340,7 +266,6 @@ p{
 <p>「ね、ユウト。いつかこっちまで来てね。本当に、会いたいから」</p>
 <p>壁の向こうの曲線が、持ち主の感情に合わせるように、ゆっくりと上下した。十億倍のお嬢様の寝息が、図書館の空気を震わせていた。</p>
 </section>
-
 <section class="chapter" id="ch4">
 <h2 class="ch-title">第04話　胸の地平線</h2>
 <p>それから五日が過ぎた。</p>
@@ -358,43 +283,45 @@ p{
 <p>展望回廊は、図書館の最上層——セレナの部屋に最も近い区画——にあった。天井全体が透明度を調整できる素材でできていて、その向こうにセレナの部屋の空間が広がっている。</p>
 <p>そして、そこにセレナがいた。</p>
 <p>全身を視認することはできなかった。彼女の身体はあまりに大きく、展望回廊の透明な天井は彼女のごく一部しか捉えられなかった。しかしそれでも——いや、それだからこそ——その大きさは圧倒的だった。</p>
-<p>彼女は、机に向かっていた。何かを書いているらしい。ペン先が紙の上を滑るたびに、空気が波打った。彼女の指は——一本が十万キロメートルを超え、地球の直径の八倍近い長さを持っていた。爪の一枚が、太平洋を覆い尽くせる面積だった。</p>
-<p>彼女の部屋は、壁面と天井そのものが発光していた。窓はなく、柔らかな金色の光が空間全体を満たしている。その光源の広がりのなかに、セレナの身体が巨大なシルエットを落としていた。壁の発光面は大陸ほどの面積を持ち、彼女が身じろぎするたびに、光の当たり方がゆっくりと変化した。</p>
+<p>彼女は机に向かっていた。何かを書いているらしい。ペン先が紙の上を滑るたびに、空気が波打った。彼女の指は——一本が十万キロメートルを超え、地球の直径の八倍近い長さを持っていた。爪の一枚が、太平洋を覆い尽くせる面積だった。</p>
+<p>彼女の部屋は、壁面と天井そのものが発光していた。窓はなく、柔らかな金色の光が空間全体を満たしている。</p>
 <p>そして彼女の胸は。</p>
 <p>「……これ、通信球で見るのとぜんぜん違う」</p>
 <p>ユウトはかすれた声で言った。</p>
-<p>セレナの胸は、机の上に置かれていた。彼女が前かがみで文字を書く姿勢のため、胸の下面が机の天板に接していたのだ。その接地面だけで、ユウトの知る地球の全大陸を合わせたよりも広かった。胸の曲線は机の上をなだらかにせり上がり、はるか頭上——ユウトにとってはもはや天文学的な距離——で頂点を迎え、そこから彼女の鎖骨のあたりへと落ちていく。</p>
-<p>胸のふくらみは、彼女の身長の四倍の横幅を持っていた。すなわち、約六百八十万キロメートル。</p>
-<p>それがいま、セレナの上半身の正面で、二つの巨大な丘のように横たわっていた。布地——彼女の衣服——がその曲面を覆い、呼吸のたびに数百キロメートル単位で上下する。布の織り目は、ユウトのスケールでは峡谷のようだった。</p>
+<p>セレナの左右の乳房は、机の両脇の床に置かれていた。それぞれが独立した布——乳房別の衣——で包まれ、巨大な二つの丘となって彼女の身体の左右に横たわっている。机はその二つの丘のあいだ——胸の谷間の空間——に設置されていて、横幅は乳房のふくらみが迫らない程度に抑えられていた。彼女は両肘で軽く乳房を外側に押しやるようにして、中央の作業スペースを確保していた。</p>
+<p>左右の乳房は、それぞれ約三百四十万キロメートルの幅を持っていた。片方だけで太陽二個分の直径を超える。布に包まれた曲面が、彼女の座る椅子の両脇から床の上をなだらかにせり上がり、はるか頭上で頂点を迎え、そこから鎖骨のあたりへと落ちていく。呼吸のたびに、二つの丘は左右にゆっくりと揺れ、作業スペースの幅が数百キロメートル単位で伸縮した。</p>
+<p>「机、すごく細いですね」</p>
+<p>「お嬢様の胸囲に合わせた特注品です。あの横幅がなければ、胸に押し潰されて机が使えませんから」</p>
+<p>ルーチェが淡々と説明した。</p>
 <p>「いま、ちょうどいい時間ね」</p>
-<p>ルーチェが静かに言った。彼女は手をかざして、展望回廊の天井の透明度をさらに上げた。</p>
+<p>ルーチェは手をかざして、展望回廊の天井の透明度をさらに上げた。</p>
 <p>セレナが、伸びをした。</p>
-<p>両腕を頭上に上げ、背筋を伸ばす——それだけの動作だった。しかし、その動作に伴って彼女の胸が持ち上がり、前方へとせり出した。</p>
-<p>胸のふくらみが、天井の発光面を遮った。</p>
-<p>壁面いっぱいに広がっていた光が、セレナの胸のシルエットによって食い千切られていく。彼女の胸が持ち上がるにつれて、展望回廊の視界は徐々に暗くなっていった。胸の下面が回廊の真上を通過するとき、それは完全な夜だった。金色の光はすべて遮断され、ただ胸の布地の織り目から漏れるかすかな光だけが、星明かりのように瞬いていた。</p>
-<p>胸の頂点が通過したあと、光はゆっくりと戻ってきた。しかし胸の横幅六百八十万キロメートル——その全幅が通過し終わるまで、展望回廊の空は暗いままだった。</p>
+<p>両腕を頭上に上げ、背筋を伸ばす——それだけの動作だった。しかし、その動作に伴って、左右の乳房が床から浮き上がった。肘による押さえが外れた乳房は、前方へとせり出し、互いに近づいていく。</p>
+<p>二つのふくらみが、天井の発光面を遮った。</p>
+<p>壁面いっぱいに広がっていた金色の光が、左右から迫る乳房のシルエットによって侵食されていく。二つの影が中央へと歩み寄り、あいだの光の帯が細く、細くなって——完全に消えた。展望回廊は暗くなった。左右の乳房が天井を覆い尽くし、その布の織り目から漏れるかすかな光だけが、かろうじて闇を区切っていた。</p>
+<p>その暗闇のなかで、かすかな布擦れの音——セレナのスケールでは大陸を揺るがす地鳴り——が響いた。</p>
+<p>乳房がゆっくりと元の位置に戻るにつれて、光は峡谷の底に陽が差すように、中央から細く戻ってきた。左右の丘が床に再び着地するとき、部屋全体が大きく揺れた。</p>
 <p>ルーチェは、そのあいだずっと息を詰めていた。</p>
 <p>「……いまの、ただの伸びです」</p>
 <p>彼女の声は、百万倍の図書館管理人にもかかわらず、かすかに震えていた。</p>
 <p>「お嬢様が本気で動かれたら、この図書館の光は一時間にわたって胸に隠れるかもしれません」</p>
-<p>セレナがさらに身じろぎすると、胸のふくらみが発光面を横切り、部屋の光と影の境界が数百キロメートルの速度で床を走った。胸の重みで机の天板がかすかに沈み、その変形が周囲の空気を押しのけて、図書館の外壁に低い地鳴りを届けた。</p>
 <p>ユウトは通信球を握りしめた。震える指で球に触れる。</p>
 <p>「……セレナさん」</p>
 <p>「ん？　どうしたの」</p>
-<p>すぐに返事があった。球のなかのセレナの顔は、いつもと変わらず、寝起きのような無防備な表情だった。彼女は片手にペンを持ち、机の上の書類に視線を落としたまま、通信に応じていた。</p>
+<p>すぐに返事があった。球のなかのセレナの顔は、いつもと変わらず、寝起きのような無防備な表情だった。彼女は片手にペンを持ち、左右の乳房に挟まれた机の書類に視線を落としたまま、通信に応じていた。</p>
 <p>「いま、あなたが伸びをしたら、部屋の光が——ぜんぶ、消えました」</p>
 <p>「えっ」</p>
 <p>セレナはぱっと顔を上げた。球のなかの彼女の顔が、みるみる赤くなる。</p>
 <p>「ちょっと、見てたの!?　だめだよ、そういうの——ああもう、ルーチェ、展望回廊に連れてったでしょ！」</p>
-<p>天井の向こうで、十億倍のお嬢様が真っ赤になって両手で顔を覆った。その動作で胸が大きく揺れ、発光面の光が断続的に明滅した。部屋全体の気圧が跳ね上がり、図書館の書架がきしみをあげる。ルーチェは慌てて本棚にしがみつき、ユウトの航空機は必死で姿勢を保った。</p>
+<p>天井の向こうで、十億倍のお嬢様が真っ赤になって両手で顔を覆った。その動作で肘の押さえが外れ、左右の乳房が内側へと流れ、机ごと彼女の身体が胸に包まれる格好になった。発光面の光が断続的に明滅し、部屋全体の気圧が跳ね上がる。図書館の書架がきしみをあげ、ルーチェは慌てて本棚にしがみつき、ユウトの航空機は必死で姿勢を保った。</p>
 <p>「もう、恥ずかしい……！」</p>
-<p>セレナの声が通信球から聞こえると同時に、天井の向こうの巨大な胸が、羞恥に震えるように微かに揺れた。その震動で、図書館の棚から何冊かの本が滑り落ち、ルーチェが悲鳴をあげて受け止めた。</p>
+<p>セレナの声が通信球から聞こえると同時に、天井の向こうの巨大な二つの胸が、羞恥に震えるように微かに揺れた。その震動で、図書館の棚から何冊かの本が滑り落ち、ルーチェが悲鳴をあげて受け止めた。</p>
 <p>ユウトは、笑った。</p>
 <p>声に出して笑ったのは、この世界に来て初めてだった。</p>
 <p>「……なに笑ってるの」</p>
 <p>「だって、光を遮って部屋を夜にするような人が、顔を赤くしてるのが——おかしくて」</p>
 <p>「うるさいなあ」</p>
-<p>セレナはふてくされた声で言ったが、その口元は笑っていた。天井の向こうで、彼女の胸が照れくさそうに机の上で微動し、それだけで展望回廊の気温が数度上がった。</p>
+<p>セレナはふてくされた声で言ったが、その口元は笑っていた。彼女は照れくさそうに肘で乳房を外側に押しやり、作業スペースを確保し直した。それだけで展望回廊の気温が数度上がった。</p>
 <p>ルーチェはようやく本を棚に戻し終え、ほっと息をついた。眼鏡の奥で、彼女の薄青い瞳が柔らかく細められる。</p>
 <p>「お嬢様が、あんなに慌てられるのは久しぶりです」</p>
 <p>「ルーチェ！」</p>
@@ -419,7 +346,7 @@ p{
 <p>「さあ」</p>
 <p>セレナは首をかしげた。十億倍の少女の首の傾きが、壁面の発光を遮り、図書館にゆっくりとした影を落とした。</p>
 <p>「私も、上までは行ったことないし。でも——誰かが、いてくれるんでしょ。それが、ここでの暮らしってものだから」</p>
-<p>彼女の胸が、机の上で静かに上下した。呼吸のたびに、展望回廊の光が明滅する。</p>
+<p>彼女の胸が、床の上で静かに上下した。呼吸のたびに、展望回廊の光が明滅する。</p>
 <p>「それよりユウト——そろそろ、こっちに来る計画、立てよっか」</p>
 <p>セレナの顔が、通信球のなかで悪戯っぽく笑った。</p>
 <p>「ミリアとルーチェに運んでもらって、私の部屋まで。時間はかかるかもしれないけど——来られるように、なってるはずだから」</p>
@@ -431,19 +358,8 @@ p{
 </section>
 </main>
 <script>
-window.addEventListener("scroll",()=>{
-  const h=document.documentElement;
-  const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);
-  document.getElementById("bar").style.width=pct+"%";
-});
-document.querySelectorAll("#toc a").forEach(a=>{
-  a.addEventListener("click",e=>{
-    e.preventDefault();
-    const id=a.getAttribute("href").slice(1);
-    const el=document.getElementById(id);
-    if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
-  });
-});
+window.addEventListener("scroll",()=>{const h=document.documentElement;const pct=Math.min(100,(h.scrollTop/(h.scrollHeight-h.clientHeight))*100);document.getElementById("bar").style.width=pct+"%"});
+document.querySelectorAll("#toc a").forEach(a=>{a.addEventListener("click",e=>{e.preventDefault();const id=a.getAttribute("href").slice(1);const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"})})});
 </script>
 </body>
 </html>
