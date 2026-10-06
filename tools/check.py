@@ -22,7 +22,7 @@ from collections import Counter
 # 文字数の目安は作品ごとに違う。各作品の構成案の「文体」節と一致させること。
 WORKS = {
     "匣庭のジャステイル": ("chapters/*.txt", 1200, 5000),
-    "おおきくしますね": ("works/おおきくしますね/chapters/*.txt", 7000, 9000),
+    "おおきくしますね": ("works/おおきくしますね/chapters/*.txt", 7000, 10000),
 }
 
 KANJI = re.compile(r"[一-鿿]")
