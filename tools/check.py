@@ -22,7 +22,7 @@ from collections import Counter
 WORKS = {
     "匣庭のジャステイル": "chapters/*.txt",
     "背島のトーヴェ": "works/背島のトーヴェ/chapters/*.txt",
-    "豊穣譜": "works/豊穣譜/chapters/*.txt",
+    "おおきくしますね": "works/おおきくしますね/chapters/*.txt",
 }
 
 KANJI = re.compile(r"[一-鿿]")
